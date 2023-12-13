@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Extentions;
 using Presentation.Models;
+using Shared.ViewModels;
 
 namespace Presentation.Controllers;
 
@@ -15,11 +17,25 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        TempData.Put("message",new MessageViewModel
+        {
+            Title = $"Başarılı.",
+            Message = "Ekleme başarılı",
+            AlertType = "success"
+        });
+        
         return View();
     }
 
     public IActionResult Privacy()
     {
+
+        TempData.Put("message",new MessageViewModel
+        {
+            Title = $"Hata.",
+            Message = "Ekleme başarısız",
+            AlertType = "danger"
+        });
         return View();
     }
 
