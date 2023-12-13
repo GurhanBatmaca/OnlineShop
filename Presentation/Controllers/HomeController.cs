@@ -17,25 +17,18 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        TempData.Put("message",new MessageViewModel
-        {
-            Title = $"Başarılı.",
-            Message = "Ekleme başarılı",
-            AlertType = "success"
-        });
+        // TempData.Put("message",new MessageViewModel
+        // {
+        //     Title = $"Başarılı.",
+        //     Message = "Ekleme başarılı",
+        //     AlertType = "success"
+        // });
         
         return View();
     }
 
     public IActionResult Privacy()
     {
-
-        TempData.Put("message",new MessageViewModel
-        {
-            Title = $"Hata.",
-            Message = "Ekleme başarısız",
-            AlertType = "danger"
-        });
         return View();
     }
 

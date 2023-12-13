@@ -81,3 +81,11 @@ main {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 60px; opacity: 0;}
 }
+
+/* Navbar */
+
+@media (width <= 991.9px) {
+  .user-box {
+    margin-top: .7rem;
+  }
+} 

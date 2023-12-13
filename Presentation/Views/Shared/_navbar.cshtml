@@ -1,41 +1,76 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Offcanvas navbar large">
-<div class="container py-1">
-    <a class="navbar-brand" href="/">ShopApp</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
-        <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-        <ul class="navbar-nav  flex-grow-1 pe-3">
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-            </a>
-            <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-                <hr class="dropdown-divider">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" aria-label="Offcanvas navbar large">
+    <div class="container py-1">
+        <a class="navbar-brand" href="/">Shop App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
+            <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav  flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Anasayfa</a>
             </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ürünler</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </li>
             </ul>
-        </li>
-        </ul>
-        <form class="d-flex mt-3 mt-lg-0" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+            <form class="d-flex mt-3 mt-lg-0 me-2" role="search">
+            <input class="form-control me-2" type="search" placeholder="Arama yap..." aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Ara</button>
+            </form>
+
+            @if(User!.Identity!.IsAuthenticated)
+            {
+                <div class="dropdown d-flex align-items-center user-box">
+                <a class="nav-link dropdown-toggle p-0 px-2 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user-large"></i>
+                </a>
+                <ul class="dropdown-menu user-panel">
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action"><a href="/account" class="btn btn-sm"><i class="fa-solid fa-user-tag"></i> @User.Identity.Name</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="/orders" class="btn btn-sm"><i class="fa-solid fa-cart-arrow-down"></i> Siparişler</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="/favorites" class="btn btn-sm"><i class="fa-solid fa-heart"></i> Favoriler</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="/hesap/cikisyap" class="btn btn-sm text-danger"><i class="fa-solid fa-right-from-bracket"></i> Çıkış</a></li>
+                    </ul>
+                </ul>      
+                </div>       
+            }
+            else
+            {
+                <div class="dropdown d-flex align-items-center user-box"> 
+                <a class="nav-link dropdown-toggle p-0 px-2 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user-plus"></i>
+                </a>
+                <ul class="dropdown-menu user-panel" style="width: 8rem;">
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action"><a href="/orders" class="btn btn-sm"><i class="fa-solid fa-cart-arrow-down"></i> Siparişler</a></li>
+
+                    <li class="list-group-item list-group-item-action"><a href="/favorites" class="btn btn-sm"><i class="fa-solid fa-heart"></i> Favoriler</a></li>
+
+                    <li class="list-group-item list-group-item-action"><a href="/hesap/girisyap" class="btn btn-sm"><i class="fa-solid fa-circle-user"></i>  Giriş Yap</a></li>
+                    <li class="list-group-item list-group-item-action"><a href="/hesap/uyeol" class="btn btn-sm"><i class="fa-solid fa-plus"></i> Üye Ol</a></li>
+                    </ul>
+                </ul>        
+                </div>              
+            }
+        </div>
+        </div>
     </div>
-    </div>
-</div>
 </nav>

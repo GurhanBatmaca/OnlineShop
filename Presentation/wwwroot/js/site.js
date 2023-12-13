@@ -1,4 +1,8 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// layout message toast script
+$(document).ready(function(){
+    $("#toast").addClass("show");
+    setTimeout(function () { $("#toast").removeClass("show") },4000)
+})  
 
-// Write your JavaScript code.
+// footer year script
+document.getElementById("year-footer").innerHTML = new Date().getFullYear();
