@@ -23,47 +23,36 @@ main {
 }
 #toast #img{
   width: 5rem;
-  height: 3.2rem;
-    
+  height: 3.2rem;  
   float: left;
   padding-top: 16px;
   padding-bottom: 16px;
-  
   box-sizing: border-box;
   border-radius: .5rem 0 0 .5rem;
 }
-#toast #desc{
-
-  
+#toast #desc{ 
   color: #fff;
- 
-  padding: 16px;
-  
+  padding: 16px; 
   overflow: hidden;
-white-space: nowrap;
+  white-space: nowrap;
 }
-
 #toast.show {
   visibility: visible;
   -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
 }
-
 @-webkit-keyframes fadein {
   from {bottom: 0; opacity: 0;} 
   to {bottom: 30px; opacity: 1;}
 }
-
 @keyframes fadein {
   from {bottom: 0; opacity: 0;}
   to {bottom: 30px; opacity: 1;}
 }
-
 @-webkit-keyframes expand {
   from {min-width: 50px} 
   to {min-width: 350px}
 }
-
 @keyframes expand {
   from {min-width: 50px}
   to {min-width: 350px}
@@ -72,7 +61,6 @@ white-space: nowrap;
   from {min-width: 350px} 
   to {min-width: 350px}
 }
-
 @keyframes stay {
   from {min-width: 350px}
   to {min-width: 350px}
@@ -81,19 +69,15 @@ white-space: nowrap;
   from {min-width: 350px;} 
   to {min-width: 50px;}
 }
-
 @keyframes shrink {
   from {min-width: 350px;} 
   to {min-width: 50px;}
 }
-
 @-webkit-keyframes fadeout {
   from {bottom: 30px; opacity: 1;} 
   to {bottom: 60px; opacity: 0;}
 }
-
 @keyframes fadeout {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 60px; opacity: 0;}
 }
-
