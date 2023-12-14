@@ -1,3 +1,4 @@
+using Data.Abstract;
 using Data.Concrete.EfCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<ShopContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlConnectionString"),
     e=> e.MigrationsAssembly("Presentation"));
 });
+
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 var app = builder.Build();
 
