@@ -1,7 +1,15 @@
+using Data.Concrete.EfCore;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ShopContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlConnectionString"),
+    e=> e.MigrationsAssembly("Presentation"));
+});
 
 var app = builder.Build();
 
