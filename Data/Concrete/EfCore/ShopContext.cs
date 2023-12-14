@@ -1,3 +1,4 @@
+using Data.Extentions;
 using Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,9 @@ namespace Data.Concrete.EfCore
             modelBuilder.Entity<Category>().Property(e=>e.Name).IsRequired().HasMaxLength(50);
             
             modelBuilder.Entity<ProductCategory>().HasKey(e=> new {e.ProductId,e.CategoryId});
+
+
+            // modelBuilder.Seed();
         }
     }
 }
