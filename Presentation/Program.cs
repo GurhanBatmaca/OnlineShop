@@ -1,11 +1,14 @@
 using Data.Abstract;
 using Data.Concrete.EfCore;
 using Microsoft.EntityFrameworkCore;
+using Shared.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 builder.Services.AddDbContext<ShopContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlConnectionString"),
