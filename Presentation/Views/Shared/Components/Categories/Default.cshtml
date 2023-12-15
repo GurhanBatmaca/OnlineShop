@@ -1,12 +1,12 @@
 @model CategoryListViewModel
 
 <div class="list-group">
-  <a href="/products" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == null ? "active":"")">
+  <a href="/urunler" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == null ? "active":"")">
     Bütün Kategoriler
   </a>
   @foreach(var category in @Model.Categories!)
   {
-    <a href="/products/@category.Url" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == category.Url ? "active":"")">@category.Name</a>
+    <a href="/urunler/@category.Url" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == category.Url ? "active":"")">@category.Name</a>
   }
 
 </div>

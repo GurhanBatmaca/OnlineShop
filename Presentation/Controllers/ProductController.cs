@@ -13,7 +13,8 @@ namespace Presentation.Controllers
         }
         public async Task<IActionResult> Products(string kategori,int sayfa=1)
         {
-            return View();
+            var model = await _productService.GetProductsByCategory(kategori,sayfa);
+            return View(model);
         }
     }
 }
