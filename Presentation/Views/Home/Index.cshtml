@@ -14,14 +14,14 @@
 
 <div class="row">
     <div class="col-md-3 mb-3">
-        @* @await Component.InvokeAsync("Categories") *@
+        @await Component.InvokeAsync("Categories")
     </div>
     <div class="col-md-9">
         <div class="row">
           @if(@Model.Products!.Count == 0)
           {
             <div class="text-center">
-                <h3>Anasayfaya henüz ürün eklenmedi.</h3>
+                <h3>Ürün bulunamadı.</h3>
             </div>
           }
           else
