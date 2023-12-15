@@ -1,6 +1,6 @@
-﻿namespace Shared.ViewModels;
+﻿namespace Shared.Models;
 
-public class MessageViewModel
+public class MessageModel
 {
     public string? Title { get; set; }
     public string? Message { get; set; }

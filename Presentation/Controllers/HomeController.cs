@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extentions;
 using Presentation.Models;
-using Shared.ViewModels;
+using Shared.Models;
 
 namespace Presentation.Controllers;
 
@@ -17,12 +17,12 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        // TempData.Put("message",new MessageViewModel
-        // {
-        //     Title = $"Başarılı.",
-        //     Message = "Ekleme başarılı",
-        //     AlertType = "success"
-        // });
+        TempData.Put("message",new MessageModel
+        {
+            Title = $"Başarılı.",
+            Message = "Ekleme başarılı",
+            AlertType = "success"
+        });
         
         return View();
     }

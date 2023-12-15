@@ -17,7 +17,7 @@
         <main role="main" class="pb-3">
             @if(@TempData["message"] != null)
             {
-                @await Html.PartialAsync("_message",@TempData.Get<MessageViewModel>("message"))
+                @await Html.PartialAsync("_message",@TempData.Get<MessageModel>("message"))
             }
             @RenderBody()
         </main>
