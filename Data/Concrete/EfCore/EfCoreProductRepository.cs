@@ -25,6 +25,36 @@ namespace Data.Concrete.EfCore
         {
             return await Context!.Products.Where(i=>i.IsHome && i.IsApproved).CountAsync();
         }
+
+        public async Task<List<Product>> GetProdutsByCategory(string category, int page, int pageSize)
+        {
+            var products = Context!.Products.Where(i=>i.IsApproved).AsQueryable();
+
+            if(!string.IsNullOrEmpty(category))
+            {
+                products = products.Include(e=>e.ProductCategories!)
+                                    .ThenInclude(e=>e.Category)
+                                    .Where(e=>e.ProductCategories!.Any(i=>i.Category!.Url == category));
+            }
+
+            return await products.Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
+                                   
+        }
+
+        public async Task<int> GetProdutsCountByCategory(string category)
+        {
+            var products = Context!.Products.Where(i=>i.IsApproved).AsQueryable();
+
+            if(!string.IsNullOrEmpty(category))
+            {
+                products = products.Include(e=>e.ProductCategories!)
+                                    .ThenInclude(e=>e.Category)
+                                    .Where(e=>e.ProductCategories!.Any(i=>i.Category!.Url == category));
+            }
+
+            return await products.CountAsync();
+        }
+
     }
     
 }

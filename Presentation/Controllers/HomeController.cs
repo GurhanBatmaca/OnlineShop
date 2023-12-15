@@ -1,9 +1,7 @@
 using System.Diagnostics;
 using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Extentions;
 using Presentation.Models;
-using Shared.Models;
 
 namespace Presentation.Controllers;
 

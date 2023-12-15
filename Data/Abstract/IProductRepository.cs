@@ -6,5 +6,7 @@ namespace Data.Abstract
     {
         Task<List<Product>> GetHomePageProducts(int page,int pageSize);
         Task<int> GetHomePageProductsCount();
+        Task<List<Product>> GetProdutsByCategory(string category,int page,int pageSize);
+        Task<int> GetProdutsCountByCategory(string category);
     }
 }
