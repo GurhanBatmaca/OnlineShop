@@ -1,3 +1,5 @@
+using Business.Abstract;
+using Business.Concrete;
 using Data.Abstract;
 using Data.Concrete.EfCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +18,8 @@ builder.Services.AddDbContext<ShopContext>(options => {
 });
 
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+builder.Services.AddScoped<IProductService,ProductManager>();
 
 var app = builder.Build();
 
