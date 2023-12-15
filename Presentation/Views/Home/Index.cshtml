@@ -1,5 +1,46 @@
-﻿
+﻿@model ProductListViewModel
 
-İndex
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+@* @section Css 
+{
+    <link rel="stylesheet" href="~/css/carousel.css">
+    <link rel="stylesheet" href="~/css/card.css">
+}
 
+<div>
+    @await Html.PartialAsync("_carousel")
+</div> *@
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        @* @await Component.InvokeAsync("Categories") *@
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+          @if(@Model.Products!.Count == 0)
+          {
+            <div class="text-center">
+                <h3>Anasayfaya henüz ürün eklenmedi.</h3>
+            </div>
+          }
+          else
+          {
+            @foreach(var product in @Model.Products!)
+            {
+              <div class="col-lg-3 col-md-4 col-6 mb-3">
+                @await Html.PartialAsync("_product",product)
+              </div>               
+            }          
+          }
+            
+        </div>
+    </div>
+</div>
+
+@* @if(@Model.Products!.Count > 0)
+{
+    @await Html.PartialAsync("_pagination",@Model.PageInfo)
+} *@
 

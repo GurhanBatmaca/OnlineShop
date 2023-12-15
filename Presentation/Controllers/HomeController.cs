@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extentions;
 using Presentation.Models;
@@ -8,23 +9,25 @@ namespace Presentation.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly IProductService _productService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(IProductService productService)
     {
-        _logger = logger;
+        _productService = productService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index(int sayfa=1)
     {
-        TempData.Put("message",new MessageModel
-        {
-            Title = $"Başarılı.",
-            Message = "Ekleme başarılı",
-            AlertType = "success"
-        });
+        // TempData.Put("message",new MessageModel
+        // {
+        //     Title = $"Başarılı.",
+        //     Message = "Ekleme başarılı",
+        //     AlertType = "success"
+        // });
+
+        var model = await _productService.GetHomePageProducts(sayfa);
         
-        return View();
+        return View(model);
     }
 
     public IActionResult Privacy()

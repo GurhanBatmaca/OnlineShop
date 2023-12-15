@@ -15,7 +15,7 @@ namespace Business.Concrete
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<ProductListViewModel> GeTHomePageProducts(int page)
+        public async Task<ProductListViewModel> GetHomePageProducts(int page)
         {
             var pageSize = 12;
             var products = await _unitOfWork!.Products.GetHomePageProducts(page,pageSize);

@@ -5,6 +5,6 @@ namespace Business.Abstract
 {
     public interface IProductService
     {
-        Task<ProductListViewModel> GeTHomePageProducts(int page);
+        Task<ProductListViewModel> GetHomePageProducts(int page);
     }
 }
