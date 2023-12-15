@@ -20,6 +20,7 @@ builder.Services.AddDbContext<ShopContext>(options => {
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 builder.Services.AddScoped<IProductService,ProductManager>();
+builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
 var app = builder.Build();
 

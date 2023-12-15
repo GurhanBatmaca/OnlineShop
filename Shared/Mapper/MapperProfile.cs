@@ -9,6 +9,7 @@ namespace Shared.Mapper
         public MapperProfile()
         {
             CreateMap<Product,ProductViewModel>();
+            CreateMap<Category,CategoryViewModel>();
         }
     }
 }
