@@ -3,15 +3,14 @@
 @{
     ViewData["Title"] = "Ana Sayfa";
 }
-@* @section Css 
+@section Css 
 {
-    <link rel="stylesheet" href="~/css/carousel.css">
     <link rel="stylesheet" href="~/css/card.css">
 }
 
-<div>
+@* <div>
     @await Html.PartialAsync("_carousel")
-</div> *@
+</div>  *@
 
 <div class="row">
     <div class="col-md-3 mb-3">
@@ -39,8 +38,8 @@
     </div>
 </div>
 
-@* @if(@Model.Products!.Count > 0)
+@if(@Model.PageInfo.TotalPages() > 1)
 {
     @await Html.PartialAsync("_pagination",@Model.PageInfo)
-} *@
+}
 

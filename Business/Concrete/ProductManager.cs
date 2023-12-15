@@ -1,6 +1,7 @@
 using AutoMapper;
 using Business.Abstract;
 using Data.Abstract;
+using Microsoft.Extensions.Configuration;
 using Shared.Models;
 using Shared.ViewModels;
 
@@ -10,14 +11,17 @@ namespace Business.Concrete
     {
         private readonly IUnitOfWork? _unitOfWork;
         private readonly IMapper _mapper;
-        public ProductManager(IUnitOfWork? unitOfWork,IMapper mapper)
+
+        private readonly IConfiguration _configuration;
+        public ProductManager(IUnitOfWork? unitOfWork,IMapper mapper,IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _configuration = configuration;
         }
         public async Task<ProductListViewModel> GetHomePageProducts(int page)
         {
-            var pageSize = 12;
+            var pageSize = Int32.Parse(_configuration["PageSize"]!);
             var products = await _unitOfWork!.Products.GetHomePageProducts(page,pageSize);
             var productModels = products.Select(p => _mapper.Map<ProductViewModel>(p));
             var productsCount = await _unitOfWork.Products.GetHomePageProductsCount();

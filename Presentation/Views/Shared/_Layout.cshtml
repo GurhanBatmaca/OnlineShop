@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Presentation.styles.css" 
     asp-append-version="true" />
+    @await RenderSectionAsync("Css", required: false)
 </head>
 <body>
     <header>
