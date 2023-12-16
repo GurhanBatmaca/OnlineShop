@@ -6,11 +6,16 @@
 @section Css 
 {
     <link rel="stylesheet" href="~/css/card.css">
+    <link rel="stylesheet" href="~/css/banner.css">
 }
 
 @* <div>
     @await Html.PartialAsync("_carousel")
 </div>  *@
+
+<div>
+    @await Html.PartialAsync("_banner")
+</div> 
 
 <div class="row">
     <div class="col-md-3 mb-3">
@@ -38,7 +43,7 @@
     </div>
 </div>
 
-@if(@Model.PageInfo.TotalPages() > 1)
+@if(@Model!.PageInfo!.TotalPages() > 1)
 {
     @await Html.PartialAsync("_pagination",@Model.PageInfo)
 }

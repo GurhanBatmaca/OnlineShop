@@ -39,7 +39,7 @@
     </div>
 </div>
 
-@if(@Model.PageInfo.TotalPages() > 1)
+@if(@Model!.PageInfo!.TotalPages() > 1)
 {
     @await Html.PartialAsync("_pagination",@Model.PageInfo)
 }
