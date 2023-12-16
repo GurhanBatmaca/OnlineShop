@@ -21,7 +21,8 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> Details(string url)
         {
-            return View();
+            var model = await _productService.GetProductDetails(url);
+            return View(model);
         }
     }
 }

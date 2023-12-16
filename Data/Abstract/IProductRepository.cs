@@ -8,5 +8,6 @@ namespace Data.Abstract
         Task<int> GetHomePageProductsCount();
         Task<List<Product>> GetProdutsByCategory(string category,int page,int pageSize);
         Task<int> GetProdutsCountByCategory(string category);
+        Task<Product?> GetProductDetails(string url);
     }
 }

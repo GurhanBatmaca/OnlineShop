@@ -38,6 +38,19 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<ProductDetailsModel?> GetProductDetails(string url)
+        {
+            var product = await _unitOfWork!.Products.GetProductDetails(url);
+            var productModel = _mapper.Map<ProductViewModel>(product);
+
+            return new ProductDetailsModel
+            {
+                Product = productModel,
+                Categories = product!.ProductCategories!.Select(e=>_mapper.Map<CategoryViewModel>(e.Category)).ToList()
+            };
+        }
+
+
         public async Task<ProductListViewModel> GetProductsByCategory(string category, int page)
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);

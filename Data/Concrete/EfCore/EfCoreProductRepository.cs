@@ -26,6 +26,16 @@ namespace Data.Concrete.EfCore
             return await Context!.Products.Where(i=>i.IsHome && i.IsApproved).CountAsync();
         }
 
+        public async Task<Product?> GetProductDetails(string url)
+        {
+            return await Context!.Products
+                                        .Where(e=>e.Url == url && e.IsApproved)
+                                        .Include(e=>e.ProductCategories!)
+                                        .ThenInclude(e=>e.Category)
+                                        .FirstOrDefaultAsync();
+        }
+
+
         public async Task<List<Product>> GetProdutsByCategory(string category, int page, int pageSize)
         {
             var products = Context!.Products.Where(i=>i.IsApproved).AsQueryable();
