@@ -46,6 +46,13 @@ app.MapControllerRoute
     defaults: new { controller="Product", action="Products" }
 );
 
+app.MapControllerRoute
+(
+    name: "productdetails",
+    pattern: "urun/{url}",
+    defaults: new { controller="Product", action="Details" }
+);
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

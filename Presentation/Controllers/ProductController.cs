@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
+
+    [AutoValidateAntiforgeryToken]
     public class ProductController: Controller
     {
         private readonly IProductService _productService;
@@ -15,6 +17,11 @@ namespace Presentation.Controllers
         {
             var model = await _productService.GetProductsByCategory(kategori,sayfa);
             return View(model);
+        }
+
+        public async Task<IActionResult> Details(string url)
+        {
+            return View();
         }
     }
 }

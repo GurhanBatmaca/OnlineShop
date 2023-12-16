@@ -5,6 +5,7 @@ using Presentation.Models;
 
 namespace Presentation.Controllers;
 
+[AutoValidateAntiforgeryToken]
 public class HomeController : Controller
 {
     private readonly IProductService _productService;
