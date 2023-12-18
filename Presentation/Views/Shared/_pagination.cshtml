@@ -124,7 +124,7 @@ else if(Model.PaginationType == "ProductByCategory")
     </nav>
 }
 
-@if(Model.PaginationType == "AdminAllProducts")
+else if(Model.PaginationType == "AdminAllProducts")
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -162,4 +162,88 @@ else if(Model.PaginationType == "ProductByCategory")
         </ul>
     </nav>
 }
- 
+
+else if(Model.PaginationType == "SearchProducts")
+{
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            @if(string.IsNullOrEmpty(Model!.SearchQuery!))
+            {
+                <li class="page-item @(Model.CurrentPage == 1 ? "disabled":"")">
+                    <a class="page-link" href="/arama?sayfa=@(Model.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i></a>
+                </li>
+                @if(Model.CurrentPage == @Model!.TotalPages() && @Model!.TotalPages() > 4)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li> 
+                } 
+            }
+            else
+            {
+                <li class="page-item @(Model.CurrentPage == 1 ? "disabled":"")">
+                    <a class="page-link" href="/arama?sorgu=@Model.SearchQuery&sayfa=@(Model.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i></a>
+                </li>
+                @if(Model.CurrentPage == @Model!.TotalPages() && @Model!.TotalPages() > 4)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li> 
+                } 
+            }
+            @for(var i=0; i< @Model!.TotalPages(); i++)
+            {
+                if(string.IsNullOrEmpty(Model.SearchQuery))
+                {
+                    @if(Model.CurrentPage == i+1 || Model.CurrentPage == i || Model.CurrentPage == i+2)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i+1 ? "active":"")">
+                            <a class="page-link" href="/arama?sayfa=@(i+1)">@(i+1)</a>
+                        </li>
+                    }
+                    
+                }
+                else
+                {
+                    @if(Model.CurrentPage == i+1 || Model.CurrentPage == i || Model.CurrentPage == i+2)
+                    {
+                        <li class="page-item @(Model.CurrentPage == i+1 ? "active":"")">
+                            <a class="page-link" href="/arama?sorgu=@Model.SearchQuery&sayfa=@(i+1)">@(i+1)</a>
+                        </li>
+                    }
+                
+                }
+            }
+            @if(string.IsNullOrEmpty(Model.SearchQuery))
+            {
+                @if(Model.CurrentPage != Model!.TotalPages() && Model.CurrentPage != Model!.TotalPages() -1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" >...</a>
+                    </li> 
+                }
+                <li class="page-item @(Model.CurrentPage == @Model!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/arama?sayfa=@(Model.CurrentPage+1)"><i class="fa-solid fa-angle-right"></i></a>
+                </li>
+                <li class="page-item @(Model.CurrentPage == @Model!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/arama?sayfa=@Model!.TotalPages()">/ @Model!.TotalPages()</a>
+                </li> 
+                }
+            else
+            {
+                @if(Model.CurrentPage != Model!.TotalPages() && Model.CurrentPage != Model!.TotalPages() -1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" >...</a>
+                    </li> 
+                }
+                <li class="page-item @(Model.CurrentPage == @Model!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/arama?sorgu=@Model.SearchQuery&sayfa=@(Model.CurrentPage+1)"><i class="fa-solid fa-angle-right"></i></a>
+                </li>
+                <li class="page-item @(Model.CurrentPage == @Model!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/arama?sorgu=@Model.SearchQuery&sayfa=@Model!.TotalPages()">/ @Model!.TotalPages()</a>
+                </li> 
+            }    
+        </ul>
+    </nav>
+}
