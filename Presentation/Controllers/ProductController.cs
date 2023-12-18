@@ -24,5 +24,10 @@ namespace Presentation.Controllers
             var model = await _productService.GetProductDetails(url);
             return View(model);
         }
+
+        public async Task<IActionResult> Search(string query,int sayfa=1)
+        {
+            return View();
+        }
     }
 }
