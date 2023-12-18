@@ -41,6 +41,13 @@ app.UseAuthorization();
 
 app.MapControllerRoute
 (
+    name: "search",
+    pattern: "arama",
+    defaults: new { controller="Product", action="Search" }
+);
+
+app.MapControllerRoute
+(
     name: "products",
     pattern: "urunler/{kategori?}",
     defaults: new { controller="Product", action="Products" }

@@ -65,6 +65,33 @@ namespace Data.Concrete.EfCore
             return await products.CountAsync();
         }
 
+        public async Task<List<Product>> GetSearchResult(string query, int page, int pageSize)
+        {
+            var products = Context!.Products.Where(e=>e.IsApproved).AsQueryable();
+
+            if(!string.IsNullOrEmpty(query))
+            {
+                products = products.Include(e=>e.ProductCategories!)
+                                    .ThenInclude(e=>e.Category)              
+                                    .Where(e=>e.Name!.ToLower()!.Contains(query.ToLower()) || e.Description!.ToLower().Contains(query.ToLower()) || e.ProductCategories!.Any(e=>e.Category!.Name!.ToLower()!.Contains(query.ToLower())));
+            }
+
+            return await products.Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<int> GetSearchResultCount(string query)
+        {
+            var products = Context!.Products.Where(e=>e.IsApproved).AsQueryable();
+
+            if(!string.IsNullOrEmpty(query))
+            {
+                products = products.Include(e=>e.ProductCategories!)
+                                    .ThenInclude(e=>e.Category)              
+                                    .Where(e=>e.Name!.ToLower()!.Contains(query.ToLower()) || e.Description!.ToLower().Contains(query.ToLower()) || e.ProductCategories!.Any(e=>e.Category!.Name!.ToLower()!.Contains(query.ToLower())));
+            }
+
+            return await products.CountAsync();
+        }
     }
     
 }

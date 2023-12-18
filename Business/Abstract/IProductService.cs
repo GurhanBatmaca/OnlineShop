@@ -8,5 +8,6 @@ namespace Business.Abstract
         Task<ProductListViewModel> GetHomePageProducts(int page);
         Task<ProductListViewModel> GetProductsByCategory(string category,int page);
         Task<ProductDetailsModel?> GetProductDetails(string url);
+        Task<ProductListViewModel> GetSearchResult(string query, int page);
     }
 }

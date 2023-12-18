@@ -9,5 +9,7 @@ namespace Data.Abstract
         Task<List<Product>> GetProdutsByCategory(string category,int page,int pageSize);
         Task<int> GetProdutsCountByCategory(string category);
         Task<Product?> GetProductDetails(string url);
+        Task<List<Product>> GetSearchResult(string query,int page,int pageSize);
+        Task<int> GetSearchResultCount(string query);
     }
 }

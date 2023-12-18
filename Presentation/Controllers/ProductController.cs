@@ -27,7 +27,8 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> Search(string query,int sayfa=1)
         {
-            return View();
+            var model = await _productService.GetSearchResult(query,sayfa);
+            return View(model);
         }
     }
 }

@@ -70,5 +70,26 @@ namespace Business.Concrete
                 }
             };
         }
+
+        public async Task<ProductListViewModel> GetSearchResult(string query, int page)
+        {
+            var pageSize = Int32.Parse(_configuration["PageSize"]!);
+            var products = await _unitOfWork!.Products.GetSearchResult(query,page,pageSize);
+            var productModels = products.Select(p => _mapper.Map<ProductViewModel>(p));
+            var productsCount = await _unitOfWork.Products.GetSearchResultCount(query);
+
+            return new ProductListViewModel
+            {
+                Products = productModels.ToList(),
+                PageInfo = new PageInfoModel {
+                    TotalItems = productsCount,
+                    ItemPerPage = pageSize,
+                    CurrentPage = page,
+                    SearchQuery = query,
+                    PaginationType = "SearchProducts"
+                }
+            };
+        }
+
     }
 }
