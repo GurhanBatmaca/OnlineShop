@@ -16,12 +16,12 @@
 
 <div class="">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 details-section">
             <div class="product-img">
                 <img src="~/images/@Model.Product.ImageUrl" alt="urun-resmi">
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 details-section row">
             <div class=""><h3>@Model.Product.Name</h3></div>
             <div class=""><h4>@Model.Product.Price.ToString("c") TL</h4> </div>
             <div class="d-flex">
@@ -31,8 +31,19 @@
                 }
             </div>
             <div class="d-flex mt-auto">
-                <input type="number" name="" id="">
-                <button class="btn">Ekle</button>
+                <form class="d-flex">
+                    <div class="me-1">
+                        <input type="number" class="form-control" name="quantity" value="1" min="1" step="1">
+                    </div>
+                    <div class="">
+                        <button type="submit" class="btn btn-primary mb-3"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                    </div>
+                </form>
+
+                @* <form action="">
+                    <input type="number" name="" id="">
+                    <button class="btn">Ekle</button>
+                </form> *@
             </div>
         </div>
         <div>
