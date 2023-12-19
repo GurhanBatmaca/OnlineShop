@@ -11,3 +11,13 @@
 .details-section {
     height: 70vh;
 }
+
+.details-input {
+    width: 7rem;
+  }
+
+@media (width <= 767px) {
+    .details-form {
+      margin-top: 0!important;
+    }
+  } 
