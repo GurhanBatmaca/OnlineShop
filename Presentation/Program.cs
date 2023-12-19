@@ -5,6 +5,7 @@ using Data.Concrete.EfCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Presentation.Identity;
+using Presentation.Identity.Abstract;
 using Shared.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,6 +63,8 @@ builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
+
+builder.Services.AddScoped<ISignService,SignService>();
 
 builder.Services.AddHttpContextAccessor();
 
