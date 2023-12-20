@@ -8,16 +8,20 @@
 <div class="form-signin w-100 m-auto">
 
   <form method="post">
-    <h1 class="h3 mb-3 fw-normal">Lütfen giriş yapın</h1>
+    <div class="d-flex justify-content-between px-1">
+      <h1 class="h3 mb-3 fw-normal">Giriş yap</h1>
+      <i class="fa-solid fa-user-lock fa-2x"></i>
+    </div>
+    
     <div class="text-danger" asp-validation-summary="All"></div>
 
-    <div class="form-floating">
-      <input asp-for="Email" class="form-control" placeholder="Email">
+    <div class="form-floating mb-1">
+      <input asp-for="Email" class="form-control" placeholder="E-Posta">
       <label asp-for="Email"></label>
       <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div class="form-floating">
-      <input asp-for="Password" class="form-control"  placeholder="Password">
+    <div class="form-floating mb-1">
+      <input asp-for="Password" class="form-control"  placeholder="Şifre">
       <label asp-for="Password"></label>
       <span asp-validation-for="Password" class="text-danger"></span>
     </div>

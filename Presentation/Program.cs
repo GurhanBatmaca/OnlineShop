@@ -87,6 +87,14 @@ app.UseRouting();
 app.UseAuthorization();
 
 // Auth
+
+app.MapControllerRoute
+(
+    name: "register",
+    pattern: "hesap/uyeol",
+    defaults: new { controller="Auth", action="Register" }
+);
+
 app.MapControllerRoute
 (
     name: "login",

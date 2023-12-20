@@ -78,5 +78,17 @@ namespace Presentation.Controllers
             });
             return RedirectToAction("Login");
         }
+    
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(RegisterModel model)
+        {
+            return View();
+        }
     }
 }
