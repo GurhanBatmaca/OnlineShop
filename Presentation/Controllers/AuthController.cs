@@ -17,6 +17,11 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if(User.Identity!.IsAuthenticated)
+            {
+                return Redirect("~/");
+            }
+
             return View();
         }
 
@@ -52,8 +57,26 @@ namespace Presentation.Controllers
                 Message = $"{_signService.Message}",
                 AlertType = "danger"
             });
-            
+
             return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+
+            if(!User.Identity!.IsAuthenticated)
+            {
+                return Redirect("~/");
+            }
+
+            await _signService.Logout();
+            TempData.Put("message",new MessageModel
+            {
+                Title = $"Çıkış yapıldı",
+                Message = $"Hesaptan güvenli çıkış yapıldı",
+                AlertType = "danger"
+            });
+            return RedirectToAction("Login");
         }
     }
 }

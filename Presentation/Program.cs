@@ -94,6 +94,13 @@ app.MapControllerRoute
     defaults: new { controller="Auth", action="Login" }
 );
 
+app.MapControllerRoute
+(
+    name: "logout",
+    pattern: "hesap/cikisyap",
+    defaults: new { controller="Auth", action="Logout" }
+);
+
 // Product
 app.MapControllerRoute
 (

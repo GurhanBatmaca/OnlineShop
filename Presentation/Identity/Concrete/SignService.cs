@@ -54,5 +54,9 @@ namespace Presentation.Identity.Abstract
 
         }
 
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }
