@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extentions;
 using Presentation.Identity.Abstract;
+using Shared.Helpers;
 using Shared.Models;
 
 namespace Presentation.Controllers
@@ -27,6 +28,12 @@ namespace Presentation.Controllers
                 return View(model);
             }
 
+            if(!CheckInput.IsValid(model.Email!) || !CheckInput.IsValid(model.Password!))
+            {
+                ModelState.AddModelError("",$"{CheckInput.ErrorMessage}");
+                return View(model);
+            }
+            
             if(await _signService.Login(model))
             {
                 TempData.Put("message",new MessageModel
@@ -38,12 +45,14 @@ namespace Presentation.Controllers
 
                 return Redirect("~/");
             }
+
             TempData.Put("message",new MessageModel
             {
                 Title = $"Hata",
                 Message = $"{_signService.Message}",
                 AlertType = "danger"
             });
+            
             return View(model);
         }
     }
