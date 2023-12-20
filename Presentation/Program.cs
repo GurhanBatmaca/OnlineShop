@@ -86,6 +86,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Auth
+app.MapControllerRoute
+(
+    name: "login",
+    pattern: "hesap/girisyap",
+    defaults: new { controller="Auth", action="Login" }
+);
+
+// Product
 app.MapControllerRoute
 (
     name: "search",
