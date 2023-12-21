@@ -9,9 +9,11 @@ namespace Presentation.Controllers
     public class AuthController: Controller
     {
         private readonly ISignService _signService;
-        public AuthController(ISignService signService)
+        private readonly IUserService _userService;
+        public AuthController(ISignService signService,IUserService userService)
         {
             _signService = signService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -70,13 +72,33 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Uri = new  Uri("Home/Index");
             return View();
+            
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterModel model)
+        public async Task<IActionResult> Register(RegisterModel model)
         {
-            return View();
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            
+            if(await _userService.Register(model))
+            {
+                TempData.Put("message",new MessageModel
+                {
+                    Title = $"Başarılı",
+                    Message = $"{_userService.Message}",
+                    AlertType = "success"
+                });
+
+                return RedirectToAction("Login");
+            }
+
+            ModelState.AddModelError("",$"{_userService.Message}");
+            return View(model);
         }
     }
 }

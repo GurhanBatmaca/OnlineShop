@@ -65,6 +65,7 @@ builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
 builder.Services.AddScoped<ISignService,SignService>();
+builder.Services.AddScoped<IUserService,UserService>();
 
 builder.Services.AddHttpContextAccessor();
 
