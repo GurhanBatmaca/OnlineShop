@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Shared.Helpers;
 using Shared.Models;
 
 namespace Presentation.Identity.Abstract
@@ -18,6 +19,12 @@ namespace Presentation.Identity.Abstract
 
         public async Task<bool> Login(LoginModel model)
         {
+            if(!CheckInput.IsValid(model.Email!) || !CheckInput.IsValid(model.Password!))
+            {
+                Message = CheckInput.ErrorMessage;
+                return false;
+            }
+            
             var user = await _userManager.FindByEmailAsync(model.Email!);
             
             if(user is null)

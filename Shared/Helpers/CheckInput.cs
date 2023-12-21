@@ -9,7 +9,7 @@ namespace Shared.Helpers
 
             foreach (var banned in banneds)
             {
-                if(input.Contains(banned))
+                if(input.ToLower().Contains(banned))
                 {
                     ErrorMessage = $"Kullanılamaz karakter = {banned}";
                     return false;
