@@ -4,6 +4,7 @@ using Data.Abstract;
 using Data.Concrete.EfCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Presentation.EmailServices.Abstract;
 using Presentation.Identity;
 using Presentation.Identity.Abstract;
 using Shared.Mapper;
@@ -66,6 +67,16 @@ builder.Services.AddScoped<ICategoryService,CategoryManager>();
 
 builder.Services.AddScoped<ISignService,SignService>();
 builder.Services.AddScoped<IUserService,UserService>();
+
+builder.Services.AddScoped<IEmailSender,SmtpEmailSender>( i => 
+    new SmtpEmailSender(
+        builder.Configuration["EmailSender:Host"]!,
+        builder.Configuration.GetValue<int>("EmailSender:Port"),
+        builder.Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+        builder.Configuration["EmailSender:UserName"]!,
+        builder.Configuration["EmailSender:Password"]!
+    )
+);
 
 builder.Services.AddHttpContextAccessor();
 
