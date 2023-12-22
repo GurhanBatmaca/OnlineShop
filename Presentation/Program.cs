@@ -3,6 +3,7 @@ using Business.Concrete;
 using Data.Abstract;
 using Data.Concrete.EfCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Presentation.EmailServices.Abstract;
 using Presentation.Identity;

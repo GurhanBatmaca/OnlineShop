@@ -72,7 +72,6 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            ViewBag.Uri = new  Uri("Home/Index");
             return View();
             
         }
@@ -99,6 +98,11 @@ namespace Presentation.Controllers
 
             ModelState.AddModelError("",$"{_userService.Message}");
             return View(model);
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string token,string userId)
+        {
+            return View();
         }
     }
 }

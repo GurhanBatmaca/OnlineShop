@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
+using Presentation.EmailServices.Abstract;
 using Shared.Helpers;
 using Shared.Models;
 
@@ -11,15 +9,17 @@ namespace Presentation.Identity.Abstract
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IUrlHelperFactory  _urlHelperFactory;
-        private readonly IActionContextAccessor _actionContextAccessor;
-        public UserService(SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager,IUrlHelperFactory urlHelperFactory,IActionContextAccessor actionContextAccessor)
+        private readonly IEmailSender _emailSender;
+        private readonly IHttpContextAccessor _accessor;
+        private readonly LinkGenerator _generator;
+
+        public UserService(SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager,IEmailSender emailSender,IHttpContextAccessor accessor, LinkGenerator generator)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _urlHelperFactory = urlHelperFactory;
-            _actionContextAccessor = actionContextAccessor;
-
+            _emailSender = emailSender;
+            _accessor = accessor;
+            _generator = generator;
         }
 
         public string? Message { get ; set ; }
@@ -61,14 +61,13 @@ namespace Presentation.Identity.Abstract
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-                var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext!);
+                var url = _generator.GetUriByAction(_accessor.HttpContext!, 
+                    action: "confirmemail", 
+                    values: new { token = token,userId = user.Id }
+                );
 
-                var url = urlHelper.Action("ComfirmEmail","Auth", new {
-                    token = token,
-                    userId = user.Id
-                });
-
-           
+                await _emailSender.SendEmailAsync(user.Email!,"Üyelik onayı",$"Hesabınızı onaylamak için lütfen <a href='{url}'>linke</a> tıklayınız");
+          
                 return true;
             }
 

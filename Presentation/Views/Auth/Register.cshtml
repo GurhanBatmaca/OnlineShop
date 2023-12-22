@@ -27,6 +27,12 @@
     </div>
 
     <div class="form-floating mb-1">
+      <input asp-for="UserName" class="form-control">
+      <label asp-for="UserName"></label>
+      <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-1">
       <input asp-for="Email" class="form-control">
       <label asp-for="Email"></label>
       <span asp-validation-for="Email" class="text-danger"></span>
@@ -51,5 +57,3 @@
 {
   @await Html.PartialAsync("_ValidationScriptsPartial")
 }
-
-<p>@ViewBag.Uri</p>
