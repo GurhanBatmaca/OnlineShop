@@ -1,1 +1,14 @@
-Confirm Email
+@{
+    ViewData["Title"] = "Üyelik Onayı";
+}
+
+<div class="row my-5 text-center">
+    <h1 class="h3 mb-3 text-success">Üyeliğiniz onaylandı <i class="fa-solid fa-check"></i></h1>
+    <h4>
+    <span id="time">5</span> saniye sonra giriş sayfasına yönlendirileceksiniz <i class="fa-solid fa-arrow-right-from-bracket ms-3"></i>
+    </h4>
+</div>
+
+@section Scripts {
+    <script src="~/js/confirmScript.js"></script>
+}

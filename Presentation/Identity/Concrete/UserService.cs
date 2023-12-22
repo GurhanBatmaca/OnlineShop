@@ -75,5 +75,32 @@ namespace Presentation.Identity.Abstract
             return false;
         }
 
+        public async Task<bool> ComfirmEmail(string token,string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if(user is null)
+            {
+                Message = "Kullanıcı bulunamadı";
+                return false;
+            }
+            if(string.IsNullOrEmpty(token) || string.IsNullOrEmpty(userId))
+            {
+                Message = "Link hatası";
+                return false;
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user!,token);
+
+            if(result.Succeeded)
+            {
+                Message = "Üyeliğiniz onaylandı";
+                return true;
+            }
+
+            Message = "Token hatası";
+            return false;
+        }
+    
     }
 }

@@ -72,6 +72,10 @@ namespace Presentation.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if(User.Identity!.IsAuthenticated)
+            {
+                return Redirect("~/");
+            }
             return View();
             
         }
@@ -102,7 +106,14 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> ConfirmEmail(string token,string userId)
         {
+            if(await _userService.ComfirmEmail(token,userId))
+            {
+                return View();
+            }
+
+            ViewBag.Message = _userService.Message;
             return View();
+            // return RedirectToAction("Register");
         }
     }
 }
