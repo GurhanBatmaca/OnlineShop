@@ -9,14 +9,16 @@ namespace Presentation.Identity.Abstract
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
         private readonly IHttpContextAccessor _accessor;
         private readonly LinkGenerator _generator;
 
-        public UserService(SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager,IEmailSender emailSender,IHttpContextAccessor accessor, LinkGenerator generator)
+        public UserService(SignInManager<ApplicationUser> signInManager,UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager,IEmailSender emailSender,IHttpContextAccessor accessor, LinkGenerator generator)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _emailSender = emailSender;
             _accessor = accessor;
             _generator = generator;
@@ -57,6 +59,7 @@ namespace Presentation.Identity.Abstract
 
             if(result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user,"Customer");
                 Message = "Hesabınız oluşturuldu,Lütfen email adresinize gelen link ile hesabınızı onaylayın.";
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
