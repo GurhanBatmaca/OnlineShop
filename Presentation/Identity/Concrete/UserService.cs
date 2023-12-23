@@ -129,5 +129,32 @@ namespace Presentation.Identity.Abstract
             return true;
         }
 
+        public async Task<bool> ResetPassword(ResetPasswordModel model)
+        {
+
+            if(string.IsNullOrEmpty(model.Token) || string.IsNullOrEmpty(model.UserId))
+            {
+                Message = "Geçersiz adres";
+                return false;
+            }
+
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if(user is null)
+            {
+                Message = "Kullanıcı bulunamadı";
+                return false;
+            }
+
+            var result = await _userManager.ResetPasswordAsync(user,model.Token,model.Password!);
+
+            if(result.Succeeded)
+            {
+                Message = "Şifre değiştirildi";
+                return true;
+            }
+
+            Message = "Token hatası";
+            return false;
+        }
     }
 }

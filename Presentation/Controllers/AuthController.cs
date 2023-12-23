@@ -155,12 +155,25 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult ResetPassword(ResetPasswordModel model)
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
         {
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
+
+            if(await _userService.ResetPassword(model))
+            {
+                TempData.Put("message",new MessageModel
+                {
+                    Title = $"Başarılı",
+                    Message = $"Şifre değiştirildi,giriş yapabilirsiniz",
+                    AlertType = "success"
+                });
+                return View();
+            }
+
+            ModelState.AddModelError("",$"{_userService.Message}");
             return View();
         }
     

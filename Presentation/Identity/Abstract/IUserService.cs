@@ -8,5 +8,6 @@ namespace Presentation.Identity.Abstract
         Task<bool> Register(RegisterModel model);
         Task<bool> ComfirmEmail(string token,string userId);
         Task<bool> FargotPassword(FargotPasswordModel model);
+        Task<bool> ResetPassword(ResetPasswordModel model);
     }
 }
