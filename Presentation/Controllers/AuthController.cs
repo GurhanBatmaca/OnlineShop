@@ -112,8 +112,8 @@ namespace Presentation.Controllers
             }
 
             ViewBag.Message = _userService.Message;
-            return View();
-            // return RedirectToAction("Register");
+            // return View();
+            return RedirectToAction("Register");
         }
 
         [HttpGet]
@@ -124,6 +124,38 @@ namespace Presentation.Controllers
 
         [HttpPost]
         public IActionResult FargotPassword(FargotPasswordModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token,string userId)
+        {
+            if(string.IsNullOrEmpty(token) || string.IsNullOrEmpty(userId))
+            {
+                TempData.Put("message",new MessageModel
+                {
+                    Title = $"Hata",
+                    Message = $"Geçersiz link",
+                    AlertType = "danger"
+                });
+                return RedirectToAction("FargotPassword");
+            }
+            var model = new ResetPasswordModel
+            {
+                Token = token,
+                UserId = userId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordModel model)
         {
             if(!ModelState.IsValid)
             {

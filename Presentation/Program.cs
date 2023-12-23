@@ -135,6 +135,13 @@ app.MapControllerRoute
     defaults: new { controller="Auth", action="FargotPassword" }
 );
 
+app.MapControllerRoute
+(
+    name: "resetpassword",
+    pattern: "hesap/sifreyenile",
+    defaults: new { controller="Auth", action="ResetPassword" }
+);
+
 // Product
 app.MapControllerRoute
 (
