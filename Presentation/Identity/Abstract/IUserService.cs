@@ -7,5 +7,6 @@ namespace Presentation.Identity.Abstract
         string? Message { get; set; }
         Task<bool> Register(RegisterModel model);
         Task<bool> ComfirmEmail(string token,string userId);
+        Task<bool> FargotPassword(FargotPasswordModel model);
     }
 }

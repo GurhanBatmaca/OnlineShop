@@ -128,6 +128,13 @@ app.MapControllerRoute
     defaults: new { controller="Auth", action="ConfirmEmail" }
 );
 
+app.MapControllerRoute
+(
+    name: "fargotpassword",
+    pattern: "hesap/sifremiunuttum",
+    defaults: new { controller="Auth", action="FargotPassword" }
+);
+
 // Product
 app.MapControllerRoute
 (

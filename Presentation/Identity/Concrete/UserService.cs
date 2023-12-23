@@ -66,7 +66,7 @@ namespace Presentation.Identity.Abstract
 
                 var url = _generator.GetUriByAction(_accessor.HttpContext!, 
                     action: "confirmemail", 
-                    values: new { token = token,userId = user.Id }
+                    values: new { token = token, userId = user.Id }
                 );
 
                 await _emailSender.SendEmailAsync(user.Email!,"Üyelik onayı",$"Hesabınızı onaylamak için lütfen <a href='{url}'>linke</a> tıklayınız");
@@ -104,6 +104,30 @@ namespace Presentation.Identity.Abstract
             Message = "Token hatası";
             return false;
         }
-    
+
+        public async Task<bool> FargotPassword(FargotPasswordModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email!);
+
+            if(user is null)
+            {
+                Message = "Bu e-posta ile kayıtlı kullanıcı bulunamadı.";
+                return false;
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var url = _generator.GetUriByAction(_accessor.HttpContext!, 
+                action: "resetpassword", 
+                values: new { token = token, userId = user.Id }
+            );
+
+            await _emailSender.SendEmailAsync(user.Email!,"Şifre sıfırlama",$"Şifrenizi sıfırlamak için lütfen <a href='{url}'>linke</a> tıklayınız");
+
+            Message = "Şifrenizi sıfırlamak için lütfen e-pota adresinizi kontrol edin";
+
+            return true;
+        }
+
     }
 }

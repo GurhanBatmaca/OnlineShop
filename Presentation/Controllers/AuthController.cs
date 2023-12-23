@@ -115,5 +115,22 @@ namespace Presentation.Controllers
             return View();
             // return RedirectToAction("Register");
         }
+
+        [HttpGet]
+        public IActionResult FargotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult FargotPassword(FargotPasswordModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View();
+        }
+    
     }
 }
