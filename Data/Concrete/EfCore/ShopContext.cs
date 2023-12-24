@@ -12,6 +12,8 @@ namespace Data.Concrete.EfCore
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +27,10 @@ namespace Data.Concrete.EfCore
             modelBuilder.Entity<Category>().Property(e=>e.Name).IsRequired().HasMaxLength(50);
             
             modelBuilder.Entity<ProductCategory>().HasKey(e=> new {e.ProductId,e.CategoryId});
+
+            modelBuilder.Entity<Cart>().HasKey(e=>e.Id);
+            
+            modelBuilder.Entity<CartItem>().HasKey(e=>e.Id);
 
 
             // modelBuilder.Seed();
