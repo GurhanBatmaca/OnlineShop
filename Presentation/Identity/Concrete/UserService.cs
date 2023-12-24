@@ -124,7 +124,7 @@ namespace Presentation.Identity.Abstract
 
             await _emailSender.SendEmailAsync(user.Email!,"Şifre sıfırlama",$"Şifrenizi sıfırlamak için lütfen <a href='{url}'>linke</a> tıklayınız");
 
-            Message = "Şifrenizi sıfırlamak için lütfen e-pota adresinizi kontrol edin";
+            Message = "Şifrenizi sıfırlamak için lütfen e-posta adresinizi kontrol edin";
 
             return true;
         }

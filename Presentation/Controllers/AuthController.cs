@@ -123,13 +123,25 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult FargotPassword(FargotPasswordModel model)
+        public async Task<IActionResult> FargotPassword(FargotPasswordModel model)
         {
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
-            return View();
+            if(await _userService.FargotPassword(model))
+            {
+                TempData.Put("message",new MessageModel
+                {
+                    Title = $"Başarılı",
+                    Message = $"E-Posta adresinizi kontrol edin",
+                    AlertType = "warning"
+                });
+
+                return RedirectToAction("Login");
+            }
+            ModelState.AddModelError("",$"{_userService.Message}");
+            return View(model);
         }
 
         [HttpGet]
@@ -170,11 +182,11 @@ namespace Presentation.Controllers
                     Message = $"Şifre değiştirildi,giriş yapabilirsiniz",
                     AlertType = "success"
                 });
-                return View();
+                return RedirectToAction("Login");
             }
 
             ModelState.AddModelError("",$"{_userService.Message}");
-            return View();
+            return View(model);
         }
     
     }
