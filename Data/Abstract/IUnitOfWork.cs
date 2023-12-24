@@ -4,5 +4,6 @@ namespace Data.Abstract
     {
         IProductRepository Products {get;}
         ICategoryRepository Categories {get;}
+        ICartRepository Carts {get;}
     }
 }

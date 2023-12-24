@@ -12,9 +12,13 @@ namespace Data.Concrete.EfCore
 
         protected private EfCoreProductRepository? productRepository;
         protected private EfCoreCategoryRepository? categoryRepository;
+        protected private EfCoreCartRepository? cartRepository;
         public IProductRepository Products => productRepository ??= new EfCoreProductRepository(_context!);
 
         public ICategoryRepository Categories => categoryRepository ??= new EfCoreCategoryRepository(_context!);
+
+        public ICartRepository Carts => cartRepository ??= new EfCoreCartRepository(_context!);
+
 
         public void Dispose() => _context!.Dispose();
 
