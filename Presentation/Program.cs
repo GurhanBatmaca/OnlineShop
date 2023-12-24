@@ -64,6 +64,7 @@ builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
+builder.Services.AddScoped<ICartService,CartManager>();
 
 builder.Services.AddScoped<ISignService,SignService>();
 builder.Services.AddScoped<IUserService,UserService>();
