@@ -17,14 +17,14 @@
     <div class="row">
         <div class="col-md-6 details-section mb-3">
             <div class="product-img">
-                <img src="~/images/@Model.Product.ImageUrl" alt="urun-resmi">
+                <img src="~/images/@Model!.Product!.ImageUrl" alt="urun-resmi">
             </div>
         </div>
         <div class="col-md-6 details-section d-flex flex-column mb-3">
             <h3 class="mb-3">@Model.Product.Name</h3>
             <h5 class="mb-5">@Model.Product.Price.ToString("c") TL</h5>
             <div class="mb-5">
-                @foreach(var category in @Model.Categories)
+                @foreach(var category in @Model.Categories!)
                 {
                     <a class="btn btn-info me-1" href="/urunler/@category.Url"><i class="fa-solid fa-layer-group"></i> @category.Name</a>
             
