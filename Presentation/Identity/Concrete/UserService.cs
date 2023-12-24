@@ -97,7 +97,7 @@ namespace Presentation.Identity.Abstract
 
             if(result.Succeeded)
             {
-                Message = "Üyeliğiniz onaylandı";
+                Message = "Üyeliğiniz onaylandı,giriş yapabilirsiniz";
                 return true;
             }
 
@@ -149,7 +149,7 @@ namespace Presentation.Identity.Abstract
 
             if(result.Succeeded)
             {
-                Message = "Şifre değiştirildi";
+                Message = "Şifre değiştirildi,belirlediğiniz şifreyi kullanarak giriş yapabilirsiniz";
                 return true;
             }
 

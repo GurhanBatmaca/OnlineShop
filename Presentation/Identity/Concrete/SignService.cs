@@ -29,7 +29,7 @@ namespace Presentation.Identity.Abstract
             
             if(user is null)
             {
-                Message += "Bu email ile kayıtlı kullanıcı bulunamadı.";
+                Message = "Bu email ile kayıtlı kullanıcı bulunamadı.";
                 return false;
             }
 
@@ -46,17 +46,17 @@ namespace Presentation.Identity.Abstract
                 await _userManager.ResetAccessFailedCountAsync(user);
                 await _userManager.SetLockoutEndDateAsync(user,null);
 
-                Message += $"{user.UserName}";
+                Message += $"Hoşgeldin {user.UserName}";
                 return true;
             }
             else if(result.IsLockedOut)
             {
                 var logoutDate = await _userManager.GetLockoutEndDateAsync(user);
                 var timeLeft = logoutDate.Value - DateTime.UtcNow;
-                Message = $"Hesabın kilitli, lütfen {timeLeft.Minutes} dakika sonra tekrar dene.";
+                Message = $"Hesabınız kilitli, lütfen {timeLeft.Minutes} dakika sonra tekrar deneyin.";
             }
 
-            Message = "Şifre Yanlış.";
+            Message = "Şifre yanlış";
             return false;
 
         }

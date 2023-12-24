@@ -1,0 +1,9 @@
+@model MessageModel
+
+<div class="alert alert-@Model.AlertType alert-dismissible fade show container text-center" role="alert">
+    <h5 class="alert-heading">
+        @Model.Title
+    </h5>
+    <p>@Model.Message</p>
+    <button id="btn_close" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>

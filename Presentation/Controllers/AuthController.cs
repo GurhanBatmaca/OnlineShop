@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extentions;
 using Presentation.Identity.Abstract;
-using Shared.Helpers;
 using Shared.Models;
 
 namespace Presentation.Controllers
@@ -37,9 +36,9 @@ namespace Presentation.Controllers
            
             if(await _signService.Login(model))
             {
-                TempData.Put("message",new MessageModel
+                TempData.Put("toastMessage",new MessageModel
                 {
-                    Title = $"Hoşgeldin",
+                    Title = $"Merhaba;",
                     Message = $"{_signService.Message}",
                     AlertType = "success"
                 });
@@ -60,12 +59,14 @@ namespace Presentation.Controllers
             }
 
             await _signService.Logout();
-            TempData.Put("message",new MessageModel
+
+            TempData.Put("toastMessage",new MessageModel
             {
-                Title = $"Çıkış yapıldı",
-                Message = $"Hesaptan güvenli çıkış yapıldı",
-                AlertType = "danger"
+                Title = $"Başarılı",
+                Message = $"Hesaptan çıkış yapıldı",
+                AlertType = "warning"
             });
+
             return RedirectToAction("Login");
         }
     
@@ -90,7 +91,7 @@ namespace Presentation.Controllers
             
             if(await _userService.Register(model))
             {
-                TempData.Put("message",new MessageModel
+                TempData.Put("infoMessage",new MessageModel
                 {
                     Title = $"Başarılı",
                     Message = $"{_userService.Message}",
@@ -108,11 +109,22 @@ namespace Presentation.Controllers
         {
             if(await _userService.ComfirmEmail(token,userId))
             {
-                return View();
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Başarılı",
+                    Message = $"{_userService.Message}",
+                    AlertType = "success"
+                });
+                return RedirectToAction("Login");
             }
 
-            ViewBag.Message = _userService.Message;
-            // return View();
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_userService.Message}",
+                AlertType = "danger"
+            });
+
             return RedirectToAction("Register");
         }
 
@@ -131,15 +143,16 @@ namespace Presentation.Controllers
             }
             if(await _userService.FargotPassword(model))
             {
-                TempData.Put("message",new MessageModel
+                TempData.Put("infoMessage",new MessageModel
                 {
                     Title = $"Başarılı",
-                    Message = $"E-Posta adresinizi kontrol edin",
+                    Message = $"{_userService.Message}",
                     AlertType = "warning"
                 });
 
                 return RedirectToAction("Login");
             }
+
             ModelState.AddModelError("",$"{_userService.Message}");
             return View(model);
         }
@@ -149,7 +162,7 @@ namespace Presentation.Controllers
         {
             if(string.IsNullOrEmpty(token) || string.IsNullOrEmpty(userId))
             {
-                TempData.Put("message",new MessageModel
+                TempData.Put("infoMessage",new MessageModel
                 {
                     Title = $"Hata",
                     Message = $"Geçersiz link",
@@ -176,10 +189,10 @@ namespace Presentation.Controllers
 
             if(await _userService.ResetPassword(model))
             {
-                TempData.Put("message",new MessageModel
+                TempData.Put("infoMessage",new MessageModel
                 {
                     Title = $"Başarılı",
-                    Message = $"Şifre değiştirildi,giriş yapabilirsiniz",
+                    Message = $"{_userService.Message}",
                     AlertType = "success"
                 });
                 return RedirectToAction("Login");

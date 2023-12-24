@@ -16,11 +16,19 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @if(@TempData["message"] != null)
+           
+            @if(@TempData["infoMessage"] != null)
             {
-                @await Html.PartialAsync("_message",@TempData.Get<MessageModel>("message"))
+                @await Html.PartialAsync("_infoMessage",@TempData.Get<MessageModel>("infoMessage"))
             }
+        
+            @if(@TempData["toastMessage"] != null)
+            {
+                @await Html.PartialAsync("_toastMessage",@TempData.Get<MessageModel>("toastMessage"))
+            }
+
             @RenderBody()
+
         </main>
     </div>
 
