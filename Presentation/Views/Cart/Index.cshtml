@@ -1,0 +1,13 @@
+@model CartViewModel
+
+@if(Model.TotalItem() == 0)
+{
+    <p>Sepet boş</p>
+}
+else
+{
+    @foreach(var item in Model.CartItems)
+    {
+        <p>@item.Name</p>
+    }
+}

@@ -99,8 +99,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// Auth
+// Cart
+app.MapControllerRoute
+(
+    name: "cartindex",
+    pattern: "sepetim",
+    defaults: new { controller="Cart", action="Index" }
+);
 
+// Auth
 app.MapControllerRoute
 (
     name: "register",

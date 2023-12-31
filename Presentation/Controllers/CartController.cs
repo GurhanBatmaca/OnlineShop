@@ -1,3 +1,4 @@
+using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Identity.Abstract;
 
@@ -9,16 +10,20 @@ namespace Presentation.Controllers
         private readonly IHttpContextAccessor? _accessor;
         private readonly ISignService? _signService;
         private readonly IUserService? _userService;
-        public CartController(IHttpContextAccessor? accessor,ISignService signService,IUserService userService)
+        private readonly ICartService? _cartService;
+        public CartController(IHttpContextAccessor? accessor,ISignService signService,IUserService userService,ICartService? cartService)
         {
             _accessor = accessor;
             _signService = signService;
             _userService = userService;
+            _cartService = cartService;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+            var cart = await _cartService!.GetCartByUserId(userId!);
+            return View(cart);
         }
     }
 
