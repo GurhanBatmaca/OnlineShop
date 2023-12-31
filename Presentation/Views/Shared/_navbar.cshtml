@@ -32,6 +32,7 @@
             </li>
             </ul>
             @await Html.PartialAsync("_search")
+            @await Component.InvokeAsync("Summary")
             @await Html.PartialAsync("_user")
         </div>
         </div>

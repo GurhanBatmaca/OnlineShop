@@ -28,9 +28,9 @@ namespace Business.Concrete
         {
             var cart = await _unitOfWork!.Carts.GetCartByUserId(userId);
 
-            return new CartViewModel
+            CartViewModel model = new CartViewModel
             {
-                Id = cart!.Id,
+                 Id = cart!.Id,
                 UserId = cart.UserId,
                 CartItems = cart.CartItems!.Select(e=> new CartItemViewModel
                 {
@@ -42,6 +42,9 @@ namespace Business.Concrete
                     Quantity = e.Quantity
                 }).ToList()
             };
+
+
+            return model;
         }
     }
 }

@@ -14,10 +14,10 @@ namespace Data.Concrete.EfCore
 
         public async Task<Cart?> GetCartByUserId(string userId)
         {
-            return await Context!.Carts.Where(e=>e.UserId == userId)
+            return await Context!.Carts
                                         .Include(e=>e.CartItems!)
                                         .ThenInclude(e=>e.Product)
-                                        .FirstOrDefaultAsync();
+                                        .FirstOrDefaultAsync(e=>e.UserId == userId);
         }
 
     }
