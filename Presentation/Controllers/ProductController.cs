@@ -8,10 +8,12 @@ namespace Presentation.Controllers
     public class ProductController: Controller
     {
         private readonly IProductService _productService;
+        private readonly IHttpContextAccessor? _accessor;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService,IHttpContextAccessor? accessor)
         {
             _productService = productService;
+            _accessor = accessor;
         }
         public async Task<IActionResult> Products(string kategori,int sayfa=1)
         {

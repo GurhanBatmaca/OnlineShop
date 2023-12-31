@@ -5,6 +5,7 @@ using Shared.Models;
 
 namespace Presentation.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AuthController: Controller
     {
         private readonly ISignService _signService;
