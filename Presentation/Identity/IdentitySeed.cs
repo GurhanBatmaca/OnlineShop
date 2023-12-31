@@ -1,3 +1,5 @@
+using Business.Abstract;
+using Entity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Presentation.Identity
@@ -8,6 +10,7 @@ namespace Presentation.Identity
         {
             var userManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var cartService = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<ICartService>();
 
             var adminUserName = configuration["IdentitySetting:Admin:UserName"];           
             var adminUser = await userManager.FindByNameAsync(adminUserName!);
@@ -29,6 +32,7 @@ namespace Presentation.Identity
                 await userManager.CreateAsync(adminUser,adminPassword!);
                 await roleManager.CreateAsync(new IdentityRole{Name=adminUserName});
                 await userManager.AddToRoleAsync(adminUser,adminUserName!);
+                await cartService.CreateAsync(new Cart{UserId=adminUser.Id});
 
                 var customerUserName = configuration["IdentitySetting:Customer:UserName"];
                 var customerEmail = configuration["IdentitySetting:Customer:Email"];
@@ -46,6 +50,7 @@ namespace Presentation.Identity
                 await userManager.CreateAsync(customerUser,customerPassword!);
                 await roleManager.CreateAsync(new IdentityRole{Name=customerUserName});
                 await userManager.AddToRoleAsync(customerUser,customerUserName!);
+                await cartService.CreateAsync(new Cart{UserId=customerUser.Id});
             }
         }
     }

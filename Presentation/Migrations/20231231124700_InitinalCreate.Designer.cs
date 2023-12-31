@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Presentation.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20231224162242_SeedData")]
-    partial class SeedData
+    [Migration("20231231124700_InitinalCreate")]
+    partial class InitinalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Business.Abstract;
 using Data.Abstract;
+using Entity;
 using Microsoft.Extensions.Configuration;
 
 namespace Business.Concrete
@@ -16,6 +17,11 @@ namespace Business.Concrete
             _mapper = mapper;
             _configuration = configuration;
         }
-        
+
+        public async Task CreateAsync(Cart cart)
+        {
+            await _unitOfWork!.Carts.CreateAsync(cart);
+        }
+
     }
 }
