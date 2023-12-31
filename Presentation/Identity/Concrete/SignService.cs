@@ -65,5 +65,10 @@ namespace Presentation.Identity.Abstract
         {
             await _signInManager.SignOutAsync();
         }
+    
+        public bool IsSignedIn(HttpContext httpContext)
+        {
+            return _signInManager.IsSignedIn(httpContext.User);
+        }
     }
 }

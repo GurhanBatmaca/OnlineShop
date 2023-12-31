@@ -156,5 +156,11 @@ namespace Presentation.Identity.Abstract
             Message = "Token hatası";
             return false;
         }
+
+        public string? GetUserId(HttpContext httpContext)
+        {
+            return _userManager.GetUserId(httpContext.User);
+        }
+
     }
 }

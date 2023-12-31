@@ -7,5 +7,6 @@ namespace Presentation.Identity.Abstract
         string? Message { get; set; }
         Task<bool> Login(LoginModel model);
         Task Logout();
+        bool IsSignedIn(HttpContext httpContext);
     }
 }
