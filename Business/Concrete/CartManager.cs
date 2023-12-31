@@ -3,6 +3,7 @@ using Business.Abstract;
 using Data.Abstract;
 using Entity;
 using Microsoft.Extensions.Configuration;
+using Shared.ViewModels;
 
 namespace Business.Concrete
 {
@@ -23,5 +24,24 @@ namespace Business.Concrete
             await _unitOfWork!.Carts.CreateAsync(cart);
         }
 
+        public async Task<CartViewModel?> GetCartByUserId(string userId)
+        {
+            var cart = await _unitOfWork!.Carts.GetCartByUserId(userId);
+
+            return new CartViewModel
+            {
+                Id = cart!.Id,
+                UserId = cart.UserId,
+                CartItems = cart.CartItems!.Select(e=> new CartItemViewModel
+                {
+                    CartItemId = e.Id,
+                    ProductId = e.ProductId,
+                    Name = e.Product!.Name,
+                    Price = e.Product.Price,
+                    ImageUrl = e.Product.ImageUrl,
+                    Quantity = e.Quantity
+                }).ToList()
+            };
+        }
     }
 }

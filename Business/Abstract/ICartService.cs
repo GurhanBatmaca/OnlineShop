@@ -7,5 +7,6 @@ namespace Business.Abstract
     public interface ICartService
     {
         Task CreateAsync(Cart cart);
+        Task<CartViewModel?> GetCartByUserId(string userId);
     }
 }
