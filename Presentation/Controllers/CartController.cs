@@ -25,6 +25,13 @@ namespace Presentation.Controllers
             var cart = await _cartService!.GetCartByUserId(userId!);
             return View(cart);
         }
+
+        public async Task<IActionResult> AddToCart(int productId,int quantity)
+        {
+            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+            await _cartService!.AddToCartAsync(userId!,productId,quantity);
+            return RedirectToAction("Index");
+        }
     }
 
 }

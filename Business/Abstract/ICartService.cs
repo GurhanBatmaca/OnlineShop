@@ -8,5 +8,6 @@ namespace Business.Abstract
     {
         Task CreateAsync(Cart cart);
         Task<CartViewModel?> GetCartByUserId(string userId);
+        Task AddToCartAsync(string userId,int productId,int quantity);
     }
 }

@@ -19,6 +19,12 @@ namespace Business.Concrete
             _configuration = configuration;
         }
 
+        public async Task AddToCartAsync(string userId, int productId, int quantity)
+        {
+            await _unitOfWork!.Carts.AddToCartAsync(userId,productId,quantity);
+        }
+
+
         public async Task CreateAsync(Cart cart)
         {
             await _unitOfWork!.Carts.CreateAsync(cart);
