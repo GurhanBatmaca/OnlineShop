@@ -32,6 +32,17 @@ namespace Presentation.Controllers
             await _cartService!.AddToCartAsync(userId!,productId,quantity);
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<JsonResult> IncreaseCartItem(int productId)
+        {
+            return new JsonResult(new {productId=productId});
+        }
+        [HttpPost]
+        public async Task<JsonResult> DecreaseCartItem(int productId)
+        {
+            return new JsonResult(new {productId=productId});
+        }
     }
 
 }
