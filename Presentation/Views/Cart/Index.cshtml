@@ -3,25 +3,29 @@
 @{
     ViewData["Title"] = "Sepetim";
 }
-
 @section Css 
 {
     <link rel="stylesheet" href="~/css/summary.css">
 }
 
-@if(Model.TotalItem() == 0)
-{
-    <p>Sepet boş</p>
-}
-else
-{
-    <div class=" mt-5 mb-5">
-        <div class="d-flex justify-content-center row">
-            <div class="col-md-10">
-                <div class="p-2">
-                    <h4>Sepetim</h4>
-                    
+<div>
+    <div class="">
+
+        <h1 class="h4 mt-5">Sepetim</h1>
+
+        @if(Model.TotalItem() == 0)
+        {
+            <div class="">
+                <h5 class="text-center py-3">Sepetinizde ürün yok</h5>
+                <div class="d-flex">
+                    <h6>Ürün eklemek için</h6>
+                    <a href="/urunler" class="btn-btnprimary"><i class="fa-solid fa-cart-plus"></i></a>
                 </div>
+                
+            </div>
+        }
+            else
+            {
                 @foreach(var item in @Model.CartItems)
                 {
                     <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
@@ -53,14 +57,72 @@ else
 
                     </div>
                 }
-                
+            
                 <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><h3 id="total-price-box" class="">@Model.TotalPrice()</h3><button class="btn btn-outline-warning btn-sm ml-2" type="button">Apply</button></div>
                 <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay</button></div>
-            </div>
+            }
+            
         </div>
+</div>
+
+
+@* <div class="mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        
+        <div class="col-md-10">
+
+            <h1 class="h4 p-2">Sepetim</h1>
+
+            @if(Model.TotalItem() == 0)
+            {
+                <div class="row">
+                    <h5 class="text-center">Sepetinizde ürün bulunmuyor</h5>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+            }
+            else
+            {
+                @foreach(var item in @Model.CartItems)
+                {
+                    <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
+
+                        <div class="mr-1"><img class="rounded" src="~/images/@item.ImageUrl" width="70"></div>
+
+                        <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold product-name">@item.Name</span>               
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center qty">
+                            <button id="btnDecrease-@item.ProductId" onclick="decreaseQuantity(@item.ProductId)" class="btn @(item.Quantity >1 ? "" : "disabled")"><i class="fa fa-minus text-danger"></i></button>
+
+                            <h5 id="quantityBox-@item.ProductId" class="text-grey mt-1 mr-1 ml-1">@item.Quantity</h5>
+
+                            <button id="btnIncrease-@item.ProductId" onclick="increaseQuantity(@item.ProductId)" class="btn"><i class="fa fa-plus text-success"></i></button>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <h6 class="text-grey">@item.Price.ToString("c")/</h6>
+                            <h5 id="priceBox-@item.ProductId" class="text-grey"> @(item.Price * item.Quantity)</h5>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <form asp-controller="Cart" asp-action="DeleteFromCart">
+                                <input type="hidden" name="productId" value="@item.ProductId">
+                                <button class="btn" type="submit"><i class="fa fa-trash mb-1 text-danger"></i></button>
+                            </form>
+                        </div>
+
+                    </div>
+                }
+            
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><h3 id="total-price-box" class="">@Model.TotalPrice()</h3><button class="btn btn-outline-warning btn-sm ml-2" type="button">Apply</button></div>
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay</button></div>
+            }
+            
+        </div>
+        
     </div>
-    
-}
+</div>
+     *@
 
 <script>
 
