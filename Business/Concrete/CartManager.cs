@@ -35,6 +35,10 @@ namespace Business.Concrete
             return await _unitOfWork!.Carts.DecreaseCartItemQuantity(userId,productId);
         }
 
+        public async Task DeleteFromCart(string userId, int productId)
+        {
+            await _unitOfWork!.Carts.DeleteFromCart(userId,productId);
+        }
 
         public async Task<CartViewModel?> GetCartByUserId(string userId)
         {

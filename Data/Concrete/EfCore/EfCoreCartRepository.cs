@@ -56,6 +56,15 @@ namespace Data.Concrete.EfCore
             return cart.CartItems[index].Quantity;
         }
 
+        public async Task DeleteFromCart(string userId, int productId)
+        {
+            var cart = Context!.Carts.FirstOrDefault(e=>e.UserId == userId);
+            var item = Context.CartItems.FirstOrDefault(e=>e.ProductId == productId && e.CartId == cart!.Id);
+            Context.CartItems.Remove(item!);
+            await Context.SaveChangesAsync();
+        }
+
+
         public async Task<Cart?> GetCartByUserId(string userId)
         {
             return await Context!.Carts

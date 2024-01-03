@@ -55,6 +55,13 @@ namespace Presentation.Controllers
 
             return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
         }
+
+        public async Task<IActionResult> DeleteFromCart(int productId)
+        {
+            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+            await _cartService!.DeleteFromCart(userId!,productId);
+            return RedirectToAction("Index");
+        }
     }
 
 }
