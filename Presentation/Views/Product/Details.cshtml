@@ -30,7 +30,8 @@
             
                 }
             </div>           
-            <form class="d-flex mt-auto details-form">
+            <form asp-controller="Cart" asp-action="AddToCart" class="d-flex mt-auto details-form">
+                <input type="hidden" name="productId" value="@Model.Product.Id">
                 <div class="me-1">
                     <input type="number" class="form-control details-input" name="quantity" value="1" min="1" step="1">
                 </div>
