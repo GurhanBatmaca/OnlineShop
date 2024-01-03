@@ -37,6 +37,24 @@ namespace Data.Concrete.EfCore
             await Context.SaveChangesAsync();
         }
 
+        public async Task<int> DecreaseCartItemQuantity(string userId, int productId)
+        {
+            var cart = await Context!.Carts
+                                .Include(e=>e.CartItems!)
+                                .ThenInclude(e=>e.Product)
+                                .FirstOrDefaultAsync(e=>e.UserId==userId);
+
+            var index = cart!.CartItems!.FindIndex(e=>e.ProductId == productId);
+
+            if(cart.CartItems[index].Quantity > 1)
+            {
+                cart.CartItems[index].Quantity -= 1;
+            }            
+
+            await Context.SaveChangesAsync();
+
+            return cart.CartItems[index].Quantity;
+        }
 
         public async Task<Cart?> GetCartByUserId(string userId)
         {
@@ -46,5 +64,20 @@ namespace Data.Concrete.EfCore
                                         .FirstOrDefaultAsync(e=>e.UserId == userId);
         }
 
+        public async Task<int> IncreaseCartItemQuantity(string userId, int productId)
+        {
+            var cart = await Context!.Carts
+                                .Include(e=>e.CartItems!)
+                                .ThenInclude(e=>e.Product)
+                                .FirstOrDefaultAsync(e=>e.UserId==userId);
+
+            var index = cart!.CartItems!.FindIndex(e=>e.ProductId == productId);
+
+            cart.CartItems[index].Quantity += 1;
+
+            await Context.SaveChangesAsync();
+
+            return cart.CartItems[index].Quantity;
+        }
     }
 }

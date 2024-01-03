@@ -30,13 +30,19 @@ namespace Business.Concrete
             await _unitOfWork!.Carts.CreateAsync(cart);
         }
 
+        public async Task<int> DecreaseCartItemQuantity(string userId, int productId)
+        {
+            return await _unitOfWork!.Carts.DecreaseCartItemQuantity(userId,productId);
+        }
+
+
         public async Task<CartViewModel?> GetCartByUserId(string userId)
         {
             var cart = await _unitOfWork!.Carts.GetCartByUserId(userId);
 
             CartViewModel model = new CartViewModel
             {
-                 Id = cart!.Id,
+                Id = cart!.Id,
                 UserId = cart.UserId,
                 CartItems = cart.CartItems!.Select(e=> new CartItemViewModel
                 {
@@ -52,5 +58,11 @@ namespace Business.Concrete
 
             return model;
         }
+
+        public async Task<int> IncreaseCartItemQuantity(string userId, int productId)
+        {
+            return await _unitOfWork!.Carts.IncreaseCartItemQuantity(userId,productId);
+        }
+
     }
 }

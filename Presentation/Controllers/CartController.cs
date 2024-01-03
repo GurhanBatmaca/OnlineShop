@@ -36,12 +36,24 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<JsonResult> IncreaseCartItem(int productId)
         {
-            return new JsonResult(new {productId=productId});
+            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+            var quantity = await _cartService!.IncreaseCartItemQuantity(userId!,productId);
+            var cart = await _cartService!.GetCartByUserId(userId!);
+            var cartTotalPrice = cart!.TotalPrice();
+            var itemPrice = cart?.CartItems?.Find(e=>e.ProductId == productId)!.Price;
+
+            return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
         }
         [HttpPost]
         public async Task<JsonResult> DecreaseCartItem(int productId)
         {
-            return new JsonResult(new {productId=productId});
+            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+            var quantity = await _cartService!.DecreaseCartItemQuantity(userId!,productId);
+            var cart = await _cartService!.GetCartByUserId(userId!);
+            var cartTotalPrice = cart!.TotalPrice();
+            var itemPrice = cart?.CartItems?.Find(e=>e.ProductId == productId)!.Price;
+
+            return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
         }
     }
 
