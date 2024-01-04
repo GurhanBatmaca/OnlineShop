@@ -107,6 +107,14 @@ app.MapControllerRoute
     defaults: new { controller="Cart", action="Index" }
 );
 
+// Admin
+app.MapControllerRoute
+(
+    name: "adminindex",
+    pattern: "admin/liste",
+    defaults: new { controller="Admin", action="Index" }
+);
+
 // Auth
 app.MapControllerRoute
 (
