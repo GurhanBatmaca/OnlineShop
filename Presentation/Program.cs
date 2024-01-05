@@ -111,7 +111,7 @@ app.MapControllerRoute
 app.MapControllerRoute
 (
     name: "adminindex",
-    pattern: "admin/liste",
+    pattern: "admin/anasayfa",
     defaults: new { controller="Admin", action="Index" }
 );
 
