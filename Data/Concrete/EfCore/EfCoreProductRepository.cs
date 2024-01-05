@@ -12,6 +12,16 @@ namespace Data.Concrete.EfCore
 
         protected ShopContext? Context => _context as ShopContext;
 
+        public async Task<List<Product>> GetAllProductsAsync(int page, int pageSize)
+        {
+            return await Context!.Products.Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<int> GetAllProductsCountAsync()
+        {
+            return await Context!.Products.CountAsync();
+        }
+
         public async Task<List<Product>> GetHomePageProducts(int page,int pageSize)
         {
             var products = Context!.Products

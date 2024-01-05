@@ -63,9 +63,9 @@ namespace Presentation.Controllers
             return View(model);
         }
     
-        public async Task<IActionResult> ProductList()
+        public async Task<IActionResult> ProductList(int sayfa=1)
         {
-            var model = await _productService!.GetAllProductsAsync();
+            var model = await _productService!.GetAllProductsAsync(sayfa);
             return View(model);
         }
     

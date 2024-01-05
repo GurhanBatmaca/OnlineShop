@@ -7,7 +7,7 @@ namespace Business.Abstract
     {
         string? Message { get; set; }
 
-        Task<ProductListViewModel> GetAllProductsAsync();
+        Task<ProductListViewModel> GetAllProductsAsync(int page);
         Task<ProductListViewModel> GetHomePageProducts(int page);
         Task<ProductListViewModel> GetProductsByCategory(string category,int page);
         Task<ProductDetailsModel?> GetProductDetails(string url);

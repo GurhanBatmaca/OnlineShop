@@ -71,14 +71,22 @@ namespace Business.Concrete
             return true;
         }
 
-        public async Task<ProductListViewModel> GetAllProductsAsync()
+        public async Task<ProductListViewModel> GetAllProductsAsync(int page)
         {
-            var products = await _unitOfWork!.Products.GetAllAsync();
-
+            var pageSize = Int32.Parse(_configuration["PageSize"]!);
+            var products = await _unitOfWork!.Products.GetAllProductsAsync(page,pageSize);
             var productModels = products.Select(e=> _mapper.Map<ProductViewModel>(e));
+            var productsCount = await _unitOfWork.Products.GetAllProductsCountAsync();
+
             return new ProductListViewModel
             {
                 Products = productModels.ToList(),
+                PageInfo = new PageInfoModel {
+                    TotalItems = productsCount,
+                    ItemPerPage = pageSize,
+                    CurrentPage = page,
+                    PaginationType = "AdminProductList"
+                }
             };
         }
 

@@ -11,5 +11,7 @@ namespace Data.Abstract
         Task<Product?> GetProductDetails(string url);
         Task<List<Product>> GetSearchResult(string query,int page,int pageSize);
         Task<int> GetSearchResultCount(string query);
+        Task<List<Product>> GetAllProductsAsync(int page,int pageSize);
+        Task<int> GetAllProductsCountAsync();
     }
 }

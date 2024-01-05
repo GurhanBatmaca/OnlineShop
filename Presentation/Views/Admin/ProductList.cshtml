@@ -13,7 +13,9 @@
 
     @if(@Model.Products.Count == 0)
     {
-
+        <div class="col-12 my-3">
+            <h5>Henüz hiç ürün eklenmedi</h5>
+        </div>
     }
     else
     {
@@ -27,32 +29,37 @@
         </div>
         <hr>
        
-            @foreach(var product in @Model.Products)
-            {
-                <div class="row mb-4">
-                    <div class="col-2 d-flex justify-content-center align-items-center"><img src="~/images/@product.ImageUrl" alt="product-image" width="50" height="50"></div>
-                    <div class="col-2 d-flex align-items-center">@product.Name</div>
-                    <div class="col-2 d-flex justify-content-center align-items-center">@product.Price</div>
-                    <div class="col-2 d-flex justify-content-center align-items-center">@product.StockQuantity</div>
-                    <div class="col-2 d-flex justify-content-center align-items-center">
-                        @if(product.IsHome)
-                        {
-                            <i class="fa-solid fa-check text-success"></i>
-                        }
-                        else
-                        {
-                            <i class="fa-solid fa-xmark text-danger"></i>
-                        }
-                    </div>
-                    <div class="col-2 d-flex justify-content-center align-items-center gap-2">
-                        <a class="text-success" href=""><i class="fa-solid fa-pencil"></i></a>
-                        <i class="fa-solid fa-grip-lines-vertical"></i>
-                        <a class="text-danger" href=""><i class="fa-solid fa-trash-can"></i></a>
-                    </div>
+        @foreach(var product in @Model.Products)
+        {
+            <div class="row mb-4">
+                <div class="col-2 d-flex justify-content-center align-items-center"><img src="~/images/@product.ImageUrl" alt="product-image" width="50" height="50"></div>
+                <div class="col-2 d-flex align-items-center">@product.Name</div>
+                <div class="col-2 d-flex justify-content-center align-items-center">@product.Price</div>
+                <div class="col-2 d-flex justify-content-center align-items-center">@product.StockQuantity</div>
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                    @if(product.IsHome)
+                    {
+                        <i class="fa-solid fa-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-xmark text-danger"></i>
+                    }
                 </div>
-            }
-        
-        
+                <div class="col-2 d-flex justify-content-center align-items-center gap-2">
+                    <a class="text-success" href=""><i class="fa-solid fa-pencil"></i></a>
+                    <i class="fa-solid fa-grip-lines-vertical"></i>
+                    <a class="text-danger" href=""><i class="fa-solid fa-trash-can"></i></a>
+                </div>
+            </div>
+        }
+               
     }
 </div>
+
+@if(@Model!.PageInfo!.TotalPages() > 1)
+{
+    @await Html.PartialAsync("_pagination",@Model.PageInfo)
+}
+
 
