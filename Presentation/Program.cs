@@ -115,6 +115,13 @@ app.MapControllerRoute
     defaults: new { controller="Admin", action="Index" }
 );
 
+app.MapControllerRoute
+(
+    name: "adminaddproduct",
+    pattern: "admin/urunekle",
+    defaults: new { controller="Admin", action="AddProduct" }
+);
+
 // Auth
 app.MapControllerRoute
 (
