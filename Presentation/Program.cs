@@ -117,6 +117,13 @@ app.MapControllerRoute
 
 app.MapControllerRoute
 (
+    name: "adminproductlist",
+    pattern: "admin/urunlistesi",
+    defaults: new { controller="Admin", action="ProductList" }
+);
+
+app.MapControllerRoute
+(
     name: "adminaddproduct",
     pattern: "admin/urunekle",
     defaults: new { controller="Admin", action="AddProduct" }

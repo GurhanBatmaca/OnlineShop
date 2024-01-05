@@ -6,6 +6,8 @@ namespace Business.Abstract
     public interface IProductService
     {
         string? Message { get; set; }
+
+        Task<ProductListViewModel> GetAllProductsAsync();
         Task<ProductListViewModel> GetHomePageProducts(int page);
         Task<ProductListViewModel> GetProductsByCategory(string category,int page);
         Task<ProductDetailsModel?> GetProductDetails(string url);

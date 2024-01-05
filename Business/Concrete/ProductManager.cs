@@ -71,6 +71,16 @@ namespace Business.Concrete
             return true;
         }
 
+        public async Task<ProductListViewModel> GetAllProductsAsync()
+        {
+            var products = await _unitOfWork!.Products.GetAllAsync();
+
+            var productModels = products.Select(e=> _mapper.Map<ProductViewModel>(e));
+            return new ProductListViewModel
+            {
+                Products = productModels.ToList(),
+            };
+        }
 
         public async Task<ProductListViewModel> GetHomePageProducts(int page)
         {

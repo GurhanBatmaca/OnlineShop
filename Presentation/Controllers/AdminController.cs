@@ -23,7 +23,6 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> AddProduct()
         {
             var categoryListModel = await _categoryService!.GetAllAsync();
@@ -32,7 +31,6 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> AddProduct(ProductModel model,int[] categoriesIds)
         {
             var categoryListModel = await _categoryService!.GetAllAsync();
@@ -64,5 +62,12 @@ namespace Presentation.Controllers
             });
             return View(model);
         }
+    
+        public async Task<IActionResult> ProductList()
+        {
+            var model = await _productService!.GetAllProductsAsync();
+            return View(model);
+        }
+    
     }
 }
