@@ -1,6 +1,7 @@
 using Business.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Extentions;
 using Shared.Models;
 
 namespace Presentation.Controllers
@@ -10,9 +11,11 @@ namespace Presentation.Controllers
     public class AdminController: Controller
     {
         private readonly ICategoryService? _categoryService;
-        public AdminController(ICategoryService? categoryService)
+        private readonly IProductService? _productService;
+        public AdminController(ICategoryService? categoryService,IProductService? productService)
         {
             _categoryService = categoryService;
+            _productService = productService;
         }
         public async Task<IActionResult> Index()
         {
@@ -23,18 +26,43 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> AddProduct()
         {
+            var categoryListModel = await _categoryService!.GetAllAsync();
+            ViewBag.Categories = categoryListModel.Categories;
             return View();
         }
 
         [HttpPost]
 
-        public async Task<IActionResult> AddProduct(ProductModel model)
+        public async Task<IActionResult> AddProduct(ProductModel model,int[] categoriesIds)
         {
+            var categoryListModel = await _categoryService!.GetAllAsync();
+            ViewBag.Categories = categoryListModel.Categories;
+
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
-            return View();
+            if(await _productService!.CreateAsync(model,categoriesIds))
+            {
+          
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Başarılı",
+                    Message = $"{_productService.Message}",
+                    AlertType = "success"
+                });
+
+                return RedirectToAction("Index");
+
+            }
+
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_productService.Message}",
+                AlertType = "danger"
+            });
+            return View(model);
         }
     }
 }

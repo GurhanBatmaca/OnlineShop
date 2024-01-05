@@ -1,7 +1,9 @@
 using AutoMapper;
 using Business.Abstract;
 using Data.Abstract;
+using Entity;
 using Microsoft.Extensions.Configuration;
+using Shared.Helpers;
 using Shared.Models;
 using Shared.ViewModels;
 
@@ -19,6 +21,57 @@ namespace Business.Concrete
             _mapper = mapper;
             _configuration = configuration;
         }
+
+        public string? Message { get ; set ; }
+
+        public async Task<bool> CreateAsync(ProductModel model, int[] categoriesIds)
+        {
+            if(categoriesIds.Length <1 )
+            {
+                Message = "Lütfen en az bir kategori ekleyin";
+                return false;
+            }
+            
+            var product = new Product
+            {
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Url = UrlGenerator.Create(model.Name!),
+                IsApproved = model.IsApproved,
+                IsHome = model.IsHome,
+                StockQuantity = model.StockQuantity,
+                ProductCategories = categoriesIds!.Select(pc => new ProductCategory{
+                    ProductId = model.ProductId,
+                    CategoryId = pc
+                }).ToList()
+            };
+
+            if(model!.Image == null)
+            {
+                product.ImageUrl = "noContent.jpg";
+            }
+            else
+            {
+                var extention = Path.GetExtension(model!.Image!.FileName);
+                var randomName = string.Format($"{Guid.NewGuid()}{extention}");
+                var path = Path.Combine(Directory.GetCurrentDirectory(),"..\\Presentation\\wwwroot\\images", randomName);
+
+                using (var stream = new FileStream(path,FileMode.Create))
+                {
+                    await model!.Image.CopyToAsync(stream);
+                }
+                
+                product.ImageUrl = randomName;           
+            } 
+            
+            await _unitOfWork!.Products.CreateAsync(product);
+            Message = "Ürün eklendi";
+
+            return true;
+        }
+
+
         public async Task<ProductListViewModel> GetHomePageProducts(int page)
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);

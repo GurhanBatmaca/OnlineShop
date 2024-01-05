@@ -5,9 +5,9 @@
     ViewData["Title"] = "Admin/Ürün ekle";
 }
 
-<div class="row">
+<div class="row my-3">
     <div class="col-12">
-        <h1 class="h3">Ürün Ekleme</h1>
+        <h1 class="h3">Ürün Ekle</h1>
         <hr>
     </div>
 </div>
@@ -27,7 +27,7 @@
                 <div class="form-group row mb-3">
                     <label asp-for="Price" class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
-                        <input class="form-control" asp-for="Price">
+                        <input class="form-control" asp-for="Price" type="number" min="1">
                         <span class="text-danger" asp-validation-for="Price"></span>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="form-group row mb-3">
                     <label asp-for="StockQuantity" class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
-                        <input class="form-control" asp-for="StockQuantity" type="number" min="0" value="0">
+                        <input class="form-control" asp-for="StockQuantity" type="number" min="1">
                         <span class="text-danger" asp-validation-for="StockQuantity"></span>
                     </div>
                 </div>               
@@ -49,7 +49,7 @@
                 <div class="form-group row mb-3">
                     <label asp-for="Weight" class="col-sm-2 col-form-label"></label>
                     <div class="col-sm-10">
-                        <input class="form-control" asp-for="Weight" type="number" min="0" value="0">
+                        <input class="form-control" asp-for="Weight" type="number" min="0.1">
                         <span class="text-danger" asp-validation-for="Weight"></span>
                     </div>
                 </div> 
@@ -75,27 +75,22 @@
                     </div>
                 </div>
 
-                @* <hr>
+                <hr>
                 <h6><span class="border-bottom">Kategori Ekle+</span></h6>
                 <div class="">
-                    @foreach (var item in (List<Category>)ViewBag.Categories)
+                    @foreach (var item in (List<CategoryViewModel>)ViewBag.Categories)
                     {
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input"
-                            name="categoriesIds" value="@item.CategoryId" id="category_@item.CategoryId">
-                            <label class="form-check-label" for="category_@(item.CategoryId)">@item.Name</label>
+                            name="categoriesIds" value="@item.Id" id="category_@item.Id">
+                            <label class="form-check-label" for="category_@(item.Id)">@item.Name</label>
                         </div>
                     }
-                </div> *@
-
-
-
-
-
+                </div>
             </div>
         </div>
 
-        <div class="form-group row mb-2">
+        <div class="form-group row my-2">
             <div class="col-sm-10 ">
                 <button type="submit" class="btn btn-primary">Ürün Ekle</button>
             </div>

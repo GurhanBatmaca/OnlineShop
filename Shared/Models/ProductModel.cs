@@ -24,7 +24,7 @@ namespace Shared.Models
         public string? Description { get; set; }
 
         [Required(ErrorMessage ="Ağırlık zorunlur")]
-        [Display(Name = "Ağırlık")]
+        [Display(Name = "Ağırlık (gr)")]
         [Range(0.1,99999,ErrorMessage = "Ağırlık 0.1-99999 arsında olmalıdır")]
         public double Weight { get; set; }
 
