@@ -14,5 +14,7 @@ namespace Business.Abstract
         Task<ProductListViewModel> GetSearchResult(string query, int page);
         Task<bool> CreateAsync(ProductModel model,int[] categoriesIds);
         Task<bool> DeleteProduct(int id);
+        Task<ProductModel?> GetProductForUpdate(int id);
+        Task<bool> UpdateProductAsync(ProductModel model,int[] categoriesIds);
     }
 }

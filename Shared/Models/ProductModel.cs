@@ -6,7 +6,7 @@ namespace Shared.Models
 {
     public class ProductModel
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage ="Ürün adı zorunlur")]
         [Display(Name = "Ürün adı")]
@@ -43,6 +43,8 @@ namespace Shared.Models
         [DataType(DataType.Upload)]
         public IFormFile? Image { get; set; }
         public string? ImageUrl { get; set; }
+        public string? Url { get; set; }
+        public List<CategoryViewModel>? SelectedCategories { get; set; }
 
 
     }

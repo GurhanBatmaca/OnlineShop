@@ -42,7 +42,7 @@ namespace Business.Concrete
                 IsHome = model.IsHome,
                 StockQuantity = model.StockQuantity,
                 ProductCategories = categoriesIds!.Select(pc => new ProductCategory{
-                    ProductId = model.ProductId,
+                    ProductId = model.Id,
                     CategoryId = pc
                 }).ToList()
             };
@@ -136,6 +136,26 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<ProductModel?> GetProductForUpdate(int id)
+        {
+            var product = await _unitOfWork!.Products.GetProductForUpdate(id);
+            var model = new ProductModel
+            {
+                Id = product!.Id,
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                Url = product.Url,
+                StockQuantity = product.StockQuantity,
+                Weight = product.Weight,
+                IsApproved = product.IsApproved,
+                IsHome = product.IsHome,
+                SelectedCategories = product.ProductCategories!.Select(e=> _mapper.Map<CategoryViewModel>(e.Category)).ToList()
+            };
+
+            return model;
+        }
 
         public async Task<ProductListViewModel> GetProductsByCategory(string category, int page)
         {
@@ -177,5 +197,39 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<bool> UpdateProductAsync(ProductModel model, int[] categoriesIds)
+        {
+            if(categoriesIds.Length == 0)
+            {
+                Message = "Lütfen en az bir kategori seçin";
+                return false;
+            }
+
+            if(model!.Image is not null)
+            {
+                var extention = Path.GetExtension(model!.Image!.FileName);
+                var randomName = string.Format($"{Guid.NewGuid()}{extention}");
+                var path = Path.Combine(Directory.GetCurrentDirectory(),"..\\Presentation\\wwwroot\\images", randomName);
+
+                using (var stream = new FileStream(path,FileMode.Create))
+                {
+                    await model!.Image.CopyToAsync(stream);
+                }
+
+                if(model!.ImageUrl != "noContent.jpg")
+                {
+                    var exPath = Path.Combine(Directory.GetCurrentDirectory(),"..\\Presentation\\wwwroot\\images",model!.ImageUrl!);
+                    System.IO.File.Delete(exPath);
+
+                    model.ImageUrl = randomName;
+                }
+                
+                model.ImageUrl = randomName;           
+            } 
+
+            await _unitOfWork!.Products.UpdateProductAsync(model,categoriesIds);
+            Message = "Ürün güncellendi";
+            return true;
+        }
     }
 }

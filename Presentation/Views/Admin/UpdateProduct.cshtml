@@ -1,0 +1,110 @@
+@model ProductModel
+@{
+    Layout = "_Layout-Admin";
+    ViewData["Title"] = "Admin/Ürün güncelle";
+}
+<div class="row my-3">
+    <div class="col-12">
+        <h1 class="h3">Ürün Güncelle</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <form asp-controller="Admin" asp-action="UpdateProduct" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="Id">
+        <div class="row">
+            <div class="col-md-8 border-bottom mb-2">
+                <div class="form-group row mb-3">
+                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Name">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Price" type="number" min="1">
+                        <span class="text-danger" asp-validation-for="Price"></span>
+                    </div>
+                </div>
+            
+                <div class="form-group row mb-3">
+                    <label asp-for="StockQuantity" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="StockQuantity" type="number" min="1">
+                        <span class="text-danger" asp-validation-for="StockQuantity"></span>
+                    </div>
+                </div>               
+                <div class="form-group row mb-3">
+                    <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <textarea id="editor" class="form-control" asp-for="Description"></textarea>
+                        <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Weight" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Weight" type="number" min="0.1">
+                        <span class="text-danger" asp-validation-for="Weight"></span>
+                    </div>
+                </div> 
+                <div class="form-group row mb-3">
+                    <label asp-for="Image" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                    <input asp-for="Image" class="form-control mb-2" >
+                    <span class="text-danger mb-2" asp-validation-for="Image"></span>
+                    <img src="~/images/@Model.ImageUrl" width="50" height="50" alt="">
+                    <input type="hidden" asp-for="ImageUrl">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <div class="form-check">
+                        <input asp-for="IsApproved" type="checkbox" class="form-check-input">
+                        <label asp-for="IsApproved" class="form-check-label"></label>
+                        <span class="text-danger" asp-validation-for="IsApproved"></span>
+                    </div>
+                    <div class="form-check">
+                            <input asp-for="IsHome" type="checkbox" class="form-check-input">
+                            <label asp-for="IsHome" class="form-check-label"></label>
+                            <span class="text-danger" asp-validation-for="IsHome"></span>
+                    </div>
+                </div>
+
+                <hr>
+                <h6><span class="border-bottom">Kategori Güncelle+</span></h6>
+                @for(var i=0; i< @Model!.SelectedCategories!.Count; i++)
+                {
+                    <input type="hidden" asp-for="SelectedCategories![i]!.Id!">
+                    <input type="hidden" asp-for="SelectedCategories![i]!.Name!">
+                }
+                <div class="">
+                    @foreach (var item in (List<CategoryViewModel>)ViewBag.Categories)
+                    {
+                        <div class="form-check">
+                            <input @(Model.SelectedCategories.Any(e=> e.Id == item.Id)?"checked":"") type="checkbox" class="form-check-input"
+                            name="categoriesIds" value="@item.Id" id="category_@item.Id">
+                            <label class="form-check-label" for="category_@(item.Id)">@item.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div class="col-sm-10 ">
+                <button type="submit" class="btn btn-primary">Ürünü güncelle</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+}

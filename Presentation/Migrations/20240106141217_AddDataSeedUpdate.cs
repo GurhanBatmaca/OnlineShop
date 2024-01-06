@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Presentation.Migrations
 {
     /// <inheritdoc />
-    public partial class InitinalCreate : Migration
+    public partial class AddDataSeedUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

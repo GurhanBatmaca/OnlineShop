@@ -1,6 +1,8 @@
 using Data.Abstract;
 using Entity;
 using Microsoft.EntityFrameworkCore;
+using Shared.Helpers;
+using Shared.Models;
 
 namespace Data.Concrete.EfCore
 {
@@ -45,6 +47,13 @@ namespace Data.Concrete.EfCore
                                         .FirstOrDefaultAsync();
         }
 
+        public async Task<Product?> GetProductForUpdate(int id)
+        {
+            return await Context!.Products
+                                .Include(e=>e.ProductCategories!)
+                                .ThenInclude(e=>e.Category)
+                                .FirstOrDefaultAsync(e=>e.Id == id);
+        }
 
         public async Task<List<Product>> GetProdutsByCategory(string category, int page, int pageSize)
         {
@@ -102,6 +111,33 @@ namespace Data.Concrete.EfCore
 
             return await products.CountAsync();
         }
+
+        public async Task UpdateProductAsync(ProductModel product, int[] categoriesIds)
+        {
+            var entity = await Context!.Products
+                                        .Include(e=>e.ProductCategories!)
+                                        .ThenInclude(e=>e.Category)
+                                        .FirstOrDefaultAsync(e=>e.Id == product.Id);
+
+            entity!.Id = product.Id;
+            entity!.Name = product.Name;
+            entity.Price = product.Price;
+            entity.StockQuantity = product.StockQuantity;
+            entity.Url = UrlGenerator.Create(product.Name!);
+            entity.Description = product.Description;
+            entity.IsApproved = product.IsApproved;
+            entity.IsHome = product.IsHome;
+            entity.ImageUrl = product.ImageUrl;
+            entity.Weight = product.Weight;
+
+            entity.ProductCategories = categoriesIds.Select(catId=> new ProductCategory{
+                ProductId = entity.Id,
+                CategoryId = catId
+            }).ToList();
+
+            await Context.SaveChangesAsync();                            
+        }
+
     }
     
 }

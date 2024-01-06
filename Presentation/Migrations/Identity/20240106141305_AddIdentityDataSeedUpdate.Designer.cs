@@ -12,8 +12,8 @@ using Presentation.Identity;
 namespace Presentation.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231231124816_AddIdentity")]
-    partial class AddIdentity
+    [Migration("20240106141305_AddIdentityDataSeedUpdate")]
+    partial class AddIdentityDataSeedUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,4 +1,5 @@
 using Entity;
+using Shared.Models;
 
 namespace Data.Abstract
 {
@@ -13,5 +14,7 @@ namespace Data.Abstract
         Task<int> GetSearchResultCount(string query);
         Task<List<Product>> GetAllProductsAsync(int page,int pageSize);
         Task<int> GetAllProductsCountAsync();
+        Task<Product?> GetProductForUpdate(int id);
+        Task UpdateProductAsync(ProductModel product,int[] categoriesIds);
     }
 }
