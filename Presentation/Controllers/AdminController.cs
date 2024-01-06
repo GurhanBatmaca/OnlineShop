@@ -63,6 +63,37 @@ namespace Presentation.Controllers
             return View(model);
         }
     
+        public async Task<IActionResult> DeleteProduct(int? id)
+        {
+            if(id is null)
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Hata",
+                    Message = $"Eksik adres",
+                    AlertType = "danger"
+                });
+                return RedirectToAction("ProductList");
+            }
+            if(await _productService!.DeleteProduct((int)id))
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Başarılı",
+                    Message = $"{_productService.Message}",
+                    AlertType = "warning"
+                });
+                return RedirectToAction("ProductList");
+            }
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_productService.Message}",
+                AlertType = "danger"
+            });
+            return RedirectToAction("ProductList");
+        }
+        
         public async Task<IActionResult> ProductList(int sayfa=1)
         {
             var model = await _productService!.GetAllProductsAsync(sayfa);

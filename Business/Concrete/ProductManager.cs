@@ -71,6 +71,21 @@ namespace Business.Concrete
             return true;
         }
 
+        public async Task<bool> DeleteProduct(int id)
+        {
+            var product = await _unitOfWork!.Products.GetByIdAsync(id);
+            if(product is null)
+            {
+                Message = "Ürün bulunamadı";
+                return false;
+            }
+
+            await _unitOfWork.Products.DeleteAsync(product);
+            Message = "Ürün silindi";
+            return true;
+        }
+
+
         public async Task<ProductListViewModel> GetAllProductsAsync(int page)
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);

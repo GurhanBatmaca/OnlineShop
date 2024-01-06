@@ -129,6 +129,13 @@ app.MapControllerRoute
     defaults: new { controller="Admin", action="AddProduct" }
 );
 
+app.MapControllerRoute
+(
+    name: "admindeleteproduct",
+    pattern: "admin/urunsil/{id?}",
+    defaults: new { controller="Admin", action="DeleteProduct" }
+);
+
 // Auth
 app.MapControllerRoute
 (

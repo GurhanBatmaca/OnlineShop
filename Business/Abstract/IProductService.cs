@@ -13,5 +13,6 @@ namespace Business.Abstract
         Task<ProductDetailsModel?> GetProductDetails(string url);
         Task<ProductListViewModel> GetSearchResult(string query, int page);
         Task<bool> CreateAsync(ProductModel model,int[] categoriesIds);
+        Task<bool> DeleteProduct(int id);
     }
 }
