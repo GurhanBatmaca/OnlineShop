@@ -1,3 +1,5 @@
+using Business.Abstract;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Extentions;
 using Presentation.Identity.Abstract;
@@ -10,10 +12,12 @@ namespace Presentation.Controllers
     {
         private readonly ISignService _signService;
         private readonly IUserService _userService;
-        public AuthController(ISignService signService,IUserService userService)
+        private readonly ICartService? _cartService;
+        public AuthController(ISignService signService,IUserService userService,ICartService? cartService)
         {
             _signService = signService;
             _userService = userService;
+            _cartService = cartService;
         }
 
         [HttpGet]
@@ -116,6 +120,9 @@ namespace Presentation.Controllers
                     Message = $"{_userService.Message}",
                     AlertType = "success"
                 });
+
+                await _cartService!.CreateAsync(new Cart{UserId=userId});
+
                 return RedirectToAction("Login");
             }
 
