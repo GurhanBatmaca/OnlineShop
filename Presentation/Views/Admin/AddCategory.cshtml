@@ -1,0 +1,60 @@
+@model CategoryModel
+
+@{
+    Layout = "_Layout-Admin";
+    ViewData["Title"] = "Admin/Kategori ekle";
+}
+
+<div class="row my-3">
+    <div class="col-12">
+        <h1 class="h3">Kategori Ekle</h1>
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <form asp-controller="Admin" asp-action="AddCategory" method="post" >
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-8 border-bottom mb-2">
+                <div class="form-group row mb-3">
+                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Name">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+              
+   
+          
+            </div>
+            <div class="col-md-4">
+       
+
+                <hr>
+                <h6><span class="border-bottom">Mevcut kategoriler</span></h6>
+                <div class="">
+                    @foreach (var item in (List<CategoryViewModel>)ViewBag.Categories)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input"
+                            name="categoriesIds" value="@item.Id" id="category_@item.Id">
+                            <label class="form-check-label" for="category_@(item.Id)">@item.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row my-2">
+            <div class="col-sm-10 ">
+                <button type="submit" class="btn btn-primary">Kategori Ekle</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+}

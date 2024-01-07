@@ -143,6 +143,13 @@ app.MapControllerRoute
     defaults: new { controller="Admin", action="UpdateProduct" }
 );
 
+app.MapControllerRoute
+(
+    name: "adminaddcategory",
+    pattern: "admin/kategoriekle",
+    defaults: new { controller="Admin", action="AddCategory" }
+);
+
 // Auth
 app.MapControllerRoute
 (

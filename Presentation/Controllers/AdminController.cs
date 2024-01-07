@@ -150,5 +150,27 @@ namespace Presentation.Controllers
             });
             return View(model);
         }
+    
+        [HttpGet]
+        public async Task<IActionResult> AddCategory()
+        {
+            var categoryListModel = await _categoryService!.GetAllAsync();
+            ViewBag.Categories = categoryListModel.Categories;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(CategoryModel model)
+        {
+            var categoryListModel = await _categoryService!.GetAllAsync();
+            ViewBag.Categories = categoryListModel.Categories;
+            
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View();
+        }
+
     }
 }
