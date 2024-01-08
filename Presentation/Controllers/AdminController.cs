@@ -195,6 +195,66 @@ namespace Presentation.Controllers
             var model = await _categoryService!.GetAllAsync();
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateCategory(int? id)
+        {
+            if(id is null)
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Hata",
+                    Message = $"Adres hatası",
+                    AlertType = "danger"
+                });
+
+                return RedirectToAction("CategoryList");
+            }
+            var model = await _categoryService!.GetByIdAsync((int)id);
+            if(model is null)
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Hata",
+                    Message = $"Kategori bulunamadı",
+                    AlertType = "danger"
+                });
+
+                return RedirectToAction("CategoryList");
+            }
+            var categoryListModel = await _categoryService!.GetAllAsync();
+            ViewBag.Categories = categoryListModel.Categories;
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(CategoryModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var categoryListModel = await _categoryService!.GetAllAsync();
+            ViewBag.Categories = categoryListModel.Categories;
+            if(await _categoryService.UpdateAsync(model))
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Kategori güncellendi",
+                    Message = $"{_categoryService.Message}",
+                    AlertType = "success"
+                });
+
+                return RedirectToAction("CategoryList");
+            }
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_categoryService.Message}",
+                AlertType = "danger"
+            });
+            return View(model);
+        }
     
     }
 }

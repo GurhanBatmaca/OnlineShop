@@ -1,5 +1,6 @@
 using AutoMapper;
 using Entity;
+using Shared.Models;
 using Shared.ViewModels;
 
 namespace Shared.Mapper
@@ -10,6 +11,9 @@ namespace Shared.Mapper
         {
             CreateMap<Product,ProductViewModel>();
             CreateMap<Category,CategoryViewModel>();
+            CreateMap<Category,CategoryModel>();
+
+            CreateMap<CategoryModel,Category>();
         }
     }
 }

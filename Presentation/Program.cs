@@ -157,6 +157,13 @@ app.MapControllerRoute
     defaults: new { controller="Admin", action="CategoryList" }
 );
 
+app.MapControllerRoute
+(
+    name: "adminupdatecategory",
+    pattern: "admin/kategoriguncelle/{id?}",
+    defaults: new { controller="Admin", action="UpdateCategory" }
+);
+
 
 // Auth
 app.MapControllerRoute

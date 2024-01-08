@@ -60,5 +60,29 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<CategoryModel> GetByIdAsync(int id)
+        {
+            var category = await _unitOfWork!.Categories.GetByIdAsync(id);
+
+            return _mapper.Map<CategoryModel>(category);
+        }
+
+        public async Task<bool> UpdateAsync(CategoryModel model)
+        {
+            var categories = await _unitOfWork!.Categories.GetAllAsync();
+            foreach (var category in categories)
+            {
+                if(category.Name!.ToLower() == model.Name!.ToLower())
+                {
+                    Message = "Bu kategori adı mevcut.";
+                    return false;
+                }
+            }
+          
+            await _unitOfWork!.Categories.UpdateCategoryAsync(model);
+            Message = $"{model.Name} isimli kategori güncellendi.";
+            return true;
+        }
+
     }
 }
