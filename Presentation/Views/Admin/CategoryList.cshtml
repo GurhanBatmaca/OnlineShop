@@ -1,0 +1,44 @@
+@model CategoryListViewModel
+@{
+    Layout = "_Layout-Admin";
+    ViewData["Title"] = "Admin/Kategori listesi";
+}
+
+<div class="row">
+
+    <div class="col-12 my-3">
+        <h1 class="h3">Kategori Listesi</h1>
+        <hr>
+    </div>
+
+    @if(@Model!.Categories!.Count == 0)
+    {
+        <div class="col-12 my-3">
+            <h5>Henüz hiç kategori eklenmedi</h5>
+        </div>
+    }
+    else
+    {
+        <div class="row d-flex justify-content-center align-items-center mb-3">
+            <div class="col-md-8 row text-center">
+                <div class="col-4">Kategori</div>
+                <div class="col-4">Güncelle</div>
+                <div class="col-4">Sil</div>
+            </div>
+        </div>
+        <hr>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-8 row  text-center">
+                
+                @foreach(var category in Model.Categories)
+                {
+                    <div class="col-4">@category.Name</div>
+
+                    <div class="col-4"><a class="text-success" href="/admin/kategoriguncelle/@category.Id"><i class="fa-solid fa-pencil"></i></a></div>
+
+                    <div class="col-4"><a class="text-danger" href="/admin/kategorisil/@category.Id"><i class="fa-solid fa-trash-can"></i></a></div>
+                }
+            </div>
+        </div>
+    }
+</div>

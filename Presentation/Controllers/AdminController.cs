@@ -178,7 +178,7 @@ namespace Presentation.Controllers
                     AlertType = "success"
                 });
 
-                return Redirect("~/");
+                return RedirectToAction("CategoryList");
             }
 
             TempData.Put("infoMessage",new MessageModel
@@ -190,5 +190,11 @@ namespace Presentation.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> CategoryList()
+        {
+            var model = await _categoryService!.GetAllAsync();
+            return View(model);
+        }
+    
     }
 }

@@ -150,6 +150,14 @@ app.MapControllerRoute
     defaults: new { controller="Admin", action="AddCategory" }
 );
 
+app.MapControllerRoute
+(
+    name: "admincategorylist",
+    pattern: "admin/kategorilistesi",
+    defaults: new { controller="Admin", action="CategoryList" }
+);
+
+
 // Auth
 app.MapControllerRoute
 (
