@@ -256,5 +256,41 @@ namespace Presentation.Controllers
             return View(model);
         }
     
+    
+        public async Task<IActionResult> DeleteCategory(int? id)
+        {
+            if(id is null)
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Hata",
+                    Message = $"Adres hatası",
+                    AlertType = "danger"
+                });
+
+                return RedirectToAction("CategoryList");
+            }
+            
+            if(await _categoryService!.DeleteAsync((int) id))
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Kategori silindi",
+                    Message = $"{_categoryService.Message}",
+                    AlertType = "success"
+                });
+
+                return RedirectToAction("CategoryList");
+            }
+            
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_categoryService.Message}",
+                AlertType = "danger"
+            });
+
+            return RedirectToAction("CategoryList");
+        }
     }
 }

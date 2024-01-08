@@ -164,6 +164,13 @@ app.MapControllerRoute
     defaults: new { controller="Admin", action="UpdateCategory" }
 );
 
+app.MapControllerRoute
+(
+    name: "admindeletecategory",
+    pattern: "admin/kategorisil/{id?}",
+    defaults: new { controller="Admin", action="DeleteCategory" }
+);
+
 
 // Auth
 app.MapControllerRoute

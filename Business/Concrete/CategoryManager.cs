@@ -48,6 +48,17 @@ namespace Business.Concrete
             return true;
         }
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var entity = await _unitOfWork!.Categories.GetByIdAsync(id);
+            if(entity is null)
+            {
+                Message = "Kategori bulunamadı";
+            }
+            await _unitOfWork.Categories.DeleteAsync(entity!);
+            Message = $"{entity!.Name} isimli kategori silindi";
+            return true;
+        }
 
         public async Task<CategoryListViewModel> GetAllAsync()
         {

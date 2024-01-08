@@ -10,5 +10,6 @@ namespace Business.Abstract
         Task<bool> CreateAsync(CategoryModel model);
         Task<CategoryModel> GetByIdAsync(int id);
         Task<bool> UpdateAsync(CategoryModel model);
+        Task<bool> DeleteAsync(int id);
     }
 }
