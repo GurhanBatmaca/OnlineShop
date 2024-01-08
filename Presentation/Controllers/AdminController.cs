@@ -169,7 +169,25 @@ namespace Presentation.Controllers
             {
                 return View(model);
             }
-            return View();
+            if(await _categoryService.CreateAsync(model))
+            {
+                TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"Kategori eklendi",
+                    Message = $"{_categoryService.Message}",
+                    AlertType = "success"
+                });
+
+                return Redirect("~/");
+            }
+
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_categoryService.Message}",
+                AlertType = "danger"
+            });
+            return View(model);
         }
 
     }

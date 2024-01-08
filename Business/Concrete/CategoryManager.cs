@@ -1,7 +1,9 @@
 using AutoMapper;
 using Business.Abstract;
 using Data.Abstract;
+using Entity;
 using Microsoft.Extensions.Configuration;
+using Shared.Helpers;
 using Shared.Models;
 using Shared.ViewModels;
 
@@ -19,6 +21,33 @@ namespace Business.Concrete
             _mapper = mapper;
             _configuration = configuration;
         }
+
+        public string? Message { get ; set; }
+
+
+        public async Task<bool> CreateAsync(CategoryModel model)
+        {
+            var categories = await _unitOfWork!.Categories.GetAllAsync();
+            foreach (var category in categories)
+            {
+                if(category.Name!.ToLower() == model.Name!.ToLower())
+                {
+                    Message = "Bu kategori adı mevcut.";
+                    return false;
+                }
+            }
+            
+            var entity = new Category
+            {
+                Name = model.Name,
+                Url = UrlGenerator.Create(model.Name!)
+            };
+
+            await _unitOfWork.Categories.CreateAsync(entity);
+            Message = $"{entity.Name} kategorilere eklendi.";
+            return true;
+        }
+
 
         public async Task<CategoryListViewModel> GetAllAsync()
         {
