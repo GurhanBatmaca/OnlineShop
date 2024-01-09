@@ -14,7 +14,8 @@ namespace Business.Concrete
     {       
         public async void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity)
         {
-            var cart = JsonConvert.DeserializeObject<CartViewModel>(model.HttpContext!.Request.Cookies["CartCookie"]!)!;
+            var cartCookie = model.HttpContext!.Request.Cookies["CartCookie"];
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
            
             var index = cart!.CartItems!.FindIndex(i => i.ProductId == productViewModel.Id);
 
@@ -37,6 +38,15 @@ namespace Business.Concrete
             model.HttpContext!.Response.Cookies.Append("CartCookie", cartString, model.CookieOptions!);
         }
 
+        public void DeleteFromCart(CookieModel model, int productId)
+        {
+            var cartCookie = model.HttpContext!.Request.Cookies["CartCookie"];
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
+           
+            var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
+        }
+
+
         public CartViewModel GetCart(CookieModel model)
         {
             var cart = new CartViewModel();
@@ -50,7 +60,8 @@ namespace Business.Concrete
             }
             else
             {
-                cart = JsonConvert.DeserializeObject<CartViewModel>(model.HttpContext!.Request.Cookies["CartCookie"]!)!;
+                var cartCookie = model.HttpContext!.Request.Cookies["CartCookie"];
+                cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
             }
 
             return cart;
