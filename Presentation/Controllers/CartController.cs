@@ -1,4 +1,5 @@
 using Business.Abstract;
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Identity.Abstract;
 using Shared.Models;
@@ -32,6 +33,12 @@ namespace Presentation.Controllers
                 (
                     new CookieModel{HttpContext=_accessor!.HttpContext}
                 );
+
+                foreach (var item in nonLoggedInUserCart.CartItems!)
+                {
+                    var product = await _productService!.GetProductById(item.ProductId);
+                    item.Price = product!.Price;
+                }
                 
                 return View(nonLoggedInUserCart);
             } 
@@ -64,13 +71,29 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<JsonResult> IncreaseCartItem(int productId)
         {
-            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-            var quantity = await _cartService!.IncreaseCartItemQuantity(userId!,productId);
-            var cart = await _cartService!.GetCartByUserId(userId!);
-            var cartTotalPrice = cart!.TotalPrice();
-            var itemPrice = cart?.CartItems?.Find(e=>e.ProductId == productId)!.Price;
+            if(!User.Identity!.IsAuthenticated)
+            {
+                var nonLoggedInQuantity = _cookieService!.IncreaseCartItemQuantity(new CookieModel{HttpContext=_accessor!.HttpContext},productId);
+                var nonLoggedInUserCart = _cookieService!.GetCart
+                (
+                    new CookieModel{HttpContext=_accessor!.HttpContext}
+                );
+                var nonLoggedInUserCartItemPrice = nonLoggedInUserCart.CartItems!.Find(e=>e.ProductId == productId)!.Price;
+                var nonLoggedInUserCartTotalPrice = nonLoggedInUserCart.TotalPrice();
 
-            return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
+                return new JsonResult(new {quantity=nonLoggedInQuantity,itemPrice=nonLoggedInUserCartItemPrice,cartTotalPrice=nonLoggedInUserCartTotalPrice});
+            } 
+            else
+            {
+                var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+                var quantity = await _cartService!.IncreaseCartItemQuantity(userId!,productId);
+                var cart = await _cartService!.GetCartByUserId(userId!);
+                var cartTotalPrice = cart!.TotalPrice();
+                var itemPrice = cart?.CartItems?.Find(e=>e.ProductId == productId)!.Price;
+
+                return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
+            }  
+            
         }
         [HttpPost]
         public async Task<JsonResult> DecreaseCartItem(int productId)

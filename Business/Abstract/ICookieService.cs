@@ -9,5 +9,6 @@ namespace Business.Abstract
         CartViewModel GetCart(CookieModel model);
         void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity);
         void DeleteFromCart(CookieModel model,int productId);
+        int IncreaseCartItemQuantity(CookieModel model,int productId);
     }
 }

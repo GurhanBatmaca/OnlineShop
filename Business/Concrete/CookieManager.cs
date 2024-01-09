@@ -11,9 +11,16 @@ using Shared.ViewModels;
 namespace Business.Concrete
 {
     public class CookieManager: ICookieService
-    {       
-        public void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity)
+    {  
+
+        private readonly IProductService? _productService;
+        public CookieManager(IProductService? productService)
         {
+            _productService = productService;
+        }   
+        public async void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity)
+        {
+            var pro = await _productService!.GetProductById(1);
             var cartCookie = model.HttpContext!.Request.Cookies["CartCookie"];
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
            
@@ -24,7 +31,7 @@ namespace Business.Concrete
                 cart.CartItems.Add(new CartItemViewModel{
                     ProductId = productViewModel!.Id,
                     Name = productViewModel.Name,
-                    Price = productViewModel.Price,
+                    // Price = productViewModel.Price,
                     Quantity = quantity,
                     ImageUrl = productViewModel.ImageUrl
                 });
@@ -71,5 +78,18 @@ namespace Business.Concrete
             return cart;
         }
 
+        public int IncreaseCartItemQuantity(CookieModel model,int productId)
+        {
+            var cartCookie = model.HttpContext!.Request.Cookies["CartCookie"];
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
+
+            var index = cart!.CartItems!.FindIndex(e=>e.ProductId == productId);
+            cart.CartItems[index].Quantity += 1;
+
+            string cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext!.Response.Cookies.Append("CartCookie", cartString, model.CookieOptions!);
+
+            return cart.CartItems[index].Quantity;
+        }
     }
 }
