@@ -69,6 +69,8 @@ builder.Services.AddScoped<ICartService,CartManager>();
 builder.Services.AddScoped<ISignService,SignService>();
 builder.Services.AddScoped<IUserService,UserService>();
 
+builder.Services.AddScoped<ICookieService,CookieManager>();
+
 builder.Services.AddScoped<IEmailSender,SmtpEmailSender>( i => 
     new SmtpEmailSender(
         builder.Configuration["EmailSender:Host"]!,

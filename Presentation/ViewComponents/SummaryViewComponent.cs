@@ -1,6 +1,9 @@
 using Business.Abstract;
+using Business.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Identity.Abstract;
+using Shared.Models;
+using Shared.ViewModels;
 
 namespace Presentation.ViewComponents
 {
@@ -9,22 +12,31 @@ namespace Presentation.ViewComponents
         private readonly IHttpContextAccessor? _accessor;
         private readonly IUserService? _userService;
         private readonly ICartService? _cartService;
-        public SummaryViewComponent(IHttpContextAccessor? accessor,IUserService userService,ICartService? cartService)
+        private readonly ICookieService? _cookieService;
+
+        public SummaryViewComponent(IHttpContextAccessor? accessor,IUserService userService,ICartService? cartService,ICookieService? cookieService)
         {
             _accessor = accessor;
             _userService = userService;
             _cartService = cartService;
+            _cookieService = cookieService;
+
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
             if(!User.Identity!.IsAuthenticated)
             {
+                var nonLoggedInUserCart = _cookieService!.GetCart
+                (
+                    new CookieModel{HttpContext=_accessor!.HttpContext}
+                );
                 
-            }
+                return View(nonLoggedInUserCart);
+            } 
 
             var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-            var cart = await _cartService!.GetCartByUserId(userId!);
-            return View(cart);
+            var loggedInUserCart = await _cartService!.GetCartByUserId(userId!);
+            return View(loggedInUserCart);
         }
     }
 }
