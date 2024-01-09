@@ -88,7 +88,7 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                                
+                _cookieService!.DeleteFromCart(new CookieModel{HttpContext=_accessor!.HttpContext},productId);     
                 return RedirectToAction("Index");
             } 
             else

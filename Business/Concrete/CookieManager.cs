@@ -12,7 +12,7 @@ namespace Business.Concrete
 {
     public class CookieManager: ICookieService
     {       
-        public async void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity)
+        public void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity)
         {
             var cartCookie = model.HttpContext!.Request.Cookies["CartCookie"];
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
@@ -44,6 +44,10 @@ namespace Business.Concrete
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartCookie!)!;
            
             var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
+
+            cart.CartItems.Remove(cart.CartItems[index]);
+            string cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext!.Response.Cookies.Append("CartCookie", cartString, model.CookieOptions!);
         }
 
 
