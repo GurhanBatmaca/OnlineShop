@@ -14,6 +14,7 @@ namespace Shared.Mapper
             CreateMap<Category,CategoryModel>();
 
             CreateMap<CategoryModel,Category>();
+            CreateMap<ProductViewModel,Product>();
         }
     }
 }

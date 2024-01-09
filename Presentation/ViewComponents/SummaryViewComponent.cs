@@ -33,10 +33,13 @@ namespace Presentation.ViewComponents
                 
                 return View(nonLoggedInUserCart);
             } 
-
-            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-            var loggedInUserCart = await _cartService!.GetCartByUserId(userId!);
-            return View(loggedInUserCart);
+            else
+            {
+                var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+                var loggedInUserCart = await _cartService!.GetCartByUserId(userId!);
+                
+                return View(loggedInUserCart);
+            }          
         }
     }
 }

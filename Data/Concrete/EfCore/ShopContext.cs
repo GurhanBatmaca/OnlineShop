@@ -33,7 +33,7 @@ namespace Data.Concrete.EfCore
             modelBuilder.Entity<CartItem>().HasKey(e=>e.Id);
 
 
-            modelBuilder.Seed();
+            // modelBuilder.Seed();
         }
     }
 }

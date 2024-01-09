@@ -124,6 +124,13 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<ProductViewModel?> GetProductById(int id)
+        {
+            var product = await _unitOfWork!.Products.GetByIdAsync(id);
+            return _mapper.Map<ProductViewModel>(product);
+        }
+
+
         public async Task<ProductDetailsModel?> GetProductDetails(string url)
         {
             var product = await _unitOfWork!.Products.GetProductDetails(url);

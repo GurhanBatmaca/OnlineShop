@@ -1,3 +1,4 @@
+using Entity;
 using Shared.Models;
 using Shared.ViewModels;
 
@@ -16,5 +17,6 @@ namespace Business.Abstract
         Task<bool> DeleteProduct(int id);
         Task<ProductModel?> GetProductForUpdate(int id);
         Task<bool> UpdateProductAsync(ProductModel model,int[] categoriesIds);
+        Task<ProductViewModel?> GetProductById(int id);
     }
 }

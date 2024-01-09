@@ -7,5 +7,6 @@ namespace Business.Abstract
     public interface ICookieService
     {
         CartViewModel GetCart(CookieModel model);
+        void AddToCart(CookieModel model,ProductViewModel productViewModel,int quantity);
     }
 }
