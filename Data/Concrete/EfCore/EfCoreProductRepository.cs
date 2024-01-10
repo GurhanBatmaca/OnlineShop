@@ -55,6 +55,30 @@ namespace Data.Concrete.EfCore
                                 .FirstOrDefaultAsync(e=>e.Id == id);
         }
 
+        public async Task<List<Product?>> GetProductListByIds(int[] ids)
+        {
+            var entitys = Context!.Products.Where(e=>e.IsApproved).AsQueryable();
+
+            var products = Enumerable.Empty<Product?>().AsQueryable();
+
+            foreach (var entity in entitys)
+            {
+                foreach (var id in ids)
+                {
+                    if(entity.Id == id )
+                    {
+                        products.Append(entity);
+                    };
+                }
+            }
+
+            return await products.ToListAsync();
+
+            // var products = entitys.Select(e => ids.Any(i=>i == e.Id) ? e : null);
+            // return await products.ToListAsync();
+        }
+
+
         public async Task<List<Product>> GetProdutsByCategory(string category, int page, int pageSize)
         {
             var products = Context!.Products.Where(i=>i.IsApproved).AsQueryable();

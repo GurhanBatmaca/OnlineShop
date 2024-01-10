@@ -164,6 +164,17 @@ namespace Business.Concrete
             return model;
         }
 
+        public async Task<ProductListViewModel> GetProductListByIds(int[] ids)
+        {
+            var products = await _unitOfWork!.Products.GetProductListByIds(ids);
+            var productModels = products.Select(e=> _mapper.Map<ProductViewModel>(e));
+
+            return new ProductListViewModel{
+                Products = productModels.ToList()
+            };
+        }
+
+
         public async Task<ProductListViewModel> GetProductsByCategory(string category, int page)
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);
