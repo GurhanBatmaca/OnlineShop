@@ -3,6 +3,7 @@ using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Identity.Abstract;
 using Shared.Models;
+using Shared.ViewModels;
 
 namespace Presentation.Controllers
 {
@@ -27,27 +28,22 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var cart = new CartViewModel();
             if(!User.Identity!.IsAuthenticated)
             {
-                var nonLoggedInUserCart = _cookieService!.GetCart
+                cart = await _cookieService!.GetCart
                 (
                     new CookieModel{HttpContext=_accessor!.HttpContext}
                 );
-
-                foreach (var item in nonLoggedInUserCart.CartItems!)
-                {
-                    var product = await _productService!.GetProductById(item.ProductId);
-                    item.Price = product!.Price;
-                }
                 
-                return View(nonLoggedInUserCart);
+                return View(cart);
             } 
             else
             {
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-                var loggedInUserCart = await _cartService!.GetCartByUserId(userId!);
+                cart = await _cartService!.GetCartByUserId(userId!);
 
-                return View(loggedInUserCart);
+                return View(cart);
             }           
         }
 
@@ -55,8 +51,8 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                var product = await _productService!.GetProductById(productId);
-                _cookieService!.AddToCart(new CookieModel{HttpContext=_accessor!.HttpContext},product!,quantity);
+                // var product = await _productService!.GetProductById(productId);
+                // _cookieService!.AddToCart(new CookieModel{HttpContext=_accessor!.HttpContext},product!,quantity);
                 
                 return RedirectToAction("Index");
             } 
@@ -73,15 +69,16 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                var nonLoggedInQuantity = _cookieService!.IncreaseCartItemQuantity(new CookieModel{HttpContext=_accessor!.HttpContext},productId);
-                var nonLoggedInUserCart = _cookieService!.GetCart
-                (
-                    new CookieModel{HttpContext=_accessor!.HttpContext}
-                );
-                var nonLoggedInUserCartItemPrice = nonLoggedInUserCart.CartItems!.Find(e=>e.ProductId == productId)!.Price;
-                var nonLoggedInUserCartTotalPrice = nonLoggedInUserCart.TotalPrice();
+                // var nonLoggedInQuantity = _cookieService!.IncreaseCartItemQuantity(new CookieModel{HttpContext=_accessor!.HttpContext},productId);
+                // var nonLoggedInUserCart = await _cookieService!.GetCart
+                // (
+                //     new CookieModel{HttpContext=_accessor!.HttpContext}
+                // );
+                // var nonLoggedInUserCartItemPrice = nonLoggedInUserCart.CartItems!.Find(e=>e.ProductId == productId)!.Price;
+                // var nonLoggedInUserCartTotalPrice = nonLoggedInUserCart.TotalPrice();
 
-                return new JsonResult(new {quantity=nonLoggedInQuantity,itemPrice=nonLoggedInUserCartItemPrice,cartTotalPrice=nonLoggedInUserCartTotalPrice});
+                // return new JsonResult(new {quantity=nonLoggedInQuantity,itemPrice=nonLoggedInUserCartItemPrice,cartTotalPrice=nonLoggedInUserCartTotalPrice});
+                return new JsonResult(new {quantity=1,itemPrice=1,cartTotalPrice=1});
             } 
             else
             {
@@ -111,7 +108,7 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                _cookieService!.DeleteFromCart(new CookieModel{HttpContext=_accessor!.HttpContext},productId);     
+                // _cookieService!.DeleteFromCart(new CookieModel{HttpContext=_accessor!.HttpContext},productId);     
                 return RedirectToAction("Index");
             } 
             else

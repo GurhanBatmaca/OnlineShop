@@ -164,7 +164,7 @@ namespace Business.Concrete
             return model;
         }
 
-        public async Task<ProductListViewModel> GetProductListByIds(int[] ids)
+        public async Task<ProductListViewModel> GetProductListByIds(IEnumerable<int> ids)
         {
             var products = await _unitOfWork!.Products.GetProductListByIds(ids);
             var productModels = products.Select(e=> _mapper.Map<ProductViewModel>(e));

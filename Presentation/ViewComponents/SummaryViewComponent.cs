@@ -26,7 +26,7 @@ namespace Presentation.ViewComponents
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                var nonLoggedInUserCart = _cookieService!.GetCart
+                var nonLoggedInUserCart = await _cookieService!.GetCart
                 (
                     new CookieModel{HttpContext=_accessor!.HttpContext}
                 );

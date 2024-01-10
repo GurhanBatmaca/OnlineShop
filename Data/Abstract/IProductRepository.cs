@@ -16,6 +16,6 @@ namespace Data.Abstract
         Task<int> GetAllProductsCountAsync();
         Task<Product?> GetProductForUpdate(int id);
         Task UpdateProductAsync(ProductModel product,int[] categoriesIds);
-        Task<List<Product?>> GetProductListByIds(int[] ids);
+        Task<List<Product?>> GetProductListByIds(IEnumerable<int> ids);
     }
 }
