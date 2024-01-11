@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Presentation.EmailServices.Abstract;
 using Presentation.Identity;
 using Presentation.Identity.Abstract;
+using Presentation.Session;
 using Shared.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -69,7 +70,7 @@ builder.Services.AddScoped<ICartService,CartManager>();
 builder.Services.AddScoped<ISignService,SignService>();
 builder.Services.AddScoped<IUserService,UserService>();
 
-builder.Services.AddScoped<ICookieService,CookieManager>();
+builder.Services.AddScoped<SessionManager>();
 
 builder.Services.AddScoped<IEmailSender,SmtpEmailSender>( i => 
     new SmtpEmailSender(
@@ -83,6 +84,14 @@ builder.Services.AddScoped<IEmailSender,SmtpEmailSender>( i =>
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.Name = ".OnlineShopApp.Cart.Cookie";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -93,6 +102,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -100,6 +110,7 @@ app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 // Cart
 app.MapControllerRoute

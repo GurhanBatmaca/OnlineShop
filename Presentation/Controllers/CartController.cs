@@ -2,6 +2,7 @@ using Business.Abstract;
 using Entity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Identity.Abstract;
+using Presentation.Session;
 using Shared.Models;
 using Shared.ViewModels;
 
@@ -10,19 +11,20 @@ namespace Presentation.Controllers
     [AutoValidateAntiforgeryToken]
     public class CartController: Controller
     {
-        private readonly IHttpContextAccessor? _accessor;
+        private readonly  IHttpContextAccessor? _accessor;
         private readonly ISignService? _signService;
         private readonly IUserService? _userService;
         private readonly ICartService? _cartService;
-        private readonly ICookieService? _cookieService;
+        private readonly SessionManager? _sessionManager;
         private readonly IProductService? _productService;
-        public CartController(IHttpContextAccessor? accessor,ISignService signService,IUserService userService,ICartService? cartService,ICookieService? cookieService,IProductService? productService)
+
+        public CartController(IHttpContextAccessor? accessor,ISignService signService,IUserService userService,ICartService? cartService,SessionManager? sessionManager,IProductService? productService)
         {
             _accessor = accessor;
             _signService = signService;
             _userService = userService;
             _cartService = cartService;
-            _cookieService = cookieService;
+            _sessionManager = sessionManager;
             _productService = productService;
         }
 
@@ -31,9 +33,9 @@ namespace Presentation.Controllers
             var cart = new CartViewModel();
             if(!User.Identity!.IsAuthenticated)
             {
-                cart = await _cookieService!.GetCart
+                cart = await _sessionManager!.GetCart
                 (
-                    new CookieModel{HttpContext=_accessor!.HttpContext}
+                    new SessionModel{HttpContext=_accessor!.HttpContext}
                 );
                 
                 return View(cart);

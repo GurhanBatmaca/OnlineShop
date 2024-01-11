@@ -75,6 +75,8 @@ namespace Data.Concrete.EfCore
             // return await products.ToListAsync();
 
             var products = entitys.Select(e => ids.Any(i=>i == e.Id) ? e : null);
+
+            products = products == null ? Enumerable.Empty<Product?>().AsQueryable(): products;
             return await products.ToListAsync();
         }
 
