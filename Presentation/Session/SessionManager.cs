@@ -13,7 +13,7 @@ namespace Presentation.Session
             _productService = productService;
         }
 
-        public async Task<CartViewModel?> GetCart(SessionModel model)
+        public CartViewModel? GetCart(SessionModel model)
         {
             var cart = new CartViewModel();
 
@@ -30,5 +30,46 @@ namespace Presentation.Session
 
             return cart;
         }
+    
+        public async Task AddToCart(CookieModel model,int productId,int quantity)
+        {
+            var cartString = model.HttpContext!.Session.GetString("Cart");
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
+
+            var product = await _productService!.GetProductById(productId);
+           
+            var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
+
+            if(index < 0)
+            {                
+                cart.CartItems.Add(new CartItemViewModel{
+                    ProductId = product!.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Quantity = quantity,
+                    ImageUrl = product.ImageUrl
+                });
+            }
+            else
+            {
+                cart.CartItems[index].Quantity += quantity;
+            }
+
+            cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext.Session.SetString("Cart",cartString);
+        }
+
+        public void DeleteFromCart(CookieModel model,int productId)
+        {
+            var cartString = model.HttpContext!.Session.GetString("Cart");
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
+
+            var index = cart!.CartItems!.FindIndex(e=>e.ProductId == productId);
+            cart.CartItems.Remove(cart.CartItems[index]);
+
+            cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext.Session.SetString("Cart",cartString);
+        }
+    
     }
 }

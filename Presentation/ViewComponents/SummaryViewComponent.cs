@@ -27,7 +27,7 @@ namespace Presentation.ViewComponents
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                var cart = await _sessionManager!.GetCart
+                var cart = _sessionManager!.GetCart
                 (
                     new SessionModel{HttpContext=_accessor!.HttpContext}
                 );

@@ -28,14 +28,16 @@ namespace Presentation.Controllers
             _productService = productService;
         }
 
+        protected HttpContext? _HttpContext => _accessor!.HttpContext;
+
         public async Task<IActionResult> Index()
         {
             var cart = new CartViewModel();
             if(!User.Identity!.IsAuthenticated)
             {
-                cart = await _sessionManager!.GetCart
+                cart = _sessionManager!.GetCart
                 (
-                    new SessionModel{HttpContext=_accessor!.HttpContext}
+                    new SessionModel{HttpContext=_HttpContext}
                 );
                 
                 return View(cart);
@@ -53,9 +55,7 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                // var product = await _productService!.GetProductById(productId);
-                // _cookieService!.AddToCart(new CookieModel{HttpContext=_accessor!.HttpContext},product!,quantity);
-                
+                await _sessionManager!.AddToCart(new CookieModel{HttpContext=_accessor!.HttpContext},productId!,quantity);
                 return RedirectToAction("Index");
             } 
             else
@@ -110,7 +110,7 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                // _cookieService!.DeleteFromCart(new CookieModel{HttpContext=_accessor!.HttpContext},productId);     
+                _sessionManager!.DeleteFromCart(new CookieModel{HttpContext=_HttpContext},productId);   
                 return RedirectToAction("Index");
             } 
             else
