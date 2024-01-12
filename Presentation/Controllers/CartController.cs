@@ -28,24 +28,21 @@ namespace Presentation.Controllers
             _productService = productService;
         }
 
-        protected HttpContext? _HttpContext => _accessor!.HttpContext;
-
         public async Task<IActionResult> Index()
         {
-            var cart = new CartViewModel();
             if(!User.Identity!.IsAuthenticated)
             {
-                cart = _sessionManager!.GetCart
+                var sessionCart = _sessionManager!.GetCart
                 (
-                    new SessionModel{HttpContext=_HttpContext}
+                    new SessionModel{HttpContext=_accessor!.HttpContext}
                 );
                 
-                return View(cart);
+                return View(sessionCart);
             } 
             else
             {
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-                cart = await _cartService!.GetCartByUserId(userId!);
+                var cart = await _cartService!.GetCartByUserId(userId!);
 
                 return View(cart);
             }           
@@ -55,7 +52,7 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                await _sessionManager!.AddToCart(new CookieModel{HttpContext=_accessor!.HttpContext},productId!,quantity);
+                await _sessionManager!.AddToCart(new SessionModel{HttpContext=_accessor!.HttpContext},productId!,quantity);
                 return RedirectToAction("Index");
             } 
             else
@@ -71,16 +68,17 @@ namespace Presentation.Controllers
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                // var nonLoggedInQuantity = _cookieService!.IncreaseCartItemQuantity(new CookieModel{HttpContext=_accessor!.HttpContext},productId);
-                // var nonLoggedInUserCart = await _cookieService!.GetCart
-                // (
-                //     new CookieModel{HttpContext=_accessor!.HttpContext}
-                // );
-                // var nonLoggedInUserCartItemPrice = nonLoggedInUserCart.CartItems!.Find(e=>e.ProductId == productId)!.Price;
-                // var nonLoggedInUserCartTotalPrice = nonLoggedInUserCart.TotalPrice();
+                var sessionQuantity = _sessionManager!.IncreaseCartItemQuantity(new SessionModel{HttpContext=_accessor!.HttpContext},productId);
 
-                // return new JsonResult(new {quantity=nonLoggedInQuantity,itemPrice=nonLoggedInUserCartItemPrice,cartTotalPrice=nonLoggedInUserCartTotalPrice});
-                return new JsonResult(new {quantity=1,itemPrice=1,cartTotalPrice=1});
+                var sessionCart = _sessionManager!.GetCart
+                (
+                    new SessionModel{HttpContext=_accessor!.HttpContext}
+                );
+
+                var sessionItemPrice = sessionCart!.CartItems!.Find(e=>e.ProductId == productId)!.Price;
+                var sessionTotalPrice = sessionCart.TotalPrice();
+
+                return new JsonResult(new {quantity=sessionQuantity,itemPrice=sessionItemPrice,cartTotalPrice=sessionTotalPrice});
             } 
             else
             {
@@ -97,20 +95,38 @@ namespace Presentation.Controllers
         [HttpPost]
         public async Task<JsonResult> DecreaseCartItem(int productId)
         {
-            var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-            var quantity = await _cartService!.DecreaseCartItemQuantity(userId!,productId);
-            var cart = await _cartService!.GetCartByUserId(userId!);
-            var cartTotalPrice = cart!.TotalPrice();
-            var itemPrice = cart?.CartItems?.Find(e=>e.ProductId == productId)!.Price;
+            if(!User.Identity!.IsAuthenticated)
+            {
+                var sessionQuantity = _sessionManager!.DecreaseCartItemQuantity(new SessionModel{HttpContext=_accessor!.HttpContext},productId);
 
-            return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
+                var sessionCart = _sessionManager!.GetCart
+                (
+                    new SessionModel{HttpContext=_accessor!.HttpContext}
+                );
+
+                var sessionItemPrice = sessionCart!.CartItems!.Find(e=>e.ProductId == productId)!.Price;
+                var sessionTotalPrice = sessionCart.TotalPrice();
+
+                return new JsonResult(new {quantity=sessionQuantity,itemPrice=sessionItemPrice,cartTotalPrice=sessionTotalPrice});
+            }
+            else
+            {
+                var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+                var quantity = await _cartService!.DecreaseCartItemQuantity(userId!,productId);
+                var cart = await _cartService!.GetCartByUserId(userId!);
+                var cartTotalPrice = cart!.TotalPrice();
+                var itemPrice = cart?.CartItems?.Find(e=>e.ProductId == productId)!.Price;
+
+                return new JsonResult(new {quantity=quantity,itemPrice=itemPrice,cartTotalPrice=cartTotalPrice});
+            }
+            
         }
 
         public async Task<IActionResult> DeleteFromCart(int productId)
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                _sessionManager!.DeleteFromCart(new CookieModel{HttpContext=_HttpContext},productId);   
+                _sessionManager!.DeleteFromCart(new SessionModel{HttpContext=_accessor!.HttpContext},productId);   
                 return RedirectToAction("Index");
             } 
             else

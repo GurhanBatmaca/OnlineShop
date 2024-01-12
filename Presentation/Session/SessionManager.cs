@@ -31,17 +31,18 @@ namespace Presentation.Session
             return cart;
         }
     
-        public async Task AddToCart(CookieModel model,int productId,int quantity)
+        public async Task AddToCart(SessionModel model,int productId,int quantity)
         {
             var cartString = model.HttpContext!.Session.GetString("Cart");
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
-
-            var product = await _productService!.GetProductById(productId);
-           
+         
             var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
 
             if(index < 0)
-            {                
+            {  
+
+                var product = await _productService!.GetProductById(productId);
+
                 cart.CartItems.Add(new CartItemViewModel{
                     ProductId = product!.Id,
                     Name = product.Name,
@@ -59,7 +60,7 @@ namespace Presentation.Session
             model.HttpContext.Session.SetString("Cart",cartString);
         }
 
-        public void DeleteFromCart(CookieModel model,int productId)
+        public void DeleteFromCart(SessionModel model,int productId)
         {
             var cartString = model.HttpContext!.Session.GetString("Cart");
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
@@ -69,6 +70,32 @@ namespace Presentation.Session
 
             cartString = JsonConvert.SerializeObject(cart);
             model.HttpContext.Session.SetString("Cart",cartString);
+        }
+    
+        public int IncreaseCartItemQuantity(SessionModel model,int productId)
+        {
+            var cartString = model.HttpContext!.Session.GetString("Cart");
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
+            var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
+            cart.CartItems[index].Quantity += 1;
+
+            cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext.Session.SetString("Cart",cartString);
+
+            return cart.CartItems[index].Quantity;
+        }
+
+        public int DecreaseCartItemQuantity(SessionModel model,int productId)
+        {
+            var cartString = model.HttpContext!.Session.GetString("Cart");
+            var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
+            var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
+            cart.CartItems[index].Quantity -= 1;
+
+            cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext.Session.SetString("Cart",cartString);
+
+            return cart.CartItems[index].Quantity;
         }
     
     }
