@@ -26,6 +26,10 @@
             {
                 @await Html.PartialAsync("_toastMessage",@TempData.Get<MessageModel>("toastMessage"))
             }
+            @if(@TempData["cartMessage"] != null)
+            {
+                @await Html.PartialAsync("_cartMessage",@TempData.Get<MessageModel>("cartMessage"))
+            }
 
             @RenderBody()
 

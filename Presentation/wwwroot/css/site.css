@@ -82,6 +82,23 @@ main {
   to {bottom: 60px; opacity: 0;}
 }
 
+/* cart message box */
+
+#cart-message-container {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+  height: 15rem;
+  width: 25rem;
+  border-radius: .7rem;
+  z-index: 1000;
+
+}
+
+
 /* Navbar */
 
 @media (width <= 991.9px) {
