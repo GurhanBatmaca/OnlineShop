@@ -48,18 +48,21 @@ namespace Presentation.Controllers
             }           
         }
 
-        public async Task<IActionResult> AddToCart(int productId,int quantity)
+        [HttpPost]
+        public async Task<JsonResult> AddToCart(int productId,int quantity)
         {
             if(!User.Identity!.IsAuthenticated)
             {
-                await _sessionManager!.AddToCart(new SessionModel{HttpContext=_accessor!.HttpContext},productId!,quantity);
-                return RedirectToAction("Index");
+                var result = await _sessionManager!.AddToCart(new SessionModel{HttpContext=_accessor!.HttpContext},productId!,quantity);
+                return new JsonResult(result);
+                // return RedirectToAction("Index");
             } 
             else
             {
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
                 await _cartService!.AddToCartAsync(userId!,productId,quantity);
-                return RedirectToAction("Index");
+                return new JsonResult(new {cartId=1 });
+                // return RedirectToAction("Index");
             }           
         }
 

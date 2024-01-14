@@ -19,12 +19,12 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index(int sayfa=1)
     {
-         TempData.Put("cartMessage",new MessageModel
-        {
-            Title = $"Başarılı",
-            Message = $"message",
-            AlertType = "success"
-        });
+        //  TempData.Put("cartMessage",new MessageModel
+        // {
+        //     Title = $"Başarılı",
+        //     Message = $"message",
+        //     AlertType = "success"
+        // });
         var model = await _productService.GetHomePageProducts(sayfa);      
         return View(model);
     }

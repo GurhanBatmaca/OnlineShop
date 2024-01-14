@@ -31,17 +31,18 @@ namespace Presentation.Session
             return cart;
         }
     
-        public async Task AddToCart(SessionModel model,int productId,int quantity)
+        public async Task<object> AddToCart(SessionModel model,int productId,int quantity)
         {
             var cartString = model.HttpContext!.Session.GetString("Cart");
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
          
             var index = cart!.CartItems!.FindIndex(i => i.ProductId == productId);
+            var product = await _productService!.GetProductById(productId);
 
             if(index < 0)
             {  
 
-                var product = await _productService!.GetProductById(productId);
+                
 
                 cart.CartItems.Add(new CartItemViewModel{
                     ProductId = product!.Id,
@@ -58,6 +59,8 @@ namespace Presentation.Session
 
             cartString = JsonConvert.SerializeObject(cart);
             model.HttpContext.Session.SetString("Cart",cartString);
+
+            return new {productName = product!.Name,cartUnit = cart.TotalItem()};
         }
 
         public void DeleteFromCart(SessionModel model,int productId)

@@ -9,5 +9,5 @@ window.onload = (event) => {
     setInterval(() => {
         time = (time > 1 ? time - 1 : 1);
         document.getElementById('time').innerText = time;
-    }, 1000)
+    }, 1000);
 };
