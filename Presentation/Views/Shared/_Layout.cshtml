@@ -15,7 +15,7 @@
         @await Html.PartialAsync("_navbar")
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main id="main" role="main" class="pb-3">
            
             @if(@TempData["infoMessage"] != null)
             {
@@ -25,10 +25,6 @@
             @if(@TempData["toastMessage"] != null)
             {
                 @await Html.PartialAsync("_toastMessage",@TempData.Get<MessageModel>("toastMessage"))
-            }
-            @if(@TempData["cartMessage"] != null)
-            {
-                @await Html.PartialAsync("_cartMessage",@TempData.Get<MessageModel>("cartMessage"))
             }
 
             @RenderBody()

@@ -31,7 +31,7 @@ namespace Presentation.Session
             return cart;
         }
     
-        public async Task<object> AddToCart(SessionModel model,int productId,int quantity)
+        public async Task<CartInfoModel> AddToCart(SessionModel model,int productId,int quantity)
         {
             var cartString = model.HttpContext!.Session.GetString("Cart");
             var cart = JsonConvert.DeserializeObject<CartViewModel>(cartString!);
@@ -41,15 +41,13 @@ namespace Presentation.Session
 
             if(index < 0)
             {  
-
-                
-
                 cart.CartItems.Add(new CartItemViewModel{
                     ProductId = product!.Id,
                     Name = product.Name,
                     Price = product.Price,
                     Quantity = quantity,
-                    ImageUrl = product.ImageUrl
+                    ImageUrl = product.ImageUrl,
+                    Weight = product.Weight
                 });
             }
             else
@@ -60,7 +58,13 @@ namespace Presentation.Session
             cartString = JsonConvert.SerializeObject(cart);
             model.HttpContext.Session.SetString("Cart",cartString);
 
-            return new {productName = product!.Name,cartUnit = cart.TotalItem()};
+            return new CartInfoModel
+            {
+                ProductName = product!.Name,
+                ProductWeight = product.Weight,
+                CartUnit = cart.TotalItem(),
+                ProductQuantity = index < 0 ? 1 : cart.CartItems[index].Quantity
+            };
         }
 
         public void DeleteFromCart(SessionModel model,int productId)
