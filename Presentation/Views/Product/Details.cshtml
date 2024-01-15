@@ -30,15 +30,15 @@
             
                 }
             </div>           
-            <form asp-controller="Cart" asp-action="AddToCart" class="d-flex mt-auto details-form">
+            <div class="d-flex mt-auto details-form">
                 <input type="hidden" name="productId" value="@Model.Product.Id">
                 <div class="me-1">
-                    <input type="number" class="form-control details-input" name="quantity" value="1" min="1" step="1">
+                    <input id="quantityInput" type="number" class="form-control details-input" name="quantity" value="1" min="1" step="1">
                 </div>
                 <div class="">
-                    <button id="btn-submit" type="submit" class="btn btn-primary mb-3"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
+                    <button onclick="addToCart(@Model.Product.Id)" id="btn-submit" class="btn btn-primary mb-3"><i class="fas fa-cart-plus"></i> Sepete Ekle</button>
                 </div>
-            </form>
+            </div>
            
         </div>
         <div>
@@ -47,4 +47,57 @@
         </div>
     </div>
 </div>
+
+<script>
+ 
+        function addToCart(productId)  
+        {
+            let token = $('input[name=__RequestVerificationToken]').val();
+            let quantity = $('input[name=quantity]').val();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddToCart","Cart")",
+                dataType: "json",
+                data: 
+                {
+                    __RequestVerificationToken: token,
+                    productId : productId,
+                    quantity : quantity
+
+                },
+                success: function(result){
+                    console.log(result);
+                    $("#cart-unit").text(`(${result.cartUnit})`);
+                    $("#cart-message-container").remove();
+                    $("#main").append
+                    (
+                        `
+                            <div id="cart-message-container" class="alert alert-success alert-dismissible fade show container text-center" role="alert">
+                                <h5 class="alert-heading">
+                                    Sepete eklendi <i class="fa-solid fa-check"></i>
+                                </h5>
+                                <h4>${result.productName}</h4>
+                                <h5>${result.productWeight}gr (${result.productQuantity} adet)</h5>
+                                
+                                <h6>Toplam <i class="fa-solid fa-cart-shopping"></i> (${result.cartUnit}) çeşit ürün eklendi</h6>
+                                <p></p>
+                                <div>
+                                    <button class="btn btn-success" data-bs-dismiss="alert" aria-label="Close" href="" class="btn btn-success">Alışverişe devam et</button>
+                                    <a href="/sepetim" class="btn btn-success">Sepete git</a>
+
+                                </div>
+                                <button id="btn_clos" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        `
+                    );
+                    $("#quantityInput").val(1);
+                },
+                error: function(req,status,error){
+                    console.log(status);
+                }
+            })
+        };
+
+</script>
 

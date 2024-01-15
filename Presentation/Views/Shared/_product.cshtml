@@ -33,7 +33,7 @@
  
         function addToCart(productId)  
         {
-            token = $('input[name=__RequestVerificationToken]').val();
+            let token = $('input[name=__RequestVerificationToken]').val();
 
             $.ajax({
                 type: "POST",
@@ -64,7 +64,7 @@
                                 <p></p>
                                 <div>
                                     <button class="btn btn-success" data-bs-dismiss="alert" aria-label="Close" href="" class="btn btn-success">Alışverişe devam et</button>
-                                    <a href="" class="btn btn-success">Sepete git</a>
+                                    <a href="/sepetim" class="btn btn-success">Sepete git</a>
 
                                 </div>
                                 <button id="btn_clos" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

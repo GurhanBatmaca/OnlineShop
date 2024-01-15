@@ -63,7 +63,7 @@ namespace Presentation.Session
                 ProductName = product!.Name,
                 ProductWeight = product.Weight,
                 CartUnit = cart.TotalItem(),
-                ProductQuantity = index < 0 ? 1 : cart.CartItems[index].Quantity
+                ProductQuantity = index < 0 ? quantity : cart.CartItems[index].Quantity
             };
         }
 

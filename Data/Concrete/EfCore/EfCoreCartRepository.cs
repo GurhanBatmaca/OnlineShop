@@ -44,7 +44,7 @@ namespace Data.Concrete.EfCore
                 ProductName = product!.Name,
                 ProductWeight = product.Weight,
                 CartUnit = cart.CartItems.Count,
-                ProductQuantity = index < 0 ? 1 : cart.CartItems[index].Quantity
+                ProductQuantity = index < 0 ? quantity : cart.CartItems[index].Quantity
             };
         }
 
