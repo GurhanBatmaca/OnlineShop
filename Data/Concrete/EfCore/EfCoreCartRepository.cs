@@ -1,6 +1,7 @@
 using Data.Abstract;
 using Entity;
 using Microsoft.EntityFrameworkCore;
+using Shared.Models;
 
 namespace Data.Concrete.EfCore
 {
@@ -12,7 +13,7 @@ namespace Data.Concrete.EfCore
         }
         protected ShopContext? Context => _context as ShopContext;
 
-        public async Task AddToCartAsync(string userId, int productId, int quantity)
+        public async Task<CartInfoModel?> AddToCartAsync(string userId, int productId, int quantity)
         {
             var cart = await Context!.Carts
                                 .Include(e=>e.CartItems!)
@@ -35,6 +36,16 @@ namespace Data.Concrete.EfCore
             }
 
             await Context.SaveChangesAsync();
+
+            var product = await Context.Products.FirstOrDefaultAsync(e=>e.Id == productId);
+
+            return new CartInfoModel
+            {
+                ProductName = product!.Name,
+                ProductWeight = product.Weight,
+                CartUnit = cart.CartItems.Count,
+                ProductQuantity = index < 0 ? 1 : cart.CartItems[index].Quantity
+            };
         }
 
         public async Task<int> DecreaseCartItemQuantity(string userId, int productId)

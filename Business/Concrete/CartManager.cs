@@ -3,6 +3,7 @@ using Business.Abstract;
 using Data.Abstract;
 using Entity;
 using Microsoft.Extensions.Configuration;
+using Shared.Models;
 using Shared.ViewModels;
 
 namespace Business.Concrete
@@ -19,9 +20,9 @@ namespace Business.Concrete
             _configuration = configuration;
         }
 
-        public async Task AddToCartAsync(string userId, int productId, int quantity)
+        public async Task<CartInfoModel?> AddToCartAsync(string userId, int productId, int quantity)
         {
-            await _unitOfWork!.Carts.AddToCartAsync(userId,productId,quantity);
+            return await _unitOfWork!.Carts.AddToCartAsync(userId,productId,quantity);
         }
 
 

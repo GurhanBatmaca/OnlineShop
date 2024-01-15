@@ -55,14 +55,13 @@ namespace Presentation.Controllers
             if(!User.Identity!.IsAuthenticated)
             {
                 var result = await _sessionManager!.AddToCart(new SessionModel{HttpContext=_accessor!.HttpContext},productId!,quantity);
-
                 return new JsonResult(result);
             } 
             else
             {
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
-                await _cartService!.AddToCartAsync(userId!,productId,quantity);
-                return new JsonResult(new {cartId=1 });
+                var result = await _cartService!.AddToCartAsync(userId!,productId,quantity);
+                return new JsonResult(result);
             }           
         }
 
