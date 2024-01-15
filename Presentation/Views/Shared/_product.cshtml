@@ -53,16 +53,15 @@
                     $("#main").append
                     (
                         `
-                            <div id="cart-message-container" class="alert alert-success alert-dismissible fade show container text-center" role="alert">
-                                <h5 class="alert-heading">
+                            <div id="cart-message-container" class="alert alert-success alert-dismissible fade show container text-center d-flex flex-column" role="alert">
+                                <h5 class="alert-heading mb-3">
                                     Sepete eklendi <i class="fa-solid fa-check"></i>
                                 </h5>
-                                <h4>${result.productName}</h4>
-                                <h5>${result.productWeight}gr (${result.productQuantity} adet)</h5>
+                                <h4 class="mb-3">${result.productName}</h4>
+                                <h5 class="mb-3">${result.productWeight}gr (${result.productQuantity} adet)</h5>
                                 
                                 <h6>Toplam <i class="fa-solid fa-cart-shopping"></i> (${result.cartUnit}) çeşit ürün eklendi</h6>
-                                <p></p>
-                                <div>
+                                <div class="mt-auto">
                                     <button class="btn btn-success" data-bs-dismiss="alert" aria-label="Close" href="" class="btn btn-success">Alışverişe devam et</button>
                                     <a href="/sepetim" class="btn btn-success">Sepete git</a>
 
