@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/css/product-details.css">
 }
 
-<div class="mb-3">
+<div class="my-4">
     <h1 class="h3">Ürün Detayı</h1>
 </div>
 
@@ -21,15 +21,19 @@
             </div>
         </div>
         <div class="col-md-6 details-section d-flex flex-column mb-3">
-            <h3 class="mb-3">@Model.Product.Name</h3>
-            <h5 class="mb-5">@Model.Product.Price.ToString("c") TL</h5>
+            <h3 class="mb-4">@Model.Product.Name @Model.Product.Weight gr</h3>
+            <h4 class="mb-5 text-warning">@Model.Product.Price.ToString("c") TL</h4>
             <div class="mb-5">
+                <p>Kategoriler</p>
                 @foreach(var category in @Model.Categories!)
                 {
                     <a class="btn btn-info me-1" href="/urunler/@category.Url"><i class="fa-solid fa-layer-group"></i> @category.Name</a>
             
                 }
-            </div>           
+            </div>  
+            <div>
+                <h5>@Model.Product.Description</h5>
+            </div>         
             <div class="d-flex mt-auto details-form">
                 <input type="hidden" name="productId" value="@Model.Product.Id">
                 <div class="me-1">
@@ -40,10 +44,6 @@
                 </div>
             </div>
            
-        </div>
-        <div>
-            <p>@Model.Product.Description</p>
-
         </div>
     </div>
 </div>

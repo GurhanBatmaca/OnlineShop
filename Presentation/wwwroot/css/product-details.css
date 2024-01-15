@@ -1,6 +1,7 @@
 .product-img img {
     width: 100%;
     height: 100%;
+    border-radius: .6rem;
 }
 
 .product-img  {
@@ -9,15 +10,15 @@
 }
 
 .details-section {
-    height: 70vh;
+    height: 45vh;
 }
 
 .details-input {
     width: 7rem;
   }
 
-@media (width <= 767px) {
+/* @media (width <= 767px) {
     .details-form {
       margin-top: 0!important;
     }
-  } 
+  }  */
