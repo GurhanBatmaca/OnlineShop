@@ -228,6 +228,13 @@ app.MapControllerRoute
     defaults: new { controller="Auth", action="ResetPassword" }
 );
 
+app.MapControllerRoute
+(
+    name: "accessdenied",
+    pattern: "erisimengellendi",
+    defaults: new { controller="Auth", action="AccessDenied" }
+);
+
 // Product
 app.MapControllerRoute
 (
