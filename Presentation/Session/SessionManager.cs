@@ -105,5 +105,12 @@ namespace Presentation.Session
             return cart.CartItems[index].Quantity;
         }
     
+        public void ClearCart(SessionModel model)
+        {
+            var cart = new CartViewModel();
+            var cartString = JsonConvert.SerializeObject(cart);
+            model.HttpContext!.Session.SetString("Cart",cartString);
+
+        }
     }
 }

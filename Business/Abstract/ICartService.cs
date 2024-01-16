@@ -12,5 +12,6 @@ namespace Business.Abstract
         Task<int> IncreaseCartItemQuantity(string userId,int productId);
         Task<int> DecreaseCartItemQuantity(string userId,int productId);
         Task DeleteFromCart(string userId,int productId);
+        Task ClearCartAsync(string userId);
     }
 }

@@ -139,6 +139,27 @@ namespace Presentation.Controllers
             }  
             
         }
-    }
+    
+        public async Task<IActionResult> ClearCart(string userId)
+        {
+            if(!User.Identity!.IsAuthenticated)
+            {
+                _sessionManager!.ClearCart
+                (
+                    new SessionModel{HttpContext=_accessor!.HttpContext}
+                );
+                
+                return RedirectToAction("Index");
+            } 
+            else
+            {
+                var id = _userService!.GetUserId(_accessor!.HttpContext!);
+                await _cartService!.ClearCartAsync(id!);
 
+                return RedirectToAction("Index");
+            }
+            
+        }
+    
+    }
 }

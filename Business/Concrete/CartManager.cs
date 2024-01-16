@@ -25,6 +25,12 @@ namespace Business.Concrete
             return await _unitOfWork!.Carts.AddToCartAsync(userId,productId,quantity);
         }
 
+        public async Task ClearCartAsync(string userId)
+        {
+            await _unitOfWork!.Carts.ClearCartAsync(userId);
+        }
+
+
         public async Task CreateAsync(Cart cart)
         {
             await _unitOfWork!.Carts.CreateAsync(cart);
