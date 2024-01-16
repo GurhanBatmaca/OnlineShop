@@ -1,4 +1,12 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Cabin&family=Libre+Baskerville&family=Roboto+Mono&display=swap');
+
+body {
+  /* font-family: 'Bungee Spice', sans-serif;
+  font-family: 'Libre Baskerville', serif;
+  font-family: 'Roboto Mono', monospace; */
+  font-family: 'Cabin', sans-serif;
+}
 
 main {
   min-height: 100vh;
