@@ -25,7 +25,6 @@ namespace Business.Concrete
             return await _unitOfWork!.Carts.AddToCartAsync(userId,productId,quantity);
         }
 
-
         public async Task CreateAsync(Cart cart)
         {
             await _unitOfWork!.Carts.CreateAsync(cart);
@@ -56,7 +55,8 @@ namespace Business.Concrete
                     Name = e.Product!.Name,
                     Price = e.Product.Price,
                     ImageUrl = e.Product.ImageUrl,
-                    Quantity = e.Quantity
+                    Quantity = e.Quantity,
+                    Weight = e.Product.Weight
                 }).ToList()
             };
 
