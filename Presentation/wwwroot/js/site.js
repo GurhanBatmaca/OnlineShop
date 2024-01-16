@@ -18,18 +18,3 @@
 
 // footer year script
 document.getElementById("year-footer").innerHTML = new Date().getFullYear();
-
-// $(document).ready(function(){
-
-//     $("#btn-submit").click(function(event){
-//         event.preventDefault();
-
-//         // $.ajax({
-//         //     type: "POST",
-//         //     url: Url.Acrion("")
-
-//     });
-
-    
-
-// });

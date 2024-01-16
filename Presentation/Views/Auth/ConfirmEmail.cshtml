@@ -9,6 +9,18 @@
     </h4>
 </div>
 
-@section Scripts {
-    <script src="~/js/confirmScript.js"></script>
-}
+<script>
+    window.onload = (event) => {
+
+        setTimeout(function(){
+            window.location.href = "@Url.Action("Login","Auth")";
+        },5000);
+
+        var time = 5;
+
+        setInterval(() => {
+            time = (time > 1 ? time - 1 : 1);
+            document.getElementById('time').innerText = time;
+        }, 1000);
+    };
+</script>
