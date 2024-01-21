@@ -14,6 +14,8 @@ namespace Data.Concrete.EfCore
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,8 +34,13 @@ namespace Data.Concrete.EfCore
             
             modelBuilder.Entity<CartItem>().HasKey(e=>e.Id);
 
+            modelBuilder.Entity<Order>().HasKey(e=>e.Id);
+            modelBuilder.Entity<Order>().Property(e=>e.OrderDate).HasDefaultValueSql("getdate()");
 
-            // modelBuilder.Seed();
+            modelBuilder.Entity<OrderItem>().HasKey(e=>e.Id);
+
+
+            modelBuilder.Seed();
         }
     }
 }
