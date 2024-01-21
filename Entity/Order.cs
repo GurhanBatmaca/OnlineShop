@@ -16,6 +16,7 @@ public class Order
     public string? Note { get; set; }
     public string? PaymentId { get; set; }
     public string? ConversationId { get; set; }
+    public string? PaymentType { get; set; }
     public List<OrderItem>? OrderItems { get; set; } = [];
 
 }
