@@ -18,7 +18,7 @@ namespace Presentation.Controllers
             _categoryService = categoryService;
             _productService = productService;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
