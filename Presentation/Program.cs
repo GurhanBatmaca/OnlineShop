@@ -120,6 +120,14 @@ app.MapControllerRoute
     defaults: new { controller="Cart", action="Index" }
 );
 
+// Order
+app.MapControllerRoute
+(
+    name: "checkout",
+    pattern: "odeme",
+    defaults: new { controller="Order", action="Checkout" }
+);
+
 // Admin
 app.MapControllerRoute
 (
