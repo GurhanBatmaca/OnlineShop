@@ -39,7 +39,7 @@
       </div> 
       
       <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Adres bilgileri</h4>
+        <h4 class="mb-3 text-primary">Adres bilgileri</h4>
         <form class="needs-validation" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
           <div class="row g-3 mb-3">
@@ -88,7 +88,7 @@
 
           <hr class="my-4">
 
-          <h4 class="mb-3">Ödeme</h4>
+          <h4 class="mb-3 text-primary">Ödeme</h4>
 
           <div class="my-3">
             <div class="form-check">
@@ -99,33 +99,33 @@
 
           <div class="row gy-3">
             <div class="col-md-6">
-              <label asp-for="@Model.CardName" class="form-label"></label>
+              <label  asp-for="@Model.CardName" class="form-label text-info"></label>
               <input asp-for="@Model.CardName" class="form-control"  placeholder="" >
               <small class="text-body-secondary">Kart üzerindeki Ad Soyad</small>
               <span asp-validation-for="@Model.CardName" class="text-danger"></span>
             </div>
 
             <div class="col-md-6">
-              <label asp-for="@Model.CardNumber" class="form-label"></label>
+              <label asp-for="@Model.CardNumber" class="form-label text-info"></label>
               <input asp-for="@Model.CardNumber" class="form-control"  placeholder="" >
               <small class="text-body-secondary">Kart ön yüzündeki numara</small>
               <span asp-validation-for="@Model.CardName" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
-              <label asp-for="@Model.ExpirationYear" class="form-label"></label>
+              <label asp-for="@Model.ExpirationYear" class="form-label text-info"></label>
               <input asp-for="@Model.ExpirationYear" class="form-control" placeholder="" >
               <span asp-validation-for="@Model.ExpirationYear" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
-              <label asp-for="@Model.ExpirationMonth" class="form-label"></label>
+              <label asp-for="@Model.ExpirationMonth" class="form-label text-info"></label>
               <input asp-for="@Model.ExpirationMonth" class="form-control" placeholder="" >
               <span asp-validation-for="@Model.ExpirationMonth" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
-              <label asp-for="@Model.Cvc" class="form-label"></label>
+              <label asp-for="@Model.Cvc" class="form-label text-info"></label>
               <input asp-for="@Model.Cvc" class="form-control" placeholder="" >
               <small class="text-body-secondary">Kartın arkasındaki güvenlik kodu</small>
               <span asp-validation-for="@Model.Cvc" class="text-danger"></span>
