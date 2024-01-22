@@ -35,7 +35,7 @@ namespace Shared.Models
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Kart üzerindeki Ad zorunludur")]
-        [Display(Name ="Kart üzerindeki Ad")]
+        [Display(Name ="Ad-Soyad")]
         public string? CardName { get; set; }
 
         [Required(ErrorMessage = "Kredi kartı numarası zorunludur")]
@@ -43,11 +43,11 @@ namespace Shared.Models
         public string? CardNumber { get; set; }
 
         [Required(ErrorMessage = "Kredi kartı son kullanma ayı zorunludur")]
-        [Display(Name ="Kredi kartı son kullanma ayı")]
+        [Display(Name ="Son kullanma ayı")]
         public string? ExpirationMonth { get; set; }
 
         [Required(ErrorMessage = "Kredi kartı son kullanma yılı zorunludur")]
-        [Display(Name ="Kredi kartı son kullanma yılı")]
+        [Display(Name ="Son kullanma yılı")]
         public string? ExpirationYear { get; set; }
 
         [Required(ErrorMessage = "Güvenlik numarası zorunludur")]

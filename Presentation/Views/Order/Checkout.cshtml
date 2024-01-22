@@ -1,17 +1,21 @@
 @model OrderModel
 
+@{
+  ViewData["Title"] = "Ödeme";
+}
+
 <section>
     <div class="py-3 ">
       
-      <h1 class="h3">Checkout</h1>
-      <p class="lead">Complete order.</p>
+      <h1 class="h3">Ödeme sayfası</h1>
+      <p class="lead">Kargo ve fatura bilgileri</p>
       <hr>
     </div>
 
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Your cart</span>
+          <span class="text-primary">Sepet öze"ti</span>
           <span class="badge bg-primary rounded-pill">@Model!.CartModel!.CartItems!.Count()</span>
         </h4>
         <ul class="list-group mb-3">
@@ -20,42 +24,25 @@
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
                 <h6 class="my-0">@item.Name </h6>
-                @* <small class="text-body-secondary me-3">@item.Name (@item.Quantity)</small> *@
-                <small class="text-body-secondary">@item.Quantity x @item.Price().ToString("c")</small>
+                <small class="text-body-secondary">@item.Quantity x @item.Price</small>
               </div>
               <span class="text-body-secondary"><i class="fa-solid fa-turkish-lira-sign"></i> 
-
-                @(item.Price()*item.Quantity)
-
-
+                @(item.Price * item.Quantity)
               </span>
             </li>
           }
-
-          @* @if(@Model.PromoCode)
-          {
-            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small> 
-              </div>
-              <span class="text-success"></span>
-            </li>
-          } *@
-
           <li class="list-group-item d-flex justify-content-between">
-            <span>Total (TRY)</span>
+            <span>Toplam (TL)</span>
             <strong><i class="fa-solid fa-turkish-lira-sign"></i> @Model.CartModel.TotalPrice()</strong>
           </li>
         </ul>
-
-
-      </div>
+      </div> 
+      
       <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Billing address</h4>
+        <h4 class="mb-3">Adres bilgileri</h4>
         <form class="needs-validation" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-          <div class="row g-3">
+          <div class="row g-3 mb-3">
             <div class="col-sm-6">
               <label asp-for="@Model.FirstName" class="form-label"></label>
               <input asp-for="@Model.FirstName" class="form-control">
@@ -85,42 +72,28 @@
               <span asp-validation-for="@Model.Address" class="text-danger"></span>
             </div>
 
-            <div class="col-md-5">
-              <label for="country" class="form-label">Country</label>
-              <select class="form-select" id="country" >
-                <option disabled >Choose...</option>
-                <option>Türkiye</option>
-              </select>
-            </div>
-
-            <div class="col-md-4">
-              <label asp-for="@Model.City" class="form-label">State</label>
-              <select asp-for="@Model.City" class="form-select" asp-items="@Model.CityList">
-                <option disabled >Choose...</option>
-              </select>
+             <div class="col-12">
+              <label asp-for="@Model.City" class="form-label"></label>
+              <input asp-for="@Model.City" class="form-control" >
               <span asp-validation-for="@Model.City" class="text-danger"></span>
             </div>
-
-            <div class="col-md-3 mb-3">
-              <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" id="zip" placeholder="34100" >
-            </div>
+            
           </div>
 
           <div class="col-12">
               <label asp-for="@Model.Note" class="form-label"></label>
-              <span class="text-body-secondary">(Optional)</span>
+              <span class="text-body-secondary">(İsteğe bağlı)</span>
               <textarea asp-for="@Model.Note" class="form-control" id="address2"></textarea>
           </div>
 
           <hr class="my-4">
 
-          <h4 class="mb-3">Payment</h4>
+          <h4 class="mb-3">Ödeme</h4>
 
           <div class="my-3">
             <div class="form-check">
               <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked >
-              <label class="form-check-label" for="credit">Credit card</label>
+              <label class="form-check-label" for="credit">Kredi kartı</label>
             </div>
           </div>
 
@@ -128,14 +101,14 @@
             <div class="col-md-6">
               <label asp-for="@Model.CardName" class="form-label"></label>
               <input asp-for="@Model.CardName" class="form-control"  placeholder="" >
-              <small class="text-body-secondary">Full name as displayed on card</small>
+              <small class="text-body-secondary">Kart üzerindeki Ad Soyad</small>
               <span asp-validation-for="@Model.CardName" class="text-danger"></span>
             </div>
 
             <div class="col-md-6">
               <label asp-for="@Model.CardNumber" class="form-label"></label>
               <input asp-for="@Model.CardNumber" class="form-control"  placeholder="" >
-              <small class="text-body-secondary">Full name as displayed on card</small>
+              <small class="text-body-secondary">Kart ön yüzündeki numara</small>
               <span asp-validation-for="@Model.CardName" class="text-danger"></span>
             </div>
 
@@ -154,13 +127,14 @@
             <div class="col-md-3">
               <label asp-for="@Model.Cvc" class="form-label"></label>
               <input asp-for="@Model.Cvc" class="form-control" placeholder="" >
+              <small class="text-body-secondary">Kartın arkasındaki güvenlik kodu</small>
               <span asp-validation-for="@Model.Cvc" class="text-danger"></span>
             </div>
           </div>
 
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Alış verişi tamamla</button>
         </form>
       </div>
     </div>

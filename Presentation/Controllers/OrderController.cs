@@ -6,6 +6,7 @@ using Presentation.Extentions;
 using Presentation.Identity.Abstract;
 using Presentation.Session;
 using Shared.Models;
+using Shared.ViewModels;
 
 namespace Presentation.Controllers
 {
@@ -27,7 +28,8 @@ namespace Presentation.Controllers
             _sessionManager = sessionManager;
             _productService = productService;
         }
-        
+
+        [HttpGet]       
         public async Task<IActionResult> Checkout()
         {
             if(!User.Identity!.IsAuthenticated)
@@ -36,13 +38,68 @@ namespace Presentation.Controllers
                 (
                     new SessionModel{HttpContext=_accessor!.HttpContext}
                 );
-                
-                return View();
+
+                var sessionModel = new OrderModel
+                {
+                    CartModel = new CartViewModel
+                    {
+                        Id = sessionCart!.Id,
+                        CartItems = sessionCart.CartItems!.Select(e => new CartItemViewModel{
+                            CartItemId = e.CartItemId,
+                            ProductId = e.ProductId,
+                            Name = e!.Name,
+                            Price = (double)e.Price!,
+                            ImageUrl = e.ImageUrl,                           
+                            Quantity = e.Quantity
+                        }).ToList()
+                    }
+                };
+
+
+                return View(sessionModel);
             } 
             else
             {
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
                 var cart = await _cartService!.GetCartByUserId(userId!);
+
+
+                return View();
+            }
+        }
+
+        [HttpPost]       
+        public async Task<IActionResult> Checkout(OrderModel model)
+        {
+            if(!User.Identity!.IsAuthenticated)
+            {
+                var sessionCart = _sessionManager!.GetCart
+                (
+                    new SessionModel{HttpContext=_accessor!.HttpContext}
+                );
+
+                model.CartModel = new CartViewModel
+                    {
+                        Id = sessionCart!.Id,
+                        CartItems = sessionCart.CartItems!.Select(e => new CartItemViewModel{
+                            CartItemId = e.CartItemId,
+                            ProductId = e.ProductId,
+                            Name = e!.Name,
+                            Price = (double)e.Price!,
+                            ImageUrl = e.ImageUrl,                           
+                            Quantity = e.Quantity
+                        }).ToList()
+                    
+                };
+
+
+                return View(model);
+            } 
+            else
+            {
+                var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+                var cart = await _cartService!.GetCartByUserId(userId!);
+
 
                 return View();
             }
