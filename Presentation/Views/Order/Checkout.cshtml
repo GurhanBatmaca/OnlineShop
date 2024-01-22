@@ -15,7 +15,7 @@
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-primary">Sepet öze"ti</span>
+          <span class="text-primary">Sepet özeti</span>
           <span class="badge bg-primary rounded-pill">@Model!.CartModel!.CartItems!.Count()</span>
         </h4>
         <ul class="list-group mb-3">
@@ -112,19 +112,19 @@
               <span asp-validation-for="@Model.CardName" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label asp-for="@Model.ExpirationYear" class="form-label"></label>
               <input asp-for="@Model.ExpirationYear" class="form-control" placeholder="" >
               <span asp-validation-for="@Model.ExpirationYear" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label asp-for="@Model.ExpirationMonth" class="form-label"></label>
               <input asp-for="@Model.ExpirationMonth" class="form-control" placeholder="" >
               <span asp-validation-for="@Model.ExpirationMonth" class="text-danger"></span>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label asp-for="@Model.Cvc" class="form-label"></label>
               <input asp-for="@Model.Cvc" class="form-control" placeholder="" >
               <small class="text-body-secondary">Kartın arkasındaki güvenlik kodu</small>

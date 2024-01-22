@@ -63,8 +63,24 @@ namespace Presentation.Controllers
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
                 var cart = await _cartService!.GetCartByUserId(userId!);
 
+                var model = new OrderModel
+                {
+                    CartModel = new CartViewModel
+                    {
+                        Id = cart!.Id,
+                        CartItems = cart.CartItems!.Select(e => new CartItemViewModel{
+                            CartItemId = e.CartItemId,
+                            ProductId = e.ProductId,
+                            Name = e!.Name,
+                            Price = (double)e.Price!,
+                            ImageUrl = e.ImageUrl,                           
+                            Quantity = e.Quantity
+                        }).ToList()
+                    }
+                };
 
-                return View();
+
+                return View(model);
             }
         }
 
@@ -79,16 +95,16 @@ namespace Presentation.Controllers
                 );
 
                 model.CartModel = new CartViewModel
-                    {
-                        Id = sessionCart!.Id,
-                        CartItems = sessionCart.CartItems!.Select(e => new CartItemViewModel{
-                            CartItemId = e.CartItemId,
-                            ProductId = e.ProductId,
-                            Name = e!.Name,
-                            Price = (double)e.Price!,
-                            ImageUrl = e.ImageUrl,                           
-                            Quantity = e.Quantity
-                        }).ToList()
+                {
+                    Id = sessionCart!.Id,
+                    CartItems = sessionCart.CartItems!.Select(e => new CartItemViewModel{
+                        CartItemId = e.CartItemId,
+                        ProductId = e.ProductId,
+                        Name = e!.Name,
+                        Price = (double)e.Price!,
+                        ImageUrl = e.ImageUrl,                           
+                        Quantity = e.Quantity
+                    }).ToList()
                     
                 };
 
@@ -100,8 +116,22 @@ namespace Presentation.Controllers
                 var userId = _userService!.GetUserId(_accessor!.HttpContext!);
                 var cart = await _cartService!.GetCartByUserId(userId!);
 
+                model.CartModel = new CartViewModel
+                {
+                    Id = cart!.Id,
+                    CartItems = cart.CartItems!.Select(e => new CartItemViewModel{
+                        CartItemId = e.CartItemId,
+                        ProductId = e.ProductId,
+                        Name = e!.Name,
+                        Price = (double)e.Price!,
+                        ImageUrl = e.ImageUrl,                           
+                        Quantity = e.Quantity
+                    }).ToList()
+                    
+                };
 
-                return View();
+
+                return View(model);
             }
         }
     }
