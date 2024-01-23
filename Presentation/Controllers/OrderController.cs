@@ -1,8 +1,5 @@
 using Business.Abstract;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Presentation.Extentions;
 using Presentation.Identity.Abstract;
 using Presentation.Session;
 using Shared.Models;
@@ -108,7 +105,6 @@ namespace Presentation.Controllers
                     
                 };
 
-
                 return View(model);
             } 
             else
@@ -130,9 +126,11 @@ namespace Presentation.Controllers
                     
                 };
 
-
                 return View(model);
             }
         }
+    
+        
+    
     }
 }
