@@ -1,6 +1,9 @@
 using Business.Abstract;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Extentions;
 using Presentation.Identity.Abstract;
+using Presentation.PaymentProcess;
 using Presentation.Session;
 using Shared.Models;
 using Shared.ViewModels;
@@ -16,7 +19,9 @@ namespace Presentation.Controllers
         private readonly ICartService? _cartService;
         private readonly SessionManager? _sessionManager;
         private readonly IProductService? _productService;
-        public OrderController(IHttpContextAccessor? accessor,ISignService signService,IUserService userService,ICartService? cartService,SessionManager? sessionManager,IProductService? productService)
+        private readonly IConfiguration _configuration;
+        private readonly IOrderService _orderService;
+        public OrderController(IHttpContextAccessor? accessor,ISignService signService,IUserService userService,ICartService? cartService,SessionManager? sessionManager,IProductService? productService,IConfiguration configuration,IOrderService orderService)
         {
             _accessor = accessor;
             _signService = signService;
@@ -24,6 +29,13 @@ namespace Presentation.Controllers
             _cartService = cartService;
             _sessionManager = sessionManager;
             _productService = productService;
+            _configuration = configuration;
+            _orderService = orderService;
+        }
+
+        public async Task<IActionResult> Index(int sayfa=1)
+        {
+            return View();
         }
 
         [HttpGet]       
@@ -84,6 +96,12 @@ namespace Presentation.Controllers
         [HttpPost]       
         public async Task<IActionResult> Checkout(OrderModel model)
         {
+
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            };
+
             if(!User.Identity!.IsAuthenticated)
             {
                 var sessionCart = _sessionManager!.GetCart
@@ -126,7 +144,38 @@ namespace Presentation.Controllers
                     
                 };
 
-                return View(model);
+                var payment = Process_Iyzipay.Pay(model,_configuration);
+
+                if(payment.Status == "success")
+                {
+                    model.ConversationId = payment.ConversationId;
+                    model.PaymentId = payment.PaymentId;
+
+                    await _orderService.CreateAsync(model,userId!);
+
+                    await _cartService.ClearCartAsync(userId!);
+
+                    TempData.Put("infoMessage",new MessageModel
+                    {
+                        Title = $"Ödeme başarılı",
+                        Message = $"Siparişinizi siparişlerim sayfasından takip edebilirsiniz",
+                        AlertType = "success"
+                    });
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData.Put("infoMessage",new MessageModel
+                    {
+                        Title = $"Hata",
+                        Message = $"Ödeme başarısız: {payment.ErrorMessage}.",
+                        AlertType = "danger"
+                    });
+
+                    return View(model);
+                }
+                               
             }
         }
     

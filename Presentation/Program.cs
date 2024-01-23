@@ -66,6 +66,7 @@ builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 builder.Services.AddScoped<ICartService,CartManager>();
+builder.Services.AddScoped<IOrderService,OrderManager>();
 
 builder.Services.AddScoped<ISignService,SignService>();
 builder.Services.AddScoped<IUserService,UserService>();
@@ -126,6 +127,13 @@ app.MapControllerRoute
     name: "checkout",
     pattern: "odeme",
     defaults: new { controller="Order", action="Checkout" }
+);
+
+app.MapControllerRoute
+(
+    name: "orderindex",
+    pattern: "siparislerim",
+    defaults: new { controller="Order", action="Index" }
 );
 
 // Admin

@@ -50,7 +50,7 @@ namespace Presentation.PaymentProcess
                 GsmNumber = model.Phone.ToString(),
                 Email = model.Email,
                 IdentityNumber = "74300864791",
-                LastLoginDate = DateTime.Now.ToString(),
+                LastLoginDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
                 RegistrationDate = "2013-04-21 15:12:09",
                 RegistrationAddress = model.Address,
                 Ip = "85.34.78.112",
