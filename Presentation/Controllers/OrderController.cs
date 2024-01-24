@@ -104,10 +104,7 @@ namespace Presentation.Controllers
 
             if(!User.Identity!.IsAuthenticated)
             {
-                var sessionCart = _sessionManager!.GetCart
-                (
-                    new SessionModel{HttpContext=_accessor!.HttpContext}
-                );
+                var sessionCart = _sessionManager!.GetCart(new SessionModel{HttpContext=_accessor!.HttpContext});
 
                 model.CartModel = new CartViewModel
                 {
@@ -123,7 +120,39 @@ namespace Presentation.Controllers
                     
                 };
 
-                return View(model);
+                var payment = Process_Iyzipay.Pay(model,_configuration);
+
+                if(payment.Status == "success")
+                {
+                    model.ConversationId = payment.ConversationId;
+                    model.PaymentId = payment.PaymentId;
+
+                    var userId = _sessionManager.GetUserIdCookie(new SessionModel{HttpContext=_accessor.HttpContext});
+
+                    await _orderService.CreateAsync(model,userId!);
+
+                    _sessionManager.ClearCart(new SessionModel{HttpContext=_accessor.HttpContext});
+
+                    TempData.Put("infoMessage",new MessageModel
+                    {
+                        Title = $"Ödeme başarılı",
+                        Message = $"Siparişinizi siparişlerim sayfasından takip edebilirsiniz",
+                        AlertType = "success"
+                    });
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData.Put("infoMessage",new MessageModel
+                    {
+                        Title = $"Hata",
+                        Message = $"Ödeme başarısız: {payment.ErrorMessage}.",
+                        AlertType = "danger"
+                    });
+
+                    return View(model);
+                }
             } 
             else
             {

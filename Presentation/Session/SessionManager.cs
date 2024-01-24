@@ -112,5 +112,28 @@ namespace Presentation.Session
             model.HttpContext!.Session.SetString("Cart",cartString);
 
         }
+    
+        public string GetUserIdCookie(SessionModel model)
+        {
+
+            string userId = string.Empty;
+
+            if(model.HttpContext!.Request.Cookies["GuidId"] == null)
+            {
+
+                userId = $"nonMemberUserId_{Guid.NewGuid()}";
+                var cookie = new CookieOptions{Expires = DateTime.Now.AddDays(30)};
+
+                model.HttpContext!.Response.Cookies.Append("GuidId", userId, cookie);
+                
+            }
+            else
+            {
+                userId = model.HttpContext!.Request.Cookies["GuidId"]!;
+            }
+           
+            return userId;
+        }
+    
     }
 }
