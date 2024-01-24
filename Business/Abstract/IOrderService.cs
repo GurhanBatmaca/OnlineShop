@@ -7,6 +7,6 @@ namespace Business.Abstract
     public interface IOrderService
     {
         Task CreateAsync(OrderModel model,string userId);
-
+        Task<OrderListViewModel> GetOrders(string userId, int page);
     }
 }
