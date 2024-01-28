@@ -60,7 +60,6 @@ namespace Business.Concrete
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);
             var orders = await _unitOfWork!.Orders.GetOrders(userId,page,pageSize);
-            // var orderModels = orders!.Select(o => _mapper.Map<OrderViewModel>(o));
 
             var orderModels = orders!.Select(e => new OrderViewModel{
                 OrderNumber = e.OrderNumber,
@@ -90,7 +89,7 @@ namespace Business.Concrete
                     TotalItems = ordersCount,
                     ItemPerPage = pageSize,
                     CurrentPage = page,
-                    PaginationType = ""
+                    PaginationType = ""   // eklenecek
                 }
             };
         }

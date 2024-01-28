@@ -1,1 +1,15 @@
+@model OrderListViewModel
+
+@foreach(var order in @Model.Orders)
+{
+    <p>@order.OrderState</p>
+
+    @foreach(var orderItem in order.OrderItems)
+    {
+        <p>@orderItem.Name</p>
+        <p>@orderItem.Price</p>
+    }
+    <hr>
+}
+
 Siparişlerim

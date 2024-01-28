@@ -35,7 +35,21 @@ namespace Presentation.Controllers
 
         public async Task<IActionResult> Index(int sayfa=1)
         {
-            return View();
+            
+            if(!User.Identity!.IsAuthenticated)
+            {
+                var userId = _sessionManager!.GetUserIdCookie(new SessionModel{HttpContext=_accessor!.HttpContext});
+
+                var model = await _orderService.GetOrders(userId,sayfa);
+                return View(model);
+            }
+            else
+            {
+                var userId = _userService!.GetUserId(_accessor!.HttpContext!);
+                var model = await _orderService.GetOrders(userId!,sayfa);
+                return View(model);
+            }
+
         }
 
         [HttpGet]       
