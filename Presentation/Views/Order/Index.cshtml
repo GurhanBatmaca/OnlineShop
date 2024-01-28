@@ -1,15 +1,74 @@
 @model OrderListViewModel
 
-@foreach(var order in @Model.Orders)
-{
-    <p>@order.OrderState</p>
-
-    @foreach(var orderItem in order.OrderItems)
-    {
-        <p>@orderItem.Name</p>
-        <p>@orderItem.Price</p>
-    }
-    <hr>
+@{
+  ViewData["Title"] = "Siparişlerim";
 }
 
-Siparişlerim
+<div>
+
+    <h1 class="h4 my-5">Siparişlerim</h1>
+
+    @if(@Model.Orders.Count == 0)
+    {
+        <div class="text-center">
+            <h5 class=" py-3">Henüz hiç sipariş vermediniz</h5>
+            <div class="">
+                <h6 class="my-3">Ürünlere göz atıp ilk siparişinizi vermek için tıklayın</h6>
+                <a href="/urunler" class="btn-btnprimary"><i class="fa-solid fa-arrow-right"></i></a>
+                <h6>Siparişiniz bu alanda görünmüyor ise lütfen bizimle <a href="/iletisim">iletişime</a> geçin.</h6>
+            </div>                    
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-3">Durum</div>
+            <div class="col-3">Tarih</div>
+            <div class="col-3">Ödeme Türü</div>
+            <div class="col-3">Tutar</div>
+        </div>
+        <hr>
+
+        @foreach(var order in @Model.Orders)
+        {
+            <div class="row bg-warning  mb-3">
+                <div class="col-3">@order.OrderState</div>
+                <div class="col-3">@order.OrderDate.ToString("MM/dd/yyyy")</div>
+                <div class="col-3">@order.PaymentType</div>
+                <div class="col-3">@order.TotalPrice().ToString("c") TL</div>
+            </div>
+
+            @* <h5 class="text-center">İçerik</h5> *@
+
+            @foreach(var orderItem in order.OrderItems)
+            {
+                <div class="row mb-2">
+                    <div class="col-3">
+                        <img src="~/images/@orderItem.ImageUrl" alt="orderItem" width="50" height="50">
+                    </div>
+                    <div class="col-3">@orderItem.Name</div>
+                    <div class="col-3">@orderItem.Price x @orderItem.Quantity</div>
+                    <div class="col-3">@orderItem.TotalPrice().ToString("c")</div>
+                </div>
+            }
+            <hr>
+
+            <div class="row">
+                <div class="col-6">Adres</div>
+                <div class="col-6">E-Posta</div>
+                <div class="col-6">@order.Address</div>
+                <div class="col-6">@order.Email</div>
+            </div>
+        }
+    }
+
+
+
+
+</div>
+
+
+
+
+
+
