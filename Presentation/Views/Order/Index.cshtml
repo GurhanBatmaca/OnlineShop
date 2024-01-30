@@ -11,7 +11,7 @@
         <hr>
     </div>
 
-    @if(@Model.Orders.Count == 0)
+    @if(@Model.Orders!.Count == 0)
     {
         <div class="text-center">
             <h5 class=" py-3">Henüz hiç sipariş vermediniz</h5>
@@ -49,7 +49,7 @@
                         </tr>                   
                     </tbody>
                     <tfoot>
-                        @foreach(var orderItem in order.OrderItems)
+                        @foreach(var orderItem in order!.OrderItems!)
                         {
                             <tr>
                                 <td><img src="~/images/@orderItem.ImageUrl" alt="" width="50" height="50"></td>
