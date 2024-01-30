@@ -73,36 +73,36 @@
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item @(Model.CurrentPage == 1 ? "disabled":"")">
-                <a class="page-link" href="/siparislerim?sayfa=@(Model.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i> </a>
+            <li class="page-item @(Model.PageInfo.CurrentPage == 1 ? "disabled":"")">
+                <a class="page-link" href="/siparislerim?sayfa=@(Model.PageInfo.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i> </a>
             </li>  
-            @if(Model.CurrentPage == @Model!.TotalPages() && @Model!.TotalPages() > 4)
+            @if(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() && @Model!.PageInfo.TotalPages() > 4)
             {
                 <li class="page-item disabled">
                     <a class="page-link" href="#">...</a>
                 </li> 
             } 
-            @for(var i=0; i< @Model!.TotalPages(); i++)
+            @for(var i=0; i< @Model!.PageInfo.TotalPages(); i++)
             {                   
-                @if(Model.CurrentPage == i+1 || Model.CurrentPage == i || Model.CurrentPage == i+2) 
+                @if(Model.PageInfo.CurrentPage == i+1 || Model.PageInfo.CurrentPage == i || Model.PageInfo.CurrentPage == i+2) 
                 {
-                    <li class="page-item @(Model.CurrentPage == i+1 ? "active":"")">
+                    <li class="page-item @(Model.PageInfo.CurrentPage == i+1 ? "active":"")">
                         <a class="page-link" href="/siparislerim?sayfa=@(i+1)">@(i+1)</a>
                     </li>
                 }
             }
-            @if(Model.CurrentPage != Model!.TotalPages() && Model.CurrentPage != Model!.TotalPages() -1)
+            @if(Model.PageInfo.CurrentPage != Model!.PageInfo.TotalPages() && Model.PageInfo.CurrentPage != Model!.PageInfo.TotalPages() -1)
             {
                 <li class="page-item disabled">
                     <a class="page-link" href="#" >...</a>
                 </li> 
             }
            
-            <li class="page-item @(Model.CurrentPage == @Model!.TotalPages() ? "disabled":"")">
-                <a class="page-link" href="/siparislerim?sayfa=@(Model.CurrentPage+1)"> <i class="fa-solid fa-angle-right"></i></a>
+            <li class="page-item @(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() ? "disabled":"")">
+                <a class="page-link" href="/siparislerim?sayfa=@(Model.PageInfo.CurrentPage+1)"> <i class="fa-solid fa-angle-right"></i></a>
             </li>
-            <li class="page-item @(Model.CurrentPage == @Model!.TotalPages() ? "disabled":"")">
-                <a class="page-link" href="/siparislerim?sayfa=@Model!.TotalPages()">/ @Model!.TotalPages()</a>
+            <li class="page-item @(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() ? "disabled":"")">
+                <a class="page-link" href="/siparislerim?sayfa=@Model!.PageInfo.TotalPages()">/ @Model!.PageInfo.TotalPages()</a>
             </li> 
         </ul>
     </nav>
