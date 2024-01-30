@@ -255,8 +255,7 @@ namespace Presentation.Controllers
             });
             return View(model);
         }
-    
-    
+        
         public async Task<IActionResult> DeleteCategory(int? id)
         {
             if(id is null)
@@ -292,5 +291,11 @@ namespace Presentation.Controllers
 
             return RedirectToAction("CategoryList");
         }
+    
+        public async Task<IActionResult> OrderList(int sayfa=1)
+        {
+            return View();
+        }
+
     }
 }
