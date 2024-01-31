@@ -1,7 +1,111 @@
+@model OrderListViewModel
+
 @{
     Layout = "_Layout-Admin";
     ViewData["Title"] = "Admin/Kategori ekle";
 }
 
 
-OrderList
+<div>
+
+    <div class="my-4">
+        <h1 class="h4">Siparişlerim</h1>
+        <hr>
+    </div>
+
+    @if(@Model.Orders!.Count == 0)
+    {
+        <div class="text-center">
+            <h5 class=" py-3">Henüz hiç sipariş vermediniz</h5>
+            <div class="">
+                <h6 class="my-3">Ürünlere göz atıp ilk siparişinizi vermek için tıklayın</h6>
+                <a href="/urunler" class="btn-btnprimary"><i class="fa-solid fa-arrow-right"></i></a>
+                <h6>Siparişiniz bu alanda görünmüyor ise lütfen bizimle <a href="/iletisim">iletişime</a> geçin.</h6>
+            </div>                    
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            @foreach(var order in @Model.Orders)
+            {
+                <table class="table table-borderless border">
+                    <thead>
+                        <tr>
+                            <th >Durum</th>
+                            <th >Tarih</th>
+                            <th >Ödeme Türü</th>
+                            <th >Adres</th>
+                            <th >E-Posta</th>
+                            <th >Tutar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="row">@order.OrderState</td>
+                            <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                            <td>@order.PaymentType</td>
+                            <td>@order.Address</td>
+                            <td>@order.Email</td>
+                            <td>@order.TotalPrice().ToString("c") TL</td>
+                        </tr>                   
+                    </tbody>
+                    <tfoot>
+                        @foreach(var orderItem in order!.OrderItems!)
+                        {
+                            <tr>
+                                <td><img src="~/images/@orderItem.ImageUrl" alt="" width="50" height="50"></td>
+                                <td>@orderItem.Name</td>
+                                <td>@orderItem.Weight gr</td>
+                                <td>@orderItem.Quantity x @orderItem.Price</td>
+                                <td>@orderItem.TotalPrice().ToString("c")</td>
+                                <td>
+                                    <a href="/urun/@orderItem.Url" class="btn">Ürüne git <i class="fa-solid fa-arrow-right"></i></a>
+                                </td>
+                            </tr>
+                        }   
+                    </tfoot>                
+                </table>
+            }
+        </div>
+    }
+</div>
+
+@if(@Model!.PageInfo!.TotalPages() > 1)
+{
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.PageInfo.CurrentPage == 1 ? "disabled":"")">
+                <a class="page-link" href="/siparislerim?sayfa=@(Model.PageInfo.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i> </a>
+            </li>  
+            @if(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() && @Model!.PageInfo.TotalPages() > 4)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">...</a>
+                </li> 
+            } 
+            @for(var i=0; i< @Model!.PageInfo.TotalPages(); i++)
+            {                   
+                @if(Model.PageInfo.CurrentPage == i+1 || Model.PageInfo.CurrentPage == i || Model.PageInfo.CurrentPage == i+2) 
+                {
+                    <li class="page-item @(Model.PageInfo.CurrentPage == i+1 ? "active":"")">
+                        <a class="page-link" href="/siparislerim?sayfa=@(i+1)">@(i+1)</a>
+                    </li>
+                }
+            }
+            @if(Model.PageInfo.CurrentPage != Model!.PageInfo.TotalPages() && Model.PageInfo.CurrentPage != Model!.PageInfo.TotalPages() -1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" >...</a>
+                </li> 
+            }
+           
+            <li class="page-item @(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() ? "disabled":"")">
+                <a class="page-link" href="/siparislerim?sayfa=@(Model.PageInfo.CurrentPage+1)"> <i class="fa-solid fa-angle-right"></i></a>
+            </li>
+            <li class="page-item @(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() ? "disabled":"")">
+                <a class="page-link" href="/siparislerim?sayfa=@Model!.PageInfo.TotalPages()">/ @Model!.PageInfo.TotalPages()</a>
+            </li> 
+        </ul>
+    </nav>
+}

@@ -24,7 +24,7 @@ namespace Data.Concrete.EfCore
                 orders = orders.Where(e=>e.OrderState == orderState);
             }
 
-            return await orders.Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
+            return await orders.OrderByDescending(i=>i.OrderDate).Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
         }
 
         public async Task<int> GetAllOrdersCount(string orderState)

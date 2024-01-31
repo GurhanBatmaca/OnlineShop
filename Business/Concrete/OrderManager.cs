@@ -56,6 +56,44 @@ namespace Business.Concrete
 
         }
 
+        public async Task<OrderListViewModel> GetAllOrders(string orderState, int page)
+        {
+            var pageSize = Int32.Parse(_configuration["PageSize"]!);
+            var orders = await _unitOfWork!.Orders.GetAllOrders(orderState,page,pageSize);
+
+            var orderModels = orders!.Select(e => new OrderViewModel{
+                OrderNumber = e.OrderNumber,
+                OrderDate = e.OrderDate,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Address = e.Address,
+                Email = e.Email,
+                OrderState = e.OrderState,
+                PaymentType = e.PaymentType,
+                OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
+                    Price = i.Price,
+                    Quantity = i.Quantity,
+                    Name = i.Product!.Name,
+                    ImageUrl = i.Product.ImageUrl,
+                    Url = i.Product.Url,
+                    Weight = i.Product.Weight
+                }).ToList()
+            });
+
+            var ordersCount = await _unitOfWork.Orders.GetAllOrdersCount(orderState);
+
+            return new OrderListViewModel
+            {
+                Orders = orderModels.ToList(),
+                PageInfo = new PageInfoModel {
+                    TotalItems = ordersCount,
+                    ItemPerPage = pageSize,
+                    CurrentPage = page
+                }
+            };
+        }
+
+
         public async Task<OrderListViewModel> GetOrders(string userId, int page)
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);
@@ -88,8 +126,7 @@ namespace Business.Concrete
                 PageInfo = new PageInfoModel {
                     TotalItems = ordersCount,
                     ItemPerPage = pageSize,
-                    CurrentPage = page,
-                    PaginationType = ""   // eklenecek
+                    CurrentPage = page
                 }
             };
         }

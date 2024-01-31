@@ -13,10 +13,12 @@ namespace Presentation.Controllers
     {
         private readonly ICategoryService? _categoryService;
         private readonly IProductService? _productService;
-        public AdminController(ICategoryService? categoryService,IProductService? productService)
+        private readonly IOrderService _orderService;
+        public AdminController(ICategoryService? categoryService,IProductService? productService,IOrderService orderService)
         {
             _categoryService = categoryService;
             _productService = productService;
+            _orderService = orderService;
         }
         public IActionResult Index()
         {
@@ -294,7 +296,8 @@ namespace Presentation.Controllers
     
         public async Task<IActionResult> OrderList(string orderState,int sayfa=1)
         {
-            return View();
+            var model = await _orderService.GetAllOrders(orderState,sayfa);
+            return View(model);
         }
 
     }

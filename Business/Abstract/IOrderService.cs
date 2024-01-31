@@ -8,5 +8,6 @@ namespace Business.Abstract
     {
         Task CreateAsync(OrderModel model,string userId);
         Task<OrderListViewModel> GetOrders(string userId, int page);
+        Task<OrderListViewModel> GetAllOrders(string orderState,int page);
     }
 }
