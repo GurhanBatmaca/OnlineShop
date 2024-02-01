@@ -67,6 +67,7 @@ builder.Services.AddScoped<IProductService,ProductManager>();
 builder.Services.AddScoped<ICategoryService,CategoryManager>();
 builder.Services.AddScoped<ICartService,CartManager>();
 builder.Services.AddScoped<IOrderService,OrderManager>();
+builder.Services.AddScoped<IOrderStateService,OrderStateManager>();
 
 builder.Services.AddScoped<ISignService,SignService>();
 builder.Services.AddScoped<IUserService,UserService>();

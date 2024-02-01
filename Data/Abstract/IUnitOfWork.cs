@@ -6,5 +6,6 @@ namespace Data.Abstract
         ICategoryRepository Categories {get;}
         ICartRepository Carts {get;}
         IOrderRepository Orders {get;}
+        IOrderStateRepository OrderStates {get;}
     }
 }

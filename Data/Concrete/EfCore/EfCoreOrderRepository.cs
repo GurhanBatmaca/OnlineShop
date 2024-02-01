@@ -19,10 +19,10 @@ namespace Data.Concrete.EfCore
                                 .ThenInclude(e=>e.Product)
                                 .AsQueryable();
 
-            if(!string.IsNullOrEmpty(orderState))
-            {
-                orders = orders.Where(e=>e.OrderState == orderState);
-            }
+            // if(!string.IsNullOrEmpty(orderState))
+            // {
+            //     orders = orders.Where(e=>e.OrderState == orderState);
+            // }
 
             return await orders.OrderByDescending(i=>i.OrderDate).Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
         }
@@ -31,10 +31,10 @@ namespace Data.Concrete.EfCore
         {
             var orders = Context!.Orders.AsQueryable();
 
-            if(!string.IsNullOrEmpty(orderState))
-            {
-                orders = orders.Where(e=>e.OrderState == orderState);
-            }
+            // if(!string.IsNullOrEmpty(orderState))
+            // {
+            //     orders = orders.Where(e=>e.OrderState == orderState);
+            // }
 
             return await orders.CountAsync();
         }

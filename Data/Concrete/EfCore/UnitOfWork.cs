@@ -14,6 +14,7 @@ namespace Data.Concrete.EfCore
         protected private EfCoreCategoryRepository? categoryRepository;
         protected private EfCoreCartRepository? cartRepository;
         protected private EfCoreOrderRepository? orderRepository;
+        protected private EfCoreOrderStateRepository? orderStateRepository;
         public IProductRepository Products => productRepository ??= new EfCoreProductRepository(_context!);
 
         public ICategoryRepository Categories => categoryRepository ??= new EfCoreCategoryRepository(_context!);
@@ -21,6 +22,9 @@ namespace Data.Concrete.EfCore
         public ICartRepository Carts => cartRepository ??= new EfCoreCartRepository(_context!);
 
         public IOrderRepository Orders => orderRepository ??= new EfCoreOrderRepository(_context!);
+
+        public IOrderStateRepository OrderStates => orderStateRepository ??= new EfCoreOrderStateRepository(_context!);
+
 
         public void Dispose() => _context!.Dispose();
 
