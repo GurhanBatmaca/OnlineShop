@@ -108,6 +108,14 @@ namespace Data.Extentions
                 new ProductCategory {ProductId = 5,CategoryId = 8},
                 new ProductCategory {ProductId = 6,CategoryId = 3}
             );
+
+            modelBuilder.Entity<OrderState>().HasData(
+                new OrderState {Id=1,Name="Beklemede",Url="beklemede"},
+                new OrderState {Id=2,Name="Hazırlanıyor",Url="hazirlaniyor"},
+                new OrderState {Id=3,Name="Kargoda",Url="kargoda"},
+                new OrderState {Id=4,Name="Teslim Edildi",Url="teslim-edildi"},
+                new OrderState {Id=5,Name="İptal Edildi",Url="iptal-edildi"}
+            );
         }
     }
 }

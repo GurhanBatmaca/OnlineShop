@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Shared.ViewModels
 {
     public class OrderViewModel
@@ -11,6 +13,7 @@ namespace Shared.ViewModels
         public string? OrderState { get; set; }
         public string? PaymentType { get; set; }
         public List<OrderItemViewModel>? OrderItems { get; set; } = [];
+        public List<SelectListItem>? OrderStates { get; set; }
 
         public double TotalPrice()
         {

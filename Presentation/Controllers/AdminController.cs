@@ -1,6 +1,7 @@
 using Business.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Presentation.Extentions;
 using Shared.Models;
@@ -296,8 +297,20 @@ namespace Presentation.Controllers
     
         public async Task<IActionResult> OrderList(string orderState,int sayfa=1)
         {
+            
             var model = await _orderService.GetAllOrders(orderState,sayfa);
             return View(model);
+        }
+
+        public async Task<IActionResult> UpdateOrder(string orderState)
+        {
+            TempData.Put("infoMessage",new MessageModel
+                {
+                    Title = $"",
+                    Message = $"{orderState}",
+                    AlertType = "success"
+                });
+            return View();
         }
 
     }

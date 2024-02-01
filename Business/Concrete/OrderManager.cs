@@ -2,6 +2,7 @@ using AutoMapper;
 using Business.Abstract;
 using Data.Abstract;
 using Entity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Shared.Models;
 using Shared.ViewModels;
@@ -25,7 +26,7 @@ namespace Business.Concrete
             var order = new Order
             {
                 OrderNumber = new Random().Next(111111, 999999).ToString(),
-                OrderState = "Beklemede",
+                OrderStateId = 1,
                 PaymentType = "Kredi Kartı",
                 FirstName = model.FirstName,
                 LastName = model.LastName,
@@ -68,7 +69,7 @@ namespace Business.Concrete
                 LastName = e.LastName,
                 Address = e.Address,
                 Email = e.Email,
-                OrderState = e.OrderState,
+                // OrderState = e.OrderState,
                 PaymentType = e.PaymentType,
                 OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
                     Price = i.Price,
@@ -77,7 +78,15 @@ namespace Business.Concrete
                     ImageUrl = i.Product.ImageUrl,
                     Url = i.Product.Url,
                     Weight = i.Product.Weight
-                }).ToList()
+                }).ToList(),
+                OrderStates = new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "Beklemede", Value = "beklemede"},
+                    new SelectListItem {Text = "Hazırlanıyor", Value = "hazirlaniryor"},
+                    new SelectListItem {Text = "Kargoda", Value = "kargoda"},
+                    new SelectListItem {Text = "Teslim Edildi", Value = "teslim-edildi"},
+                    new SelectListItem {Text = "İptal Edildi", Value = "iptal-edildi"}
+                }
             });
 
             var ordersCount = await _unitOfWork.Orders.GetAllOrdersCount(orderState);
@@ -106,7 +115,7 @@ namespace Business.Concrete
                 LastName = e.LastName,
                 Address = e.Address,
                 Email = e.Email,
-                OrderState = e.OrderState,
+                // OrderState = e.OrderState,
                 PaymentType = e.PaymentType,
                 OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
                     Price = i.Price,
