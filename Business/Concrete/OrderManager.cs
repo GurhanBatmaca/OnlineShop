@@ -74,6 +74,7 @@ namespace Business.Concrete
                 Address = e.Address,
                 Email = e.Email,
                 OrderState = e.OrderState!.Name,
+                OrderStateId = e.OrderStateId,
                 PaymentType = e.PaymentType,
                 OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
                     Price = i.Price,

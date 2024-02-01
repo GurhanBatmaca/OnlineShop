@@ -12,6 +12,7 @@ namespace Shared.ViewModels
         public string? Address { get; set; }
         public string? Email { get; set; }
         public string? OrderState { get; set; }
+        public int OrderStateId { get; set; }
         public string? PaymentType { get; set; }
         public List<OrderItemViewModel>? OrderItems { get; set; } = [];
         public List<SelectListItem>? OrderStates { get; set; }
