@@ -302,15 +302,29 @@ namespace Presentation.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> UpdateOrder(string orderState)
+        public async Task<IActionResult> UpdateOrder(string orderState,int orderId)
         {
-            TempData.Put("infoMessage",new MessageModel
+            if(await _orderService.UpdateAsync(orderState,orderId))
+            {
+                TempData.Put("infoMessage",new MessageModel
                 {
-                    Title = $"",
-                    Message = $"{orderState}",
+                    Title = $"Başarılı",
+                    Message = $"{_orderService.Message}",
                     AlertType = "success"
                 });
-            return View();
+
+                return RedirectToAction("OrderList");
+            }
+
+            TempData.Put("infoMessage",new MessageModel
+            {
+                Title = $"Hata",
+                Message = $"{_orderService.Message}",
+                AlertType = "danger"
+            });
+
+            return RedirectToAction("OrderList");
+
         }
 
     }

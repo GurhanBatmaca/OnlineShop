@@ -21,6 +21,8 @@ namespace Business.Concrete
             _configuration = configuration;
         }
 
+        public string? Message { get ; set ; }
+
         public async Task CreateAsync(OrderModel model,string userId)
         {
             var order = new Order
@@ -64,6 +66,7 @@ namespace Business.Concrete
             var orderStates = await _unitOfWork.OrderStates.GetAllAsync();
 
             var orderModels = orders!.Select(e => new OrderViewModel{
+                Id = e.Id,
                 OrderNumber = e.OrderNumber,
                 OrderDate = e.OrderDate,
                 FirstName = e.FirstName,
@@ -80,7 +83,7 @@ namespace Business.Concrete
                     Url = i.Product.Url,
                     Weight = i.Product.Weight,
                 }).ToList(),
-                OrderStates = orderStates.Select(e => new SelectListItem {Text = e.Name, Value = e.Url}).ToList()
+                OrderStates = orderStates.Select(e => new SelectListItem {Text = e.Name, Value = e.Id.ToString()}).ToList()
             });
 
             var ordersCount = await _unitOfWork.Orders.GetAllOrdersCount(orderState);
@@ -96,6 +99,10 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<Order?> GetByIdAsync(int id)
+        {
+            return await _unitOfWork!.Orders.GetByIdAsync(id);
+        }
 
         public async Task<OrderListViewModel> GetOrders(string userId, int page)
         {
@@ -133,5 +140,29 @@ namespace Business.Concrete
                 }
             };
         }
+
+        public async Task<bool> UpdateAsync(string orderState,int orderId)
+        {
+            if(string.IsNullOrEmpty(orderState))
+            {
+                Message = "Sipariş durumu bulunamadı";
+                return false;
+            }
+
+            var order = await _unitOfWork!.Orders.GetByIdAsync(orderId);
+
+            if(order is null)
+            {
+                Message = "Sipariş bulunamadı";
+                return false;
+            }           
+
+            order!.OrderStateId = int.Parse(orderState);
+            await _unitOfWork.Orders.UpdateAsync(order);
+
+            Message = "Sipariş durumu güncellendi.";
+            return true;
+        }
+
     }
 }

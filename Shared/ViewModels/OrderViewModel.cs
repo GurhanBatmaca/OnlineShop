@@ -4,6 +4,7 @@ namespace Shared.ViewModels
 {
     public class OrderViewModel
     {
+        public int Id { get; set; }
         public string? OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
         public string? FirstName { get; set; }

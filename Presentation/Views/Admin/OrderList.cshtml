@@ -47,8 +47,9 @@
                             <td>@order.TotalPrice().ToString("c") TL</td>
                             <td>
                                 <form asp-controller="Admin" asp-action="UpdateOrder" class="d-flex">
+                                    <input type="hidden" name="orderId" value="@order.Id">
                                     <select name="orderState" class="form-select" asp-items="@order.OrderStates">
-                                        <option disabled>Durum seçin</option>
+                                        <option>@order.OrderState</option>
                                     </select>
                                     <button class="btn" type="submit"><i class="fa-solid fa-pencil"></i></button>
                                 </form>
