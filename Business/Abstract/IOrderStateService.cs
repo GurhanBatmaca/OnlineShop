@@ -7,6 +7,6 @@ namespace Business.Abstract
     public interface IOrderStateService
     {
         Task CreateAsync(OrderState orderState);
-        
+        Task<List<OrderState>> GetAllAsync();
     }
 }

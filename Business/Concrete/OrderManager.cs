@@ -61,6 +61,7 @@ namespace Business.Concrete
         {
             var pageSize = Int32.Parse(_configuration["PageSize"]!);
             var orders = await _unitOfWork!.Orders.GetAllOrders(orderState,page,pageSize);
+            var orderStates = await _unitOfWork.OrderStates.GetAllAsync();
 
             var orderModels = orders!.Select(e => new OrderViewModel{
                 OrderNumber = e.OrderNumber,
@@ -69,7 +70,7 @@ namespace Business.Concrete
                 LastName = e.LastName,
                 Address = e.Address,
                 Email = e.Email,
-                // OrderState = e.OrderState,
+                OrderState = e.OrderState!.Name,
                 PaymentType = e.PaymentType,
                 OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
                     Price = i.Price,
@@ -77,16 +78,9 @@ namespace Business.Concrete
                     Name = i.Product!.Name,
                     ImageUrl = i.Product.ImageUrl,
                     Url = i.Product.Url,
-                    Weight = i.Product.Weight
+                    Weight = i.Product.Weight,
                 }).ToList(),
-                OrderStates = new List<SelectListItem>
-                {
-                    new SelectListItem {Text = "Beklemede", Value = "beklemede"},
-                    new SelectListItem {Text = "Hazırlanıyor", Value = "hazirlaniryor"},
-                    new SelectListItem {Text = "Kargoda", Value = "kargoda"},
-                    new SelectListItem {Text = "Teslim Edildi", Value = "teslim-edildi"},
-                    new SelectListItem {Text = "İptal Edildi", Value = "iptal-edildi"}
-                }
+                OrderStates = orderStates.Select(e => new SelectListItem {Text = e.Name, Value = e.Url}).ToList()
             });
 
             var ordersCount = await _unitOfWork.Orders.GetAllOrdersCount(orderState);
@@ -115,7 +109,7 @@ namespace Business.Concrete
                 LastName = e.LastName,
                 Address = e.Address,
                 Email = e.Email,
-                // OrderState = e.OrderState,
+                OrderState = e.OrderState!.Name,
                 PaymentType = e.PaymentType,
                 OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
                     Price = i.Price,

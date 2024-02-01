@@ -17,12 +17,13 @@ namespace Data.Concrete.EfCore
             var orders = Context!.Orders
                                 .Include(e=>e.OrderItems!)
                                 .ThenInclude(e=>e.Product)
+                                .Include(e=>e.OrderState)
                                 .AsQueryable();
 
-            // if(!string.IsNullOrEmpty(orderState))
-            // {
-            //     orders = orders.Where(e=>e.OrderState == orderState);
-            // }
+            if(!string.IsNullOrEmpty(orderState))
+            {
+                orders = orders.Where(e=> e.OrderState!.Url == orderState);
+            }
 
             return await orders.OrderByDescending(i=>i.OrderDate).Skip((page-1)*pageSize).Take(pageSize).ToListAsync();
         }
@@ -31,10 +32,10 @@ namespace Data.Concrete.EfCore
         {
             var orders = Context!.Orders.AsQueryable();
 
-            // if(!string.IsNullOrEmpty(orderState))
-            // {
-            //     orders = orders.Where(e=>e.OrderState == orderState);
-            // }
+            if(!string.IsNullOrEmpty(orderState))
+            {
+                orders = orders.Where(e=> e.OrderState!.Url == orderState);
+            }
 
             return await orders.CountAsync();
         }
@@ -46,6 +47,7 @@ namespace Data.Concrete.EfCore
                                 .Where(e=>e.UserId == userId)
                                 .Include(e=>e.OrderItems!)
                                 .ThenInclude(e=>e.Product)
+                                .Include(e=>e.OrderState)
                                 .AsQueryable();
 
             return await orders.OrderByDescending(i=>i.OrderDate).Skip((page-1)*pageSize).Take(pageSize).ToListAsync();

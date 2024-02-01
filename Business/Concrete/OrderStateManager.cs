@@ -25,5 +25,9 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        public async Task<List<OrderState>> GetAllAsync()
+        {
+            return await _unitOfWork!.OrderStates.GetAllAsync();
+        }
     }
 }

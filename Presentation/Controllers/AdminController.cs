@@ -295,10 +295,10 @@ namespace Presentation.Controllers
             return RedirectToAction("CategoryList");
         }
     
-        public async Task<IActionResult> OrderList(string orderState,int sayfa=1)
+        public async Task<IActionResult> OrderList(string siparisdurumu,int sayfa=1)
         {
             
-            var model = await _orderService.GetAllOrders(orderState,sayfa);
+            var model = await _orderService.GetAllOrders(siparisdurumu,sayfa);
             return View(model);
         }
 
