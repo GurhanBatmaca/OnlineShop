@@ -148,7 +148,7 @@ app.MapControllerRoute
 app.MapControllerRoute
 (
     name: "adminorderlist",
-    pattern: "admin/siparislistesi",
+    pattern: "admin/siparislistesi/{siparisdurumu?}",
     defaults: new { controller="Admin", action="OrderList" }
 );
 

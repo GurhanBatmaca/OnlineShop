@@ -15,11 +15,13 @@ namespace Presentation.Controllers
         private readonly ICategoryService? _categoryService;
         private readonly IProductService? _productService;
         private readonly IOrderService _orderService;
-        public AdminController(ICategoryService? categoryService,IProductService? productService,IOrderService orderService)
+        private readonly IOrderStateService _orderStateService;
+        public AdminController(ICategoryService? categoryService,IProductService? productService,IOrderService orderService,IOrderStateService orderStateService)
         {
             _categoryService = categoryService;
             _productService = productService;
             _orderService = orderService;
+            _orderStateService = orderStateService;
         }
         public IActionResult Index()
         {
@@ -297,6 +299,10 @@ namespace Presentation.Controllers
     
         public async Task<IActionResult> OrderList(string siparisdurumu,int sayfa=1)
         {
+
+            ViewBag.OrderStates = await _orderStateService.GetAllAsync();
+
+            ViewBag.SelectedCategory = RouteData.Values["siparisdurumu"]?.ToString();
             
             var model = await _orderService.GetAllOrders(siparisdurumu,sayfa);
             return View(model);
