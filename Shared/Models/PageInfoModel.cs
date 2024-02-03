@@ -6,6 +6,7 @@ public class PageInfoModel
     public int ItemPerPage { get; set; }
     public int CurrentPage { get; set; }
     public string? CurrentCategory { get; set; }
+    public string? CurrentOrderState { get; set; }
     public string? SearchQuery { get; set; }
     public string? PaginationType { get; set; }
 

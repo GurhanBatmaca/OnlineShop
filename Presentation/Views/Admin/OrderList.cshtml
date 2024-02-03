@@ -16,13 +16,13 @@
     <div class="row mb-3">
 
         <div class="col-sm-4 col-md-2 mb-2">
-            <a type="button" href="/admin/siparislistesi" class="btn btn-primary w-100 @(ViewBag.SelectedCategory == null ? "active" : "")">Hepsi</a>
+            <a type="button" href="/admin/siparislistesi" class="btn btn-primary w-100 @(ViewBag.SelectedOrderStates == null ? "active" : "")">Hepsi</a>
         </div>
             
             @foreach(var orderState in ViewBag.OrderStates)
             {
                 <div class="col-sm-4 col-md-2 mb-2">
-                    <a type="button" href="/admin/siparislistesi/@orderState.Url" class="btn btn-primary w-100 @(ViewBag.SelectedCategory == orderState.Url ? "active" : "")">@orderState.Name</a>
+                    <a type="button" href="/admin/siparislistesi/@orderState.Url" class="btn btn-primary w-100 @(ViewBag.SelectedOrderStates == orderState.Url ? "active" : "")">@orderState.Name</a>
                 </div>               
             }
         </div>
@@ -35,7 +35,7 @@
     }
     else
     {
-        <div class="table-responsive">
+        <div class="table-responsive mb-2">
             @foreach(var order in @Model.Orders)
             {
                 <table class="table table-borderless border">
@@ -92,44 +92,85 @@
     }
 </div>
 
-
-
-@* güncellencek *@
 @if(@Model!.PageInfo!.TotalPages() > 1)
 {
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item @(Model.PageInfo.CurrentPage == 1 ? "disabled":"")">
-                <a class="page-link" href="/admin/siparislistesi?sayfa=@(Model.PageInfo.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i> </a>
-            </li>  
-            @if(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() && @Model!.PageInfo.TotalPages() > 4)
+            @if(string.IsNullOrEmpty(Model!.PageInfo!.CurrentOrderState!))
             {
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">...</a>
-                </li> 
-            } 
-            @for(var i=0; i< @Model!.PageInfo.TotalPages(); i++)
-            {                   
-                @if(Model.PageInfo.CurrentPage == i+1 || Model.PageInfo.CurrentPage == i || Model.PageInfo.CurrentPage == i+2) 
+                <li class="page-item @(Model.PageInfo!.CurrentPage == 1 ? "disabled":"")">
+                    <a class="page-link" href="/admin/siparislistesi?sayfa=@(Model.PageInfo!.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i></a>
+                </li>
+                @if(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() && @Model!.PageInfo!.TotalPages() > 4)
                 {
-                    <li class="page-item @(Model.PageInfo.CurrentPage == i+1 ? "active":"")">
-                        <a class="page-link" href="/admin/siparislistesi?sayfa=@(i+1)">@(i+1)</a>
-                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li> 
+                } 
+            }
+            else
+            {
+                <li class="page-item @(Model.PageInfo!.CurrentPage == 1 ? "disabled":"")">
+                    <a class="page-link" href="/admin/siparislistesi/@Model.PageInfo!.CurrentOrderState?sayfa=@(Model.PageInfo!.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i></a>
+                </li>
+                @if(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() && @Model!.PageInfo!.TotalPages() > 4)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li> 
+                } 
+            }
+            @for(var i=0; i< @Model!.PageInfo!.TotalPages(); i++)
+            {
+                if(string.IsNullOrEmpty(Model.PageInfo!.CurrentOrderState))
+                {
+                    @if(Model.PageInfo!.CurrentPage == i+1 || Model.PageInfo!.CurrentPage == i || Model.PageInfo!.CurrentPage == i+2)
+                    {
+                        <li class="page-item @(Model.PageInfo!.CurrentPage == i+1 ? "active":"")">
+                            <a class="page-link" href="/admin/siparislistesi?sayfa=@(i+1)">@(i+1)</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    @if(Model.PageInfo!.CurrentPage == i+1 || Model.PageInfo!.CurrentPage == i || Model.PageInfo!.CurrentPage == i+2)
+                    {
+                        <li class="page-item @(Model.PageInfo!.CurrentPage == i+1 ? "active":"")">
+                            <a class="page-link" href="/admin/siparislistesi/@Model.PageInfo!.CurrentOrderState?sayfa=@(i+1)">@(i+1)</a>
+                        </li>
+                    }
                 }
             }
-            @if(Model.PageInfo.CurrentPage != Model!.PageInfo.TotalPages() && Model.PageInfo.CurrentPage != Model!.PageInfo.TotalPages() -1)
+            @if(string.IsNullOrEmpty(Model.PageInfo!.CurrentOrderState))
             {
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" >...</a>
+                @if(Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() && Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() -1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" >...</a>
+                    </li> 
+                }
+                <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/admin/siparislistesi?sayfa=@(Model.PageInfo!.CurrentPage+1)"><i class="fa-solid fa-angle-right"></i></a>
+                </li>
+                <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/admin/siparislistesi?sayfa=@Model!.PageInfo!.TotalPages()">/ @Model!.PageInfo!.TotalPages()</a>
                 </li> 
-            }
-           
-            <li class="page-item @(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() ? "disabled":"")">
-                <a class="page-link" href="/admin/siparislistesi?sayfa=@(Model.PageInfo.CurrentPage+1)"> <i class="fa-solid fa-angle-right"></i></a>
-            </li>
-            <li class="page-item @(Model.PageInfo.CurrentPage == @Model!.PageInfo.TotalPages() ? "disabled":"")">
-                <a class="page-link" href="/admin/siparislistesi?sayfa=@Model!.PageInfo.TotalPages()">/ @Model!.PageInfo.TotalPages()</a>
-            </li> 
+                }
+            else
+            {
+                @if(Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() && Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() -1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" >...</a>
+                    </li> 
+                }
+                <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/admin/siparislistesi/@Model.PageInfo!.CurrentOrderState?sayfa=@(Model.PageInfo!.CurrentPage+1)"><i class="fa-solid fa-angle-right"></i></a>
+                </li>
+                <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
+                    <a class="page-link" href="/admin/siparislistesi/@Model.PageInfo!.CurrentOrderState?sayfa=@Model!.PageInfo!.TotalPages()">/ @Model!.PageInfo!.TotalPages()</a>
+                </li> 
+            }    
         </ul>
     </nav>
 }

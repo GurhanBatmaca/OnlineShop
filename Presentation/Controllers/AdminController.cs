@@ -302,7 +302,7 @@ namespace Presentation.Controllers
 
             ViewBag.OrderStates = await _orderStateService.GetAllAsync();
 
-            ViewBag.SelectedCategory = RouteData.Values["siparisdurumu"]?.ToString();
+            ViewBag.SelectedOrderStates = RouteData.Values["siparisdurumu"]?.ToString();
             
             var model = await _orderService.GetAllOrders(siparisdurumu,sayfa);
             return View(model);

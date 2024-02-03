@@ -95,7 +95,8 @@ namespace Business.Concrete
                 PageInfo = new PageInfoModel {
                     TotalItems = ordersCount,
                     ItemPerPage = pageSize,
-                    CurrentPage = page
+                    CurrentPage = page,
+                    CurrentOrderState = orderState
                 }
             };
         }
