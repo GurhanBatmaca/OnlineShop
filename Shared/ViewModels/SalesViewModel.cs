@@ -4,14 +4,10 @@ namespace Shared.ViewModels
 {
     public class SalesViewModel
     {
-        public DateTime OrderDate { get; set; }
-        public string? OrderState { get; set; }
-        public string? PaymentType { get; set; }
-        public List<OrderItemViewModel>? OrderItems { get; set; } = [];
+        public string? Name { get; set; }
+        public int Sepet { get; set; }
+        public double? SatisTotal { get; set; }
+        public int? SatisAdet { get; set; }
 
-        public double TotalPrice()
-        {
-            return OrderItems!.Sum(i => i.Price * i.Quantity);
-        }
     }
 }

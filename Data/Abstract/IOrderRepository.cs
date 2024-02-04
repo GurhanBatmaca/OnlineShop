@@ -1,5 +1,6 @@
 using Entity;
 using Shared.Models;
+using Shared.ViewModels;
 
 namespace Data.Abstract
 {
@@ -9,6 +10,7 @@ namespace Data.Abstract
         Task<int> GetOrdersCount(string userId);
         Task<List<Order>?> GetAllOrders(string orderState,int page,int pageSize);
         Task<int> GetAllOrdersCount(string orderState);
-        Task<List<Order>?> GetAllOrdersForSales();
+        Task<List<SalesViewModel>?> GetTop10Sales();
+        double GetSalesTotal();
     }
 }

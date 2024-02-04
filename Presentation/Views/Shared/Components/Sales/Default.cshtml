@@ -1,0 +1,21 @@
+@model List<SalesViewModel>
+
+@* <p>Toplam:  @Model.Sum(e=>e.TotalPrice())</p> *@
+<p>Toplam:  @ViewBag.Total</p>
+
+@* @foreach(var sale in Model)
+{
+    <p>@sale.OrderDate</p>
+    <p>@sale.OrderState</p>
+    <p>@sale.PaymentType</p>
+    <p>@sale.TotalPrice()</p>
+    <p>@sale.OrderItems.Count</p>
+} *@
+
+@foreach(var item in Model)
+{
+    <p>@item.Name</p>
+    <p>@item.Sepet</p>
+    <p>@item.SatisTotal</p>
+    <p>@item.SatisAdet</p>
+}
