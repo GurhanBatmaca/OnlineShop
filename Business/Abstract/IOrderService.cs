@@ -12,5 +12,6 @@ namespace Business.Abstract
         Task<OrderListViewModel> GetAllOrders(string orderState,int page);
         Task<Order?> GetByIdAsync(int id);
         Task<bool> UpdateAsync(string orderState,int orderId);
+        Task<List<SalesViewModel>> GetAllOrdersForSales();
     }
 }

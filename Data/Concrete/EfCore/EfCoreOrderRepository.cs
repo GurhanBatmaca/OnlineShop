@@ -40,6 +40,14 @@ namespace Data.Concrete.EfCore
             return await orders.CountAsync();
         }
 
+        public async Task<List<Order>?> GetAllOrdersForSales()
+        {
+            return await Context!.Orders
+                                .Include(e=>e.OrderItems!)
+                                .ThenInclude(e=>e.Product)
+                                .Include(e=>e.OrderState)
+                                .ToListAsync();
+        }
 
         public async Task<List<Order>?> GetOrders(string userId, int page, int pageSize)
         {

@@ -101,6 +101,29 @@ namespace Business.Concrete
             };
         }
 
+        public async Task<List<SalesViewModel>> GetAllOrdersForSales()
+        {
+            var orders = await _unitOfWork!.Orders.GetAllOrdersForSales();
+            var orderStates = await _unitOfWork.OrderStates.GetAllAsync();
+
+            var salesModels = orders!.Select(e => new SalesViewModel{
+                OrderDate = e.OrderDate,
+                OrderState = e.OrderState!.Name,
+                PaymentType = e.PaymentType,
+                OrderItems = e.OrderItems!.Select(i => new OrderItemViewModel{
+                    Price = i.Price,
+                    Quantity = i.Quantity,
+                    Name = i.Product!.Name,
+                    ImageUrl = i.Product.ImageUrl,
+                    Url = i.Product.Url,
+                    Weight = i.Product.Weight,
+                }).ToList(),
+
+            });
+
+            return salesModels.ToList();
+        }
+
         public async Task<Order?> GetByIdAsync(int id)
         {
             return await _unitOfWork!.Orders.GetByIdAsync(id);
