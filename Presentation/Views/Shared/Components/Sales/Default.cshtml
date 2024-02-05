@@ -1,12 +1,32 @@
 @model List<TopOrdersViewModel>
 
-<p>Toplam:  @ViewBag.Total.SatisTotal</p>
+<h4>Satış bilgileri</h4>
+<hr>    
+
+<h5 class="mb-3 border p-3 text-success">Toplam Satış :  @ViewBag.Total.SatisTotal.ToString("c") TL</h5>
+
+<div class="border">
+
+    <h6 class="p-3 text-center">İlk 10 satış</h6>
+
+    <div class="row text-center">
+        <p class="col-3">Ürün</p>
+        <p class="col-3">Sepet sayısı</p>
+        <p class="col-3">Satış sayısı</p>
+        <p class="col-3">Satış miktarı</p>
+    </div>
+
+    <hr>
+
+    <div class="row text-center">
+        @foreach(var item in Model)
+        {
+            <p class="col-3">@item.Name</p>
+            <p class="col-3">@item.Sepet</p>
+            <p class="col-3">@item.SatisAdet</p>
+            <p class="col-3">@item.SatisTotal TL</p>
+        }
+    </div>
+</div>
 
 
-@foreach(var item in Model)
-{
-    <p>@item.Name</p>
-    <p>@item.Sepet</p>
-    <p>@item.SatisTotal</p>
-    <p>@item.SatisAdet</p>
-}
