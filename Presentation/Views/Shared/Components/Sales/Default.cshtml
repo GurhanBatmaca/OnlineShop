@@ -3,7 +3,7 @@
 <h4>Satış bilgileri</h4>
 <hr>    
 
-<h5 class="mb-3 border p-3 text-success">Toplam Satış :  @ViewBag.Total.SatisTotal.ToString("c") TL</h5>
+<h5 class="mb-3 border p-3 text-success">Toplam Satış :  @(@ViewBag.Total.SatisTotal != null ? @ViewBag.Total.SatisTotal.ToString("c") : 0) TL</h5>
 
 <div class="border">
 

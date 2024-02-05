@@ -45,7 +45,7 @@ namespace Data.Concrete.EfCore
         {
             var result = Context!.Database.SqlQuery<TopOrdersViewModel>
             (
-                $"SELECT TOP (10) p.Name, count(p.Id) as Sepet, sum(oi.Quantity) as SatisAdet, sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id group by p.Name order by SatisTotal desc"
+                $"SELECT TOP (10) p.Name, count(p.Id) as Sepet, sum(oi.Quantity) as SatisAdet, sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id inner join [ShopDb].[dbo].[Orders] o on o.Id = oi.OrderId inner join [ShopDb].[dbo].OrderStates os on os.Id = o.OrderStateId where os.Url != 'iptal-edildi' group by p.Name order by SatisTotal desc"
             );
 
             return await result.ToListAsync();       
@@ -75,7 +75,7 @@ namespace Data.Concrete.EfCore
 
             var result = Context!.Database.SqlQuery<OrderTotalViewModel>
             (
-                $"SELECT TOP (10) sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id"
+                $"SELECT TOP (10) sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id inner join [ShopDb].[dbo].[Orders] o on o.Id = oi.OrderId inner join [ShopDb].[dbo].OrderStates os on os.Id = o.OrderStateId where os.Url != 'iptal-edildi'"
             ).FirstOrDefaultAsync();
 
             return await result;

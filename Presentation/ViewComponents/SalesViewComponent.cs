@@ -1,5 +1,6 @@
 using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using Shared.ViewModels;
 
 namespace Presentation.ViewComponents
 {
@@ -13,7 +14,6 @@ namespace Presentation.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             ViewBag.Total = await _orderService.GetOrdersTotal();
-
             var model = await _orderService.GetTop10Orders();
 
             return View(model);
