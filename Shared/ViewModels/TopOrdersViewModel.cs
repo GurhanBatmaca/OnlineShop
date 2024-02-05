@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Shared.ViewModels
 {
-    public class SalesViewModel
+    public class TopOrdersViewModel
     {
         public string? Name { get; set; }
         public int Sepet { get; set; }

@@ -41,9 +41,12 @@ namespace Data.Concrete.EfCore
             return await orders.CountAsync();
         }
 
-        public async Task<List<SalesViewModel>?> GetTop10Sales()
+        public async Task<List<TopOrdersViewModel>?> GetTop10Orders()
         {
-            var result = Context!.Database.SqlQuery<SalesViewModel>($"SELECT TOP (10) p.Name, count(p.Id) as Sepet, sum(oi.Quantity) as SatisAdet, sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id group by p.Name order by SatisTotal desc");
+            var result = Context!.Database.SqlQuery<TopOrdersViewModel>
+            (
+                $"SELECT TOP (10) p.Name, count(p.Id) as Sepet, sum(oi.Quantity) as SatisAdet, sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id group by p.Name order by SatisTotal desc"
+            );
 
             return await result.ToListAsync();       
         }
@@ -67,22 +70,15 @@ namespace Data.Concrete.EfCore
                                 .CountAsync();
         }
 
-        public double GetSalesTotal()
+        public async Task<OrderTotalViewModel?> GetOrdersTotal()
         {
-            var orders =  Context!.Orders
-                                .Include(e=>e.OrderItems!)
-                                .ThenInclude(e=>e.Product)
-                                .Include(e=>e.OrderState)
-                                .AsQueryable();
 
-            double total = 0;
+            var result = Context!.Database.SqlQuery<OrderTotalViewModel>
+            (
+                $"SELECT TOP (10) sum(oi.Quantity * oi.Price) as SatisTotal FROM [ShopDb].[dbo].[OrderItems] as oi inner join [ShopDb].[dbo].[Products] as p on oi.ProductId = p.Id"
+            ).FirstOrDefaultAsync();
 
-            foreach (var order in orders)
-            {
-               total += order.OrderItems!.Sum(e=>e.Price*e.Quantity);
-            }
-
-            return total;
+            return await result;
 
         }
 

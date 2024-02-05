@@ -12,9 +12,9 @@ namespace Presentation.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            ViewBag.Total = _orderService.GetSalesTotal();
+            ViewBag.Total = await _orderService.GetOrdersTotal();
 
-            var model = await _orderService.GetAllOrdersForSales();
+            var model = await _orderService.GetTop10Orders();
 
             return View(model);
         }

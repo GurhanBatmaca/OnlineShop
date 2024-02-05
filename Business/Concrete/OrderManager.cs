@@ -101,10 +101,10 @@ namespace Business.Concrete
             };
         }
 
-        public async Task<List<SalesViewModel>?> GetTop10Sales()
+        public async Task<List<TopOrdersViewModel>?> GetTop10Orders()
         {
 
-            return  await _unitOfWork!.Orders.GetTop10Sales();
+            return  await _unitOfWork!.Orders.GetTop10Orders();
         }
 
         public async Task<Order?> GetByIdAsync(int id)
@@ -149,9 +149,9 @@ namespace Business.Concrete
             };
         }
 
-        public double GetSalesTotal()
+        public async Task<OrderTotalViewModel?> GetOrdersTotal()
         {
-            return _unitOfWork!.Orders.GetSalesTotal();
+            return await _unitOfWork!.Orders.GetOrdersTotal()!;
         }
 
 
