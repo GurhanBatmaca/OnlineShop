@@ -1,4 +1,6 @@
+using System.Text;
 using Business.Abstract;
+using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Shared.Models;
 using Shared.ViewModels;
@@ -121,8 +123,8 @@ namespace Presentation.Session
             if(model.HttpContext!.Request.Cookies["GuidId"] == null)
             {
 
-                userId = $"nonMemberUserId_{Guid.NewGuid()}";
                 var cookie = new CookieOptions{Expires = DateTime.Now.AddDays(30)};
+                userId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes($"nonMemberUserId_{Guid.NewGuid()}"));
 
                 model.HttpContext!.Response.Cookies.Append("GuidId", userId, cookie);
                 
@@ -132,7 +134,7 @@ namespace Presentation.Session
                 userId = model.HttpContext!.Request.Cookies["GuidId"]!;
             }
            
-            return userId;
+            return Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(userId));
         }
     
     }
