@@ -82,5 +82,13 @@ namespace Data.Concrete.EfCore
 
         }
 
+        public async Task<List<Order>?> GetOrdersBrief()
+        {
+
+            return await Context!.Orders
+                                .Include(e=>e.OrderState)
+                                .ToListAsync();
+
+        }
     }
 }

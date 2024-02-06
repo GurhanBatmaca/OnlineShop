@@ -17,12 +17,17 @@
     </div>
     <div class="col-md-6">
         <div class="p-2">
-            <h5>sipariş özetleri</h5>
+            @await Component.InvokeAsync("OrderBrief")
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-12">
+        <div class="">  
+            <a href="/admin/siparislistesi" class="btn p-2">Sipariş ve Satış ayrıntıları için tıklayın <i class="fa-solid fa-hand-pointer"></i></a>        
+        </div>
+    </div>
+    @* <div class="col-md-6">
         <div class="p-2">
             <h5>satış özetleri</h5>
         </div>
-    </div>
+    </div> *@
 </div>

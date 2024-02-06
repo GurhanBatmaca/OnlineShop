@@ -1,13 +1,13 @@
 @model List<TopOrdersViewModel>
 
-<h4>Satış bilgileri</h4>
+<h4>Satış Özetleri</h4>
 <hr>    
 
 <h5 class="mb-3 border p-3 text-success">Toplam Satış :  @(@ViewBag.Total.SatisTotal != null ? @ViewBag.Total.SatisTotal.ToString("c") : 0) TL</h5>
 
 <div class="border">
 
-    <h6 class="p-3 text-center">İlk 10 satış</h6>
+    <h6 class="p-3 text-center">En çok satılan ilk 10 ürün</h6>
 
     <div class="row text-center">
         <p class="col-3">Ürün</p>

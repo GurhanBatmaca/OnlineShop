@@ -12,5 +12,6 @@ namespace Data.Abstract
         Task<int> GetAllOrdersCount(string orderState);
         Task<List<TopOrdersViewModel>?> GetTop10Orders();
         Task<OrderTotalViewModel?> GetOrdersTotal();
+        Task<List<Order>?> GetOrdersBrief();
     }
 }

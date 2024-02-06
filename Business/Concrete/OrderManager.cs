@@ -3,7 +3,9 @@ using Business.Abstract;
 using Data.Abstract;
 using Entity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic;
 using Shared.Models;
 using Shared.ViewModels;
 
@@ -178,5 +180,22 @@ namespace Business.Concrete
             return true;
         }
 
+        public async Task<List<OrderBriefViewModel>?> GetOrdersBrief()
+        {
+
+            var orders = await _unitOfWork!.Orders.GetOrdersBrief();
+
+            var ordersBrief = orders!
+                .GroupBy(p => p.OrderState!.Name)
+                .Select(g => new OrderBriefViewModel
+                            {
+                                OrderStateName = g.Key,  // g.key = .GroupBy'a için aldığımız değer (OrderState!.Name)
+                                Count = g.Count()       // .GroupBy'a için aldığımız değer adeti
+                            })
+            .ToList();
+               
+            return ordersBrief;
+
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace Business.Abstract
         Task<bool> UpdateAsync(string orderState,int orderId);
         Task<List<TopOrdersViewModel>?> GetTop10Orders();
         Task<OrderTotalViewModel?> GetOrdersTotal();
+        Task<List<OrderBriefViewModel>?> GetOrdersBrief();
     }
 }
