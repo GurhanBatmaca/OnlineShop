@@ -26,6 +26,6 @@ http://eticaretsitesi.somee.com/
 
 - Admin sayfalarının büyük bölümü tamalandı
 
-- Ziyaretçi sayfaları için stil eklemeri yapım aşamasında
+- Ziyaretçi sayfaları için stil eklemeleri yapım aşamasında
 
   
