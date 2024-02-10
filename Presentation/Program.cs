@@ -281,6 +281,21 @@ app.MapControllerRoute
     defaults: new { controller="Product", action="Details" }
 );
 
+app.MapControllerRoute
+(
+    name: "about",
+    pattern: "hakkimizda",
+    defaults: new { controller="Home", action="About" }
+);
+
+app.MapControllerRoute
+(
+    name: "contact",
+    pattern: "iletisim",
+    defaults: new { controller="Home", action="Contact" }
+);
+
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
