@@ -6,24 +6,30 @@
 <h5 class="mb-3 border p-3 text-success">Toplam Sipariş :  @Model.Count</h5>
 
 <div class="border">
+    @if(Model.Count == 0)
+    {
+        <p class="p-3 text-center">Henüz sipariş bulunmuyor</p>
+    }
+    else
+    {
+        <h6 class="p-3 text-center">Sipariş Adetleri</h6>
 
-    <h6 class="p-3 text-center">Sipariş Adetleri</h6>
+        <div class="row text-center">
+            <p class="col-6">Sipariş Durumu</p>
+            <p class="col-6">Sipariş Adeti</p>
+        </div>
 
-    <div class="row text-center">
-        <p class="col-6">Sipariş Durumu</p>
-        <p class="col-6">Sipariş Adeti</p>
-    </div>
+        <hr>
 
-    <hr>
+        <div class="row text-center">
+            @foreach(var item in Model)
+            {
+                <p class="col-6  @(@item.OrderStateName == "Beklemede" ? "text-warning" : @item.OrderStateName == "İptal Edildi" ? "text-danger" : "text-info")">@item.OrderStateName</p>
+                <p class="col-6">@item.Count</p>
 
-    <div class="row text-center">
-        @foreach(var item in Model)
-        {
-            <p class="col-6  @(@item.OrderStateName == "Beklemede" ? "text-warning" : @item.OrderStateName == "İptal Edildi" ? "text-danger" : "text-info")">@item.OrderStateName</p>
-            <p class="col-6">@item.Count</p>
-
-        }
-    </div>
+            }
+        </div>
+    }
 </div>
 
 

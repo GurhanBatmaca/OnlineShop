@@ -6,27 +6,33 @@
 <h5 class="mb-3 border p-3 text-success">Toplam Satış :  @(@ViewBag.Total.SatisTotal != null ? @ViewBag.Total.SatisTotal.ToString("c") : 0) TL</h5>
 
 <div class="border">
+    @if(Model.Count == 0)
+    {
+        <p class="p-3 text-center">Henüz sipariş bulunmuyor</p>
+    }
+    else
+    {
+        <h6 class="p-3 text-center">En çok satılan ilk 10 ürün</h6>
 
-    <h6 class="p-3 text-center">En çok satılan ilk 10 ürün</h6>
+        <div class="row text-center">
+            <p class="col-3">Ürün</p>
+            <p class="col-3">Sepet sayısı</p>
+            <p class="col-3">Satış sayısı</p>
+            <p class="col-3">Satış miktarı</p>
+        </div>
 
-    <div class="row text-center">
-        <p class="col-3">Ürün</p>
-        <p class="col-3">Sepet sayısı</p>
-        <p class="col-3">Satış sayısı</p>
-        <p class="col-3">Satış miktarı</p>
-    </div>
+        <hr>
 
-    <hr>
-
-    <div class="row text-center">
-        @foreach(var item in Model)
-        {
-            <p class="col-3">@item.Name</p>
-            <p class="col-3">@item.Sepet</p>
-            <p class="col-3">@item.SatisAdet</p>
-            <p class="col-3">@item.SatisTotal TL</p>
-        }
-    </div>
+        <div class="row text-center">
+            @foreach(var item in Model)
+            {
+                <p class="col-3">@item.Name</p>
+                <p class="col-3">@item.Sepet</p>
+                <p class="col-3">@item.SatisAdet</p>
+                <p class="col-3">@item.SatisTotal TL</p>
+            }
+        </div>
+    }
 </div>
 
 
