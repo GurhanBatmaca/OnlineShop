@@ -8,77 +8,74 @@
     <link rel="stylesheet" href="~/css/card.css">
     <link rel="stylesheet" href="~/css/banner.css">
 }
+<div class="">
+    <div>
+        @await Html.PartialAsync("_banner")
+    </div> 
 
-@* <div>
-    @await Html.PartialAsync("_carousel")
-</div>  *@
-
-<div>
-    @await Html.PartialAsync("_banner")
-</div> 
-
-<div class="row">
-    <div class="col-md-3 mb-3">
-        @await Component.InvokeAsync("Categories")
-    </div>
-    <div class="col-md-9">
-        <div class="row">
-          @if(@Model.Products!.Count == 0)
-          {
-            <div class="text-center">
-                <h3>Ürün bulunamadı.</h3>
-            </div>
-          }
-          else
-          {
-            @foreach(var product in @Model.Products!)
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            @await Component.InvokeAsync("Categories")
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+            @if(@Model.Products!.Count == 0)
             {
-              <div class="col-lg-3 col-md-4 col-6 mb-3">
-                @await Html.PartialAsync("_product",product)
-              </div>               
-            }          
-          }
-            
+                <div class="text-center">
+                    <h3>Ürün bulunamadı.</h3>
+                </div>
+            }
+            else
+            {
+                @foreach(var product in @Model.Products!)
+                {
+                <div class="col-lg-3 col-md-4 col-6 mb-3">
+                    @await Html.PartialAsync("_product",product)
+                </div>               
+                }          
+            }
+                
+            </div>
         </div>
     </div>
-</div>
 
-@if(@Model!.PageInfo!.TotalPages() > 1)
-{
-  <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item @(Model.PageInfo!.CurrentPage == 1 ? "disabled":"")">
-                <a class="page-link" href="/?sayfa=@(Model.PageInfo!.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i> </a>
-            </li>  
-            @if(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() && @Model!.PageInfo!.TotalPages() > 4)
-            {
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">...</a>
-                </li> 
-            } 
-            @for(var i=0; i< @Model!.PageInfo!.TotalPages(); i++)
-            {                   
-                @if(Model.PageInfo!.CurrentPage == i+1 || Model.PageInfo!.CurrentPage == i || Model.PageInfo!.CurrentPage == i+2) 
-                {
-                    <li class="page-item @(Model.PageInfo!.CurrentPage == i+1 ? "active":"")">
-                        <a class="page-link" href="/?sayfa=@(i+1)">@(i+1)</a>
+    @if(@Model!.PageInfo!.TotalPages() > 1)
+    {
+        <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(Model.PageInfo!.CurrentPage == 1 ? "disabled":"")">
+                        <a class="page-link" href="/?sayfa=@(Model.PageInfo!.CurrentPage-1)"><i class="fa-solid fa-angle-left"></i> </a>
+                    </li>  
+                    @if(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() && @Model!.PageInfo!.TotalPages() > 4)
+                    {
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">...</a>
+                        </li> 
+                    } 
+                    @for(var i=0; i< @Model!.PageInfo!.TotalPages(); i++)
+                    {                   
+                        @if(Model.PageInfo!.CurrentPage == i+1 || Model.PageInfo!.CurrentPage == i || Model.PageInfo!.CurrentPage == i+2) 
+                        {
+                            <li class="page-item @(Model.PageInfo!.CurrentPage == i+1 ? "active":"")">
+                                <a class="page-link" href="/?sayfa=@(i+1)">@(i+1)</a>
+                            </li>
+                        }
+                    }
+                    @if(Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() && Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() -1)
+                    {
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" >...</a>
+                        </li> 
+                    }
+                
+                    <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
+                        <a class="page-link" href="/?sayfa=@(Model.PageInfo!.CurrentPage+1)"> <i class="fa-solid fa-angle-right"></i></a>
                     </li>
-                }
-            }
-            @if(Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() && Model.PageInfo!.CurrentPage != Model!.PageInfo!.TotalPages() -1)
-            {
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" >...</a>
-                </li> 
-            }
-           
-            <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
-                <a class="page-link" href="/?sayfa=@(Model.PageInfo!.CurrentPage+1)"> <i class="fa-solid fa-angle-right"></i></a>
-            </li>
-            <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
-                <a class="page-link" href="/?sayfa=@Model!.PageInfo!.TotalPages()">/ @Model!.PageInfo!.TotalPages()</a>
-            </li> 
-        </ul>
-    </nav>
-}
+                    <li class="page-item @(Model.PageInfo!.CurrentPage == @Model!.PageInfo!.TotalPages() ? "disabled":"")">
+                        <a class="page-link" href="/?sayfa=@Model!.PageInfo!.TotalPages()">/ @Model!.PageInfo!.TotalPages()</a>
+                    </li> 
+                </ul>
+        </nav>
+    }
+</div>
 
