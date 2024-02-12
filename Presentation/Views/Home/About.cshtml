@@ -1,20 +1,28 @@
-<div>
-    <div>
-        <h1 class="h3">Hakkımızda</h1>
-        <h5>
+@{
+    ViewData["Title"] = "Hakkımızda";
+}
+@section Css 
+{
+    <link rel="stylesheet" href="~/css/about.css">
+}
+
+<div id="about-page" class="bg-light">
+    <div class="container ">
+        <h1 class="h3 py-3 text-primary">Hakkımızda</h1>
+        <h5 class="mb-3">
             Shop App adlı web sitesi, yöresel ürünlerin satıldığı bir platformdur. Bu platform, kullanıcıların kolayca aradıkları ürünleri bulmalarını sağlar ve dünyanın en büyük markalarını keşfetmelerine olanak tanır. Shop App, kullanıcıların sevdikleri ürünleri takip etmelerini, özel ödüller kazanmalarını ve alışveriş deneyimlerini daha keyifli hale getirmelerini amaçlar.
         </h5>
-        <h4>
+        <h4 class="my-3 text-primary">
             Ürünler ve Açıklamalar
         </h4>
-        <h6>
+        <h6 class="mb-3">
             Shop App, çeşitli kategorilerde yöresel ürünleri sunar. İşte bazı örnekler:
 
             Kars Kaşarı: Yöresel lezzetler arasında önemli bir yere sahip olan Kars kaşarı, tamamen doğal ve kaliteli malzemelerle üretilir. İnce dokusu ve benzersiz tadıyla sofralarınıza lezzet katmaya hazır.
             Kars Balı: Kars’ın doğal güzellikleriyle beslenen arıların ürettiği bal, sağlığınıza iyi gelecek doğal bir tat. İçeriğindeki vitamin ve minerallerle enerjinizi artırır.
             Diğer Yöresel Ürünler: Shop App, sadece Kars’a özgü değil, Türkiye’nin dört bir yanından yöresel ürünleri de sunar. Zeytinyağı, peynir, reçel, kuruyemiş ve daha fazlası için Shop App’i ziyaret edebilirsiniz.
         </h6>
-        <h4>          
+        <h4 class="my-3 text-primary">          
             Shop App, çeşitli ödeme yöntemlerini kabul eder. İşte bazı yaygın olarak kabul edilen ödeme seçenekleri
         </h4>
         <ul class="list-group list-group-flush">

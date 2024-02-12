@@ -1,0 +1,9 @@
+#about-page, #contact-page {
+    letter-spacing: .1rem;
+    min-height: 100vh;
+}
+
+iframe 
+{
+    height: 25rem;
+}
