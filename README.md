@@ -28,4 +28,6 @@
 
 - Ziyaretçi sayfaları için stil eklemeleri yapım aşamasında
 
+![desktop](https://github.com/GurhanBatmaca/OnlineShop/blob/main/Screenshots/admin-pages/screenshot-1.png)
+
   
