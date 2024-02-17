@@ -6,7 +6,7 @@
 
 ## Demo
 
-http://eticaretsitesi.somee.com/
+[Demo](https://eticaretsitesi.somee.com/)  
 
   
 ## Özellikler
