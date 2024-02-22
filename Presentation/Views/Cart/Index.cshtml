@@ -81,7 +81,7 @@
                     <hr>
                     <div class="d-flex justify-content-between mb-3">
                         <h5 class="">Toplam : </h5>
-                        <h5 class=""><span id="total-price-box" class="">@Model.TotalPrice() TL</span></h5>
+                        <h5 class=""><span id="all-total-price-box" class="">@Model.TotalPrice() TL</span></h5>
                     </div>
                     <div class="mb-2">
                         <a href="/" class="btn btn-warning btn-sm w-100"><i class="fa-solid fa-basket-shopping"></i> Alışverişe devam et</a>
@@ -116,6 +116,7 @@
                 $(`#quantityBox-${productId}`).text(result.quantity);
                 $(`#priceBox-${productId}`).text(result.itemPrice*result.quantity + " TL");
                 $("#total-price-box").text(result.cartTotalPrice + " TL");
+                $("#all-total-price-box").text(result.cartTotalPrice + " TL");
                 if($(`#btnDecrease-${productId}`).hasClass("disabled"))
                 {
                     $(`#btnDecrease-${productId}`).removeClass("disabled")
@@ -143,6 +144,7 @@
                 $(`#quantityBox-${productId}`).text(result.quantity);
                 $(`#priceBox-${productId}`).text(result.itemPrice*result.quantity + " TL");
                 $(`#total-price-box`).text(result.cartTotalPrice + " TL");
+                $("#all-total-price-box").text(result.cartTotalPrice + " TL");
                 if($(`#quantityBox-${productId}`).text() == 1)
                 {                    
                     $(`#btnDecrease-${productId}`).addClass("disabled")
