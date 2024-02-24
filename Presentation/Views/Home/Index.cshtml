@@ -6,18 +6,18 @@
 @section Css 
 {
     <link rel="stylesheet" href="~/css/card.css">
-    <link rel="stylesheet" href="~/css/banner.css">
+    <link rel="stylesheet" href="~/css/carousel.css">
 }
 <div class="">
     <div>
-        @await Html.PartialAsync("_banner")
+        @await Html.PartialAsync("_carousel")
     </div> 
 
     <div class="row">
-        <div class="col-md-3 mb-3">
+        @* <div class="col-md-3 mb-3">
             @await Component.InvokeAsync("Categories")
-        </div>
-        <div class="col-md-9">
+        </div> *@
+        <div class="col-md-12">
             <div class="row">
             @if(@Model.Products!.Count == 0)
             {
