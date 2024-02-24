@@ -106,8 +106,32 @@ main {
 
 }
 
+/* Category Navbar */
+
+.category-container {
+  background-color: #FEECE2;
+  border-radius: 5px;
+}
+
+.category-item {
+  transition:all .5s ease;
+}
+
+.category-item:hover {
+  transform: scale(1.2) translateY(-5px);
+}
 
 /* Navbar */
+
+.navbar-scope {
+  padding-top: 0!important;
+}
+
+.navbar-container {
+  background-color: #F7DED0;
+  border-radius: 5px;
+  padding: 1.5rem ;
+}
 
 @media (width <= 991.9px) {
   .user-box {
