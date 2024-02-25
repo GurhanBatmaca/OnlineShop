@@ -11,11 +11,29 @@
 
 </div> *@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light " aria-label="Offcanvas navbar large">
+
+<nav class="category-scope category-scope-open">
+  <ul class="d-flex justify-content-around category-items-ul container py-1 category-container">
+      <li class="nav-item category-item">
+          <a class="nav-link @(ViewBag.SelectedCategory == null ? "active":"")" aria-current="page" href="/urunler">Hepsi</a>
+      </li>
+      @foreach(var category in @Model.Categories!)
+      {
+        <li class="nav-item category-item">
+          <a class="nav-link @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
+        </li>
+      }
+  </ul>
+</nav>
+
+
+
+
+@* <nav class="navbar navbar-expand-lg navbar-light bg-light category-scope" aria-label="Offcanvas navbar large">
     <div class="container py-1 category-container">
-        @* <a class="navbar-brand" href="#">Kategoriler</a> *@
+        <a class="navbar-brand" href="#">Kategoriler</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar1" aria-controls="offcanvasNavbar1" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span> 
         </button>
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar1" aria-labelledby="offcanvasNavbar2Label">
         <div class="offcanvas-header">
@@ -37,5 +55,4 @@
         </div>
         </div>
     </div>
-</nav>
-
+  </nav>  *@
