@@ -1,17 +1,5 @@
 @model CategoryListViewModel
 
-@* <div class="list-group">
-  <a href="/urunler" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == null ? "active":"")">
-    Bütün Kategoriler
-  </a>
-  @foreach(var category in @Model.Categories!)
-  {
-    <a href="/urunler/@category.Url" class="list-group-item list-group-item-action @(ViewBag.SelectedCategory == category.Url ? "active":"")">@category.Name</a>
-  }
-
-</div> *@
-
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light category-scope" aria-label="Offcanvas navbar large">
     <div class="container category-container">
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar1" aria-controls="offcanvasNavbar1" aria-label="Toggle navigation">
@@ -23,14 +11,14 @@
             <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <ul class="navbar-nav  flex-grow-1 pe-3 justify-content-between">
-              <li class="nav-item category-item">
-                  <a class="nav-link @(ViewBag.SelectedCategory == null ? "active":"")" aria-current="page" href="/urunler">Hepsi</a>
+            <ul class="navbar-nav  flex-grow-1 pe-3 justify-content-between ">
+              <li class="nav-item category-item py-3">
+                  <a class="nav-link category-link @(ViewBag.SelectedCategory == null ? "active":"")" aria-current="page" href="/urunler">Hepsi</a>
               </li>
               @foreach(var category in @Model.Categories!)
               {
-                <li class="nav-item category-item">
-                  <a class="nav-link @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
+                <li class="nav-item category-item py-3">
+                  <a class="nav-link category-link @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
                 </li>
               }            
             </ul>
@@ -39,11 +27,3 @@
         </div>
     </div>
 </nav>
-
-
-
-
-
-
-
-

@@ -1,3 +1,5 @@
+@model CategoryListViewModel
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-scope" aria-label="Offcanvas navbar large">
     <div class="container navbar-container">
         <a class="navbar-brand" href="/"><i class="fa-solid fa-shop"></i> Shop App</a>
@@ -11,14 +13,12 @@
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav  flex-grow-1 pe-3">
-            <li class="nav-item">
+
+            <li class="nav-item main-page-link">
                 <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i> Anasayfa</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/urunler"><i class="fa-solid fa-bacon"></i> Ürünler</a>
-            </li>
             <li class="nav-item" id="categoryToggleLink">
-                <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Kategoriler</a>
+                <a class="nav-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-arrow-up-a-z"></i> Kategoriler</a>
             </li>
 
             @if(User.IsInRole("SuperAdmin"))
@@ -37,15 +37,25 @@
     </div>
 </nav>
 
-
-
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+<div class="offcanvas offcanvas-start bg-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Backdrop with scrolling</h5>
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"><i class="fa-solid fa-arrow-up-a-z"></i> Kategoriler</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    @await Component.InvokeAsync("Categories")
-    <p>Try scrolling the rest of the page to see this option in action.</p>
+      <ul class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action mb-3 @(ViewBag.SelectedCategory == null ? "active":"")" href="/urunler">Hepsi</a>
+        @foreach(var category in @Model.Categories!)
+        {
+            <a class="list-group-item list-group-item-action mb-3 @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
+        } 
+      </ul>
   </div>
 </div>
+
+
+
+
+
+
+
