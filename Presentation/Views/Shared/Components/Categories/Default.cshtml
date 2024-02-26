@@ -12,47 +12,38 @@
 </div> *@
 
 
-<nav class="category-scope category-scope-open">
-  <ul class="d-flex justify-content-around category-items-ul container py-1 category-container">
-      <li class="nav-item category-item">
-          <a class="nav-link @(ViewBag.SelectedCategory == null ? "active":"")" aria-current="page" href="/urunler">Hepsi</a>
-      </li>
-      @foreach(var category in @Model.Categories!)
-      {
-        <li class="nav-item category-item">
-          <a class="nav-link @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
-        </li>
-      }
-  </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light category-scope" aria-label="Offcanvas navbar large">
+    <div class="container category-container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar1" aria-controls="offcanvasNavbar1" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar1" aria-labelledby="offcanvasNavbar2Label">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Menü</h5>
+            <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav  flex-grow-1 pe-3 justify-content-between">
+              <li class="nav-item category-item">
+                  <a class="nav-link @(ViewBag.SelectedCategory == null ? "active":"")" aria-current="page" href="/urunler">Hepsi</a>
+              </li>
+              @foreach(var category in @Model.Categories!)
+              {
+                <li class="nav-item category-item">
+                  <a class="nav-link @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
+                </li>
+              }            
+            </ul>
+
+        </div>
+        </div>
+    </div>
 </nav>
 
 
 
 
-@* <nav class="navbar navbar-expand-lg navbar-light bg-light category-scope" aria-label="Offcanvas navbar large">
-    <div class="container py-1 category-container">
-        <a class="navbar-brand" href="#">Kategoriler</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar1" aria-controls="offcanvasNavbar1" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span> 
-        </button>
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar1" aria-labelledby="offcanvasNavbar2Label">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Kategoriler</h5>
-            <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav  flex-grow-1 pe-3 justify-content-around">
-                <li class="nav-item category-item">
-                    <a class="nav-link @(ViewBag.SelectedCategory == null ? "active":"")" aria-current="page" href="/urunler">Hepsi</a>
-                </li>
-               @foreach(var category in @Model.Categories!)
-                {
-                  <li class="nav-item category-item">
-                    <a class="nav-link @(ViewBag.SelectedCategory == category.Url ? "active":"")" aria-current="page" href="/urunler/@category.Url">@category.Name</a>
-                  </li>
-                }
-            </ul>
-        </div>
-        </div>
-    </div>
-  </nav>  *@
+
+
+
+

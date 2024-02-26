@@ -120,6 +120,7 @@ main {
 .category-container {
   background-color: #E2BFB3;
   border-radius: 5px;
+
 }
 
 .category-item {
@@ -131,7 +132,7 @@ main {
 }
 
 @media (width >= 991.9px) {
-  #categoryToggleBtn{
+  #categoryToggleLink{
     display: none;
   }
 } 
@@ -139,39 +140,9 @@ main {
 @media (width < 991.9px) {
   .category-scope{
     display: none;
-    /* width: 60vw; */
-    /* transform: translateX(100%); */
-
+    visibility: hidden;
   }
 } 
-
-.category-scope-open {
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-
-}
-
-/* .category-container {
-  display: block;
-  visibility: visible;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  z-index: 1000;
-  
-} */
-
-
-
-/* @media (width < 991.9px) {
-  .category-scope{
-    display: none;
-  }
-}  */
 
 /* Navbar */
 
