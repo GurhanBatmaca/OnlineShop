@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Presentation.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20240227160437_AddSeedData")]
+    [Migration("20240227164922_AddSeedData")]
     partial class AddSeedData
     {
         /// <inheritdoc />

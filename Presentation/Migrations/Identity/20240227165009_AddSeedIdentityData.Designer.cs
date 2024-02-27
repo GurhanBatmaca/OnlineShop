@@ -12,7 +12,7 @@ using Presentation.Identity;
 namespace Presentation.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240227160532_AddSeedIdentityData")]
+    [Migration("20240227165009_AddSeedIdentityData")]
     partial class AddSeedIdentityData
     {
         /// <inheritdoc />
