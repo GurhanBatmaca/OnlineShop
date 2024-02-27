@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Presentation.Migrations.Identity
 {
     /// <inheritdoc />
-    public partial class AddInitinalCreateIdentity : Migration
+    public partial class AddSeedIdentityData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

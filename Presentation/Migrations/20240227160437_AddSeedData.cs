@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Presentation.Migrations
 {
     /// <inheritdoc />
-    public partial class AddInitinalCreate : Migration
+    public partial class AddSeedData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -219,12 +219,18 @@ namespace Presentation.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "IsApproved", "IsHome", "Name", "Price", "StockQuantity", "Url", "Weight" },
                 values: new object[,]
                 {
-                    { 1, "Eski Kars Kaşarı Açıklaması", "1.jpg", true, true, "Eski Kars Kaşarı", 300.0, 100, "eksi-kars-kasari", 1000.0 },
-                    { 2, "Yeni Kars Kaşarı Açıklaması", "2.jpg", true, true, "Yeni Kars Kaşarı", 280.0, 100, "yeni-kars-kasari", 1000.0 },
-                    { 3, "Natural Beyaz Peynir Açıklaması", "3.jpg", true, true, "Natural Beyaz Peynir", 250.0, 100, "natural-beyaz-peynir", 1000.0 },
-                    { 4, "Kara Kovan Petek Bal Açıklaması", "4.jpg", true, true, "Kara Kovan Petek Bal", 550.0, 100, "kara-kovan-petek-bal", 1200.0 },
-                    { 5, "Süzme Bal Açıklaması", "5.jpg", true, true, "Süzme Bal", 500.0, 100, "suzme-bal", 1000.0 },
-                    { 6, "Çeçil Peyniri Açıklaması", "6.jpg", true, true, "Çeçil Peyniri", 260.0, 100, "cecil-peyniri", 1000.0 }
+                    { 1, "Bir Yıl dinlendirilmiş Eski Kars Kaşarı", "1.jpg", true, true, "Eski Kaşar Bir Yılık", 350.0, 100, "eksi-kasar-bir-yillik", 1000.0 },
+                    { 2, "Taze Kars Kaşarı %100 Süt", "2.jpg", true, true, "Yeni Kaşar", 300.0, 100, "yeni-kasar", 1000.0 },
+                    { 3, "Natural Beyaz Peynir %100 Süt", "3.jpg", true, true, "Natural Beyaz Peynir", 300.0, 100, "natural-beyaz-peynir", 1000.0 },
+                    { 4, "Kara Kovan Petek Bal %100 Natural", "4.jpg", true, true, "Kara Kovan Petek Bal", 550.0, 100, "kara-kovan-petek-bal", 1200.0 },
+                    { 5, "Süzme Bal %100 Natural", "5.jpg", true, true, "Süzme Bal", 500.0, 100, "suzme-bal", 1000.0 },
+                    { 6, "Çeçil Peyniri", "6.jpg", true, true, "Çeçil Peyniri", 275.0, 100, "cecil-peyniri", 1000.0 },
+                    { 7, "İki Yıl dinlendirilmiş Eski Kars Kaşarı", "7.jpg", true, true, "Eski Kaşar İki Yılık", 375.0, 100, "eksi-kasar-bir-yillik", 1000.0 },
+                    { 8, "Üç Yıl dinlendirilmiş Eski Kars Kaşarı", "8.jpg", true, true, "Eski Kaşar Üç Yılık", 400.0, 100, "eksi-kasar-uc-yillik", 1000.0 },
+                    { 9, "Stilton Mavi Kalıp İthal Peynir", "9.jpg", true, true, "Stilton Peynir", 500.0, 100, "stilton-peynir", 1000.0 },
+                    { 10, "Hollanda İthal Peyniri", "10.jpg", true, true, "Hollanda Peyniri", 600.0, 100, "hollanda-peyniri", 1000.0 },
+                    { 11, "Graviyer Füme Peyniri", "11.jpg", true, true, "Graviyer Peyniri", 650.0, 100, "graviyer-peyniri", 1000.0 },
+                    { 12, "Süzme Bal Oğul Balı", "12.jpg", true, true, "Süzme Bal Oğul Balı", 750.0, 100, "suzme-bal-ogul-bali", 1000.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -244,7 +250,21 @@ namespace Presentation.Migrations
                     { 7, 4 },
                     { 2, 5 },
                     { 8, 5 },
-                    { 3, 6 }
+                    { 3, 6 },
+                    { 1, 7 },
+                    { 3, 7 },
+                    { 4, 7 },
+                    { 1, 8 },
+                    { 3, 8 },
+                    { 4, 8 },
+                    { 1, 9 },
+                    { 3, 9 },
+                    { 1, 10 },
+                    { 3, 10 },
+                    { 1, 11 },
+                    { 3, 11 },
+                    { 2, 12 },
+                    { 7, 12 }
                 });
 
             migrationBuilder.CreateIndex(

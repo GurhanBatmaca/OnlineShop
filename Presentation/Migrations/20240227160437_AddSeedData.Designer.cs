@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Presentation.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20240209200214_AddInitinalCreate")]
-    partial class AddInitinalCreate
+    [Migration("20240227160437_AddSeedData")]
+    partial class AddSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -330,40 +330,40 @@ namespace Presentation.Migrations
                         {
                             Id = 1,
                             DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Eski Kars Kaşarı Açıklaması",
+                            Description = "Bir Yıl dinlendirilmiş Eski Kars Kaşarı",
                             ImageUrl = "1.jpg",
                             IsApproved = true,
                             IsHome = true,
-                            Name = "Eski Kars Kaşarı",
-                            Price = 300.0,
+                            Name = "Eski Kaşar Bir Yılık",
+                            Price = 350.0,
                             StockQuantity = 100,
-                            Url = "eksi-kars-kasari",
+                            Url = "eksi-kasar-bir-yillik",
                             Weight = 1000.0
                         },
                         new
                         {
                             Id = 2,
                             DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Yeni Kars Kaşarı Açıklaması",
+                            Description = "Taze Kars Kaşarı %100 Süt",
                             ImageUrl = "2.jpg",
                             IsApproved = true,
                             IsHome = true,
-                            Name = "Yeni Kars Kaşarı",
-                            Price = 280.0,
+                            Name = "Yeni Kaşar",
+                            Price = 300.0,
                             StockQuantity = 100,
-                            Url = "yeni-kars-kasari",
+                            Url = "yeni-kasar",
                             Weight = 1000.0
                         },
                         new
                         {
                             Id = 3,
                             DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Natural Beyaz Peynir Açıklaması",
+                            Description = "Natural Beyaz Peynir %100 Süt",
                             ImageUrl = "3.jpg",
                             IsApproved = true,
                             IsHome = true,
                             Name = "Natural Beyaz Peynir",
-                            Price = 250.0,
+                            Price = 300.0,
                             StockQuantity = 100,
                             Url = "natural-beyaz-peynir",
                             Weight = 1000.0
@@ -372,7 +372,7 @@ namespace Presentation.Migrations
                         {
                             Id = 4,
                             DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Kara Kovan Petek Bal Açıklaması",
+                            Description = "Kara Kovan Petek Bal %100 Natural",
                             ImageUrl = "4.jpg",
                             IsApproved = true,
                             IsHome = true,
@@ -386,7 +386,7 @@ namespace Presentation.Migrations
                         {
                             Id = 5,
                             DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Süzme Bal Açıklaması",
+                            Description = "Süzme Bal %100 Natural",
                             ImageUrl = "5.jpg",
                             IsApproved = true,
                             IsHome = true,
@@ -400,14 +400,98 @@ namespace Presentation.Migrations
                         {
                             Id = 6,
                             DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Çeçil Peyniri Açıklaması",
+                            Description = "Çeçil Peyniri",
                             ImageUrl = "6.jpg",
                             IsApproved = true,
                             IsHome = true,
                             Name = "Çeçil Peyniri",
-                            Price = 260.0,
+                            Price = 275.0,
                             StockQuantity = 100,
                             Url = "cecil-peyniri",
+                            Weight = 1000.0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "İki Yıl dinlendirilmiş Eski Kars Kaşarı",
+                            ImageUrl = "7.jpg",
+                            IsApproved = true,
+                            IsHome = true,
+                            Name = "Eski Kaşar İki Yılık",
+                            Price = 375.0,
+                            StockQuantity = 100,
+                            Url = "eksi-kasar-bir-yillik",
+                            Weight = 1000.0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Üç Yıl dinlendirilmiş Eski Kars Kaşarı",
+                            ImageUrl = "8.jpg",
+                            IsApproved = true,
+                            IsHome = true,
+                            Name = "Eski Kaşar Üç Yılık",
+                            Price = 400.0,
+                            StockQuantity = 100,
+                            Url = "eksi-kasar-uc-yillik",
+                            Weight = 1000.0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Stilton Mavi Kalıp İthal Peynir",
+                            ImageUrl = "9.jpg",
+                            IsApproved = true,
+                            IsHome = true,
+                            Name = "Stilton Peynir",
+                            Price = 500.0,
+                            StockQuantity = 100,
+                            Url = "stilton-peynir",
+                            Weight = 1000.0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Hollanda İthal Peyniri",
+                            ImageUrl = "10.jpg",
+                            IsApproved = true,
+                            IsHome = true,
+                            Name = "Hollanda Peyniri",
+                            Price = 600.0,
+                            StockQuantity = 100,
+                            Url = "hollanda-peyniri",
+                            Weight = 1000.0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Graviyer Füme Peyniri",
+                            ImageUrl = "11.jpg",
+                            IsApproved = true,
+                            IsHome = true,
+                            Name = "Graviyer Peyniri",
+                            Price = 650.0,
+                            StockQuantity = 100,
+                            Url = "graviyer-peyniri",
+                            Weight = 1000.0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Süzme Bal Oğul Balı",
+                            ImageUrl = "12.jpg",
+                            IsApproved = true,
+                            IsHome = true,
+                            Name = "Süzme Bal Oğul Balı",
+                            Price = 750.0,
+                            StockQuantity = 100,
+                            Url = "suzme-bal-ogul-bali",
                             Weight = 1000.0
                         });
                 });
@@ -491,6 +575,76 @@ namespace Presentation.Migrations
                         {
                             ProductId = 6,
                             CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            CategoryId = 4
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            CategoryId = 4
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            CategoryId = 2
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            CategoryId = 7
                         });
                 });
 
