@@ -179,7 +179,27 @@ namespace Data.Extentions
                 new ProductCategory {ProductId = 4,CategoryId = 7},
                 new ProductCategory {ProductId = 5,CategoryId = 2},
                 new ProductCategory {ProductId = 5,CategoryId = 8},
-                new ProductCategory {ProductId = 6,CategoryId = 3}
+                new ProductCategory {ProductId = 6,CategoryId = 3},
+
+                new ProductCategory {ProductId = 7,CategoryId = 1},
+                new ProductCategory {ProductId = 7,CategoryId = 3},
+                new ProductCategory {ProductId = 7,CategoryId = 4},
+
+                new ProductCategory {ProductId = 8,CategoryId = 1},
+                new ProductCategory {ProductId = 8,CategoryId = 3},
+                new ProductCategory {ProductId = 8,CategoryId = 4},
+
+                new ProductCategory {ProductId = 9,CategoryId = 1},
+                new ProductCategory {ProductId = 9,CategoryId = 3},
+
+                new ProductCategory {ProductId = 10,CategoryId = 1},
+                new ProductCategory {ProductId = 10,CategoryId = 3},
+
+                new ProductCategory {ProductId = 11,CategoryId = 1},
+                new ProductCategory {ProductId = 11,CategoryId = 3},
+
+                new ProductCategory {ProductId = 12,CategoryId = 2},
+                new ProductCategory {ProductId = 12,CategoryId = 7}
             );
 
             modelBuilder.Entity<OrderState>().HasData(
