@@ -107,26 +107,26 @@
 
             <div class="col-md-6">
               <label asp-for="@Model.CardNumber" class="form-label"></label>
-              <input asp-for="@Model.CardNumber" class="form-control"  placeholder="" value="5528790000000008" disabled>
+              <input asp-for="@Model.CardNumber" class="form-control"  placeholder="" value="5528790000000008">
               <small class="text-body-secondary">Kart ön yüzündeki numara</small>
               <span asp-validation-for="@Model.CardName" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
               <label asp-for="@Model.ExpirationYear" class="form-label"></label>
-              <input asp-for="@Model.ExpirationYear" class="form-control" placeholder="" value="2030"  disabled>
+              <input asp-for="@Model.ExpirationYear" class="form-control" placeholder="" value="2030">
               <span asp-validation-for="@Model.ExpirationYear" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
               <label asp-for="@Model.ExpirationMonth" class="form-label"></label>
-              <input asp-for="@Model.ExpirationMonth" class="form-control" placeholder="" value="12"  disabled>
+              <input asp-for="@Model.ExpirationMonth" class="form-control" placeholder="" value="12">
               <span asp-validation-for="@Model.ExpirationMonth" class="text-danger"></span>
             </div>
 
             <div class="col-md-4">
               <label asp-for="@Model.Cvc" class="form-label"></label>
-              <input asp-for="@Model.Cvc" class="form-control" placeholder="" value="123"  disabled>
+              <input asp-for="@Model.Cvc" class="form-control" placeholder="" value="123">
               <small class="text-body-secondary">Kartın arkasındaki güvenlik kodu</small>
               <span asp-validation-for="@Model.Cvc" class="text-danger"></span>
             </div>

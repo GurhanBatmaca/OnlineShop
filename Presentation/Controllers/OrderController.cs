@@ -111,11 +111,6 @@ namespace Presentation.Controllers
         public async Task<IActionResult> Checkout(OrderModel model)
         {
 
-            if(!ModelState.IsValid)
-            {
-                return View(model);
-            };
-
             if(!User.Identity!.IsAuthenticated)
             {
                 var sessionCart = _sessionManager!.GetCart(new SessionModel{HttpContext=_accessor!.HttpContext});
@@ -132,6 +127,11 @@ namespace Presentation.Controllers
                         Quantity = e.Quantity
                     }).ToList()
                     
+                };
+
+                if(!ModelState.IsValid)
+                {
+                    return View(model);
                 };
 
                 var payment = Process_Iyzipay.Pay(model,_configuration);
@@ -185,6 +185,11 @@ namespace Presentation.Controllers
                         Quantity = e.Quantity
                     }).ToList()
                     
+                };
+
+                if(!ModelState.IsValid)
+                {
+                    return View(model);
                 };
 
                 var payment = Process_Iyzipay.Pay(model,_configuration);
