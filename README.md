@@ -6,7 +6,7 @@
 
 ## Demo
 
-https://onlinealisveris.somee.com/
+https://eticaretsitem.somee.com/
 
   
 ## Özellikler
