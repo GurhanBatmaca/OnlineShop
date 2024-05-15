@@ -6,7 +6,7 @@
 
 ## Demo
 
-https://eticaretsitem.somee.com/
+(https://onlineticaret.somee.com/)
 
   
 ## Özellikler
