@@ -301,6 +301,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-IdentitySeed.Seed(app,builder.Configuration);
+IdentitySeed.Seed(app,builder.Configuration).Wait();
 
 app.Run();

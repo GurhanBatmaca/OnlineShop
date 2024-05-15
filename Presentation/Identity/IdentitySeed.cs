@@ -6,7 +6,7 @@ namespace Presentation.Identity
 {
     public static class IdentitySeed
     {
-        public async static void Seed(IApplicationBuilder app,IConfiguration configuration)
+        public static async Task Seed(IApplicationBuilder app,IConfiguration configuration)
         {
             var userManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -51,7 +51,7 @@ namespace Presentation.Identity
                 await roleManager.CreateAsync(new IdentityRole{Name=customerUserName});
                 await userManager.AddToRoleAsync(customerUser,customerUserName!);
                 await cartService.CreateAsync(new Cart{UserId=customerUser.Id});
-            }
+            };
         }
-    }
-}
+    };
+};

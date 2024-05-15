@@ -28,24 +28,18 @@ namespace Presentation.Identity.Abstract
 
         public async Task<bool> Register(RegisterModel model)
         {
-
-            if(!CheckInput.IsValid(model.Password!))
-            {
-                Message = $"{CheckInput.ErrorMessage}";
-                return false;
-            }
             var checkEmailExist = await _userManager.FindByEmailAsync(model.Email!);
             if(checkEmailExist is not null)
             {
                 Message = "Bu e-posta adresi ile daha önce üye olunmuş.Giriş sayfasınadan giriş yapabilirsiniz.";
                 return false;
-            }
+            };
             var checkUserNameExist = await _userManager.FindByNameAsync(model.UserName!);
             if(checkUserNameExist is not null)
             {
                 Message = "Bu kullanıcı adı daha önce alınmış.Lütfen farklı bir tane seçin.";
                 return false;
-            }
+            };
 
             var user = new ApplicationUser
             {
@@ -69,10 +63,19 @@ namespace Presentation.Identity.Abstract
                     values: new { token = token, userId = user.Id }
                 );
 
-                await _emailSender.SendEmailAsync(user.Email!,"Üyelik onayı",$"Hesabınızı onaylamak için lütfen <a href='{url}'>linke</a> tıklayınız");
-          
-                return true;
-            }
+                try
+                {
+                    await _emailSender.SendEmailAsync(user.Email!,"Üyelik onayı",$"Hesabınızı onaylamak için lütfen <a href='{url}'>linke</a> tıklayınız");
+                    return true;
+                }
+                catch (Exception)
+                {                   
+                    await _userManager.DeleteAsync(user);
+                    Message = "Tanımlanmamış email adresi,lütfen geçerli bir email adresi girin.";
+                    return false;
+                }        
+                
+            };
 
             Message = "Hesap oluşturulamadı!Şifre en az 6 karakter uzunluğunda olmalı ve büyük-küçük harf,rakam ve özel karakter (_& vs) içermelidir.";
             return false;
