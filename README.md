@@ -41,7 +41,7 @@ Kullanıcılar giriş yapabilir, kayıt olabilir ve rollerine göre yetkilendirm
    git clone https://github.com/gurhanbatmaca/dotnet-core-mvc-project.git
    cd dotnet-core-mvc-project
    ```
-2. **appsettings.json Dosyasını Yapılandırın:**
+2. **appsettings.json Dosyasını Yapılandırın**
 
 3. **Bağımlılıkları Yükleyin:**
    ```sh
