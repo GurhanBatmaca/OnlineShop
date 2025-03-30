@@ -41,15 +41,17 @@ Kullanıcılar giriş yapabilir, kayıt olabilir ve rollerine göre yetkilendirm
    git clone https://github.com/gurhanbatmaca/dotnet-core-mvc-project.git
    cd dotnet-core-mvc-project
    ```
-2. **Bağımlılıkları Yükleyin:**
+2. **appsettings.json Dosyasını Yapılandırın:**
+
+3. **Bağımlılıkları Yükleyin:**
    ```sh
    dotnet restore
    ```
-3. **Veritabanı Göçlerini Çalıştırın:**
+4. **Veritabanı Göçlerini Çalıştırın:**
    ```sh
    dotnet ef database update
    ```
-4. **Uygulamayı Başlatın:**
+5. **Uygulamayı Başlatın:**
    ```sh
    dotnet run
    ```
